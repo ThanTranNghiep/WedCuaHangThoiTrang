@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Pham</title>
+    <link rel="stylesheet" href="../CSS/SanPham.css">
+</head>
+<!-- chung la class rieng la id -->
+<!-- dat ten dung theo ten chuc nang cach nhau dau - -->
+<body>
+    <script src="../JavaScripts/Func.js"></script>
+    <main class="Shopify-Zone">
+        <main class="Main-Filter">
+            <article class = "Listing-Title">
+                <h1 class="Listing-Title-Text">Tên Bộ Lọc</h1>
+            </article>
+            <article class = "Listing-Filter-Container">
+                <div class = "Filter-Action">
+                    <!-- <button class = "Text-Link">
+                        <span class = "Visually-Hidden">Toggle</span>"Filter"
+                    
+                    </button> -->
+                    <div class = "Listing-Filter-Selectors">
+                        <div class = "Listing-Filter-Group" id="Category-Type" >
+                            <button class="Filer-Group-Title Select" onclick="Open_Category()">Sản Phẩm</button>
+                            <div class = "Filter-Group-Content" id="Open-Category">
+                                <div class = "Filter-Group-Options">
+                                    <div class = "Filter-Group-Filter">
+                                        <input class="Filter-Group-Filter--CheckBox Visually-Hidden" type="checkbox" value="Loại Sản Phẩm">
+                                        <label>Quần</label>
+                                    </div>
+                                    <div class = "Filter-Group-Filter">
+                                        <input class="Filter-Group-Filter--CheckBox Visually-Hidden" type="checkbox" value="Loại Sản Phẩm">
+                                        <label>Áo</label>
+                                    </div>
+                                    <div class = "Filter-Group-Filter">
+                                        <input class="Filter-Group-Filter--CheckBox Visually-Hidden" type="checkbox" value="Loại Sản Phẩm">
+                                        <label>Phụ Kiện</label>
+                                    </div>
+                                </div>
+                                <div class = "Filter-Group-Buttons"></div>
+                            </div>
+                        </div>
+                        <div class = "Listing-Filter-Group" id="Price-Type" >
+                            <button class = "Filter-Group-Title Select" onclick="Open_Price()">Giá Thành</button>
+                            <div class = "Filter-Group-Content" id="Open-Price-List">
+                                <div class = "Filter-Group-Filter">
+                                    <input class="Filter-Group-Filter--CheckBox Visually-Hidden" type="checkbox" >
+                                    <label>Tăng Dần</label>
+                                </div>
+                                <div class = "Filter-Group-Filter">
+                                    <input class="Filter-Group-Filter--CheckBox Visually-Hidden" type="checkbox" >
+                                    <label>Tăng Dần</label>
+                                </div>
+                                <div class = "Filter-Group-Filter">
+                                    <input class="Filter-Group-Filter--CheckBox Visually-Hidden" type="checkbox" >
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </article>
+        </main>
+        <main class="Main-Products-Content">
+            <section class = "nopadding nospacing">
+                <div class = "Listing-Container">
+                    <article class="Listing">
+                        <div aria-labelledby = "listing-title-1" class="Product-Card">
+                            <div class="Listing-Content">
+                                <a class = "Products-Content-Image" href="youtube.com"></a>
+                                    <div class = "Products-Listing-images-container">
+                                        <a href="../HTML/MatHang.html"><img src="../Resouces/licensed-image.jpg" alt=""></a>
+                                    </div>
+                                </a>
+                                <div class="Products-Contents">
+                                    <!-- <div class = "Add-to-Whish-List-container">
+                                        <button class="Add-to-Whish-List--login">
+                                            <div class="Whish-List-Image">
+                                                <div class = "Cart-Image-Icon">
+                                                    <img src="../Resouces/download.png" class="Whish-List-Image">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div> -->
+                                    <div class = "Product-Content">
+                                        <label class = "Products-Content-Title"><b>Quần Kaki</b>
+                                        </label><br>
+                                        <label class= "Products-Content-Description">Mô Tả Sản Phẩm
+                                        </label><br>
+                                        <label class = "Products-Content-Price"> Giá Thành 
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="End-of-Products-Card"></div>
+                                <div class ="Add-To-Cart-Container">
+                                    <button class="Add-To-Cart-Button">
+                                        <label class = "Add-To-Cart-Label">Add To Cart</label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div aria-labelledby = "listing-title-2" class="Product-Card">
+                            <div class="Listing-Content">
+                                <a class = "Products-Content-Image" href="youtube.com"></a>
+                                    <div class = "Products-Listing-images-container">
+                                        <img src="../Resouces/licensed-image.jpg" alt="">
+                                    </div>
+                                </a>
+                                <div class="Products-Contents">
+                                    <!-- <div class = "Add-to-Whish-List-container">
+                                        <button class="Add-to-Whish-List--login">
+                                            <div class="Whish-List-Image">
+                                                <div class = "Cart-Image-Icon">
+                                                    <img src="../Resouces/download.png" class="Whish-List-Image">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div> -->
+                                    <div class = "Product-Content">
+                                        <label class = "Products-Content-Title"><b>Quần Kaki</b>
+                                        </label><br>
+                                        <label class= "Products-Content-Description">Mô Tả Sản Phẩm
+                                        </label><br>
+                                        <label class = "Products-Content-Price"> Giá Thành 
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="End-of-Products-Card"></div>
+                                <div class ="Add-To-Cart-Container">
+                                    <button class="Add-To-Cart-Button">
+                                        <label class = "Add-To-Cart-Label">Add To Cart</label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div aria-labelledby = "listing-title-2" class="Product-Card">
+                            <div class="Listing-Content">
+                                <a class = "Products-Content-Image" href="youtube.com"></a>
+                                    <div class = "Products-Listing-images-container">
+                                        <img src="../Resouces/licensed-image.jpg" alt="">
+                                    </div>
+                                </a>
+                                <div class="Products-Contents">
+                                    <!-- <div class = "Add-to-Whish-List-container">
+                                        <button class="Add-to-Whish-List--login">
+                                            <div class="Whish-List-Image">
+                                                <div class = "Cart-Image-Icon">
+                                                    <img src="../Resouces/download.png" class="Whish-List-Image">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div> -->
+                                    <div class = "Product-Content">
+                                        <label class = "Products-Content-Title"><b>Quần Kaki</b>
+                                        </label><br>
+                                        <label class= "Products-Content-Description">Mô Tả Sản Phẩm
+                                        </label><br>
+                                        <label class = "Products-Content-Price"> Giá Thành 
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="End-of-Products-Card"></div>
+                                <div class ="Add-To-Cart-Container">
+                                    <button class="Add-To-Cart-Button">
+                                        <label class = "Add-To-Cart-Label">Add To Cart</label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div aria-labelledby = "listing-title-2" class="Product-Card">
+                            <div class="Listing-Content">
+                                <a class = "Products-Content-Image" href="youtube.com"></a>
+                                    <div class = "Products-Listing-images-container">
+                                        <img src="../Resouces/licensed-image.jpg" alt="">
+                                    </div>
+                                </a>
+                                <div class="Products-Contents">
+                                    <!-- <div class = "Add-to-Whish-List-container">
+                                        <button class="Add-to-Whish-List--login">
+                                            <div class="Whish-List-Image">
+                                                <div class = "Cart-Image-Icon">
+                                                    <img src="../Resouces/download.png" class="Whish-List-Image">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div> -->
+                                    <div class = "Product-Content">
+                                        <label class = "Products-Content-Title"><b>Quần Kaki</b>
+                                        </label><br>
+                                        <label class= "Products-Content-Description">Mô Tả Sản Phẩm
+                                        </label><br>
+                                        <label class = "Products-Content-Price"> Giá Thành 
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="End-of-Products-Card"></div>
+                                <div class ="Add-To-Cart-Container">
+                                    <button class="Add-To-Cart-Button">
+                                        <label class = "Add-To-Cart-Label">Add To Cart</label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div aria-labelledby = "listing-title-2" class="Product-Card">
+                            <div class="Listing-Content">
+                                <a class = "Products-Content-Image" href="youtube.com"></a>
+                                    <div class = "Products-Listing-images-container">
+                                        <img src="../Resouces/licensed-image.jpg" alt="">
+                                    </div>
+                                </a>
+                                <div class="Products-Contents">
+                                    <!-- <div class = "Add-to-Whish-List-container">
+                                        <button class="Add-to-Whish-List--login">
+                                            <div class="Whish-List-Image">
+                                                <div class = "Cart-Image-Icon">
+                                                    <img src="../Resouces/download.png" class="Whish-List-Image">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div> -->
+                                    <div class = "Product-Content">
+                                        <label class = "Products-Content-Title"><b>Quần Kaki</b>
+                                        </label><br>
+                                        <label class= "Products-Content-Description">Mô Tả Sản Phẩm
+                                        </label><br>
+                                        <label class = "Products-Content-Price"> Giá Thành 
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="End-of-Products-Card"></div>
+                                <div class ="Add-To-Cart-Container">
+                                    <button class="Add-To-Cart-Button">
+                                        <label class = "Add-To-Cart-Label">Add To Cart</label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div aria-labelledby = "listing-title-2" class="Product-Card">
+                            <div class="Listing-Content">
+                                <a class = "Products-Content-Image" href="youtube.com"></a>
+                                    <div class = "Products-Listing-images-container">
+                                        <img src="../Resouces/licensed-image.jpg" alt="">
+                                    </div>
+                                </a>
+                                <div class="Products-Contents">
+                                    <!-- <div class = "Add-to-Whish-List-container">
+                                        <button class="Add-to-Whish-List--login">
+                                            <div class="Whish-List-Image">
+                                                <div class = "Cart-Image-Icon">
+                                                    <img src="../Resouces/download.png" class="Whish-List-Image">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div> -->
+                                    <div class = "Product-Content">
+                                        <label class = "Products-Content-Title"><b>Quần Kaki</b>
+                                        </label><br>
+                                        <label class= "Products-Content-Description">Mô Tả Sản Phẩm
+                                        </label><br>
+                                        <label class = "Products-Content-Price"> Giá Thành 
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="End-of-Products-Card"></div>
+                                <div class ="Add-To-Cart-Container">
+                                    <button class="Add-To-Cart-Button">
+                                        <label class = "Add-To-Cart-Label">Add To Cart</label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div aria-labelledby = "listing-title-2" class="Product-Card">
+                            <div class="Listing-Content">
+                                <a class = "Products-Content-Image" href="youtube.com"></a>
+                                    <div class = "Products-Listing-images-container">
+                                        <img src="../Resouces/licensed-image.jpg" alt="">
+                                    </div>
+                                </a>
+                                <div class="Products-Contents">
+                                    <!-- <div class = "Add-to-Whish-List-container">
+                                        <button class="Add-to-Whish-List--login">
+                                            <div class="Whish-List-Image">
+                                                <div class = "Cart-Image-Icon">
+                                                    <img src="../Resouces/download.png" class="Whish-List-Image">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div> -->
+                                    <div class = "Product-Content">
+                                        <label class = "Products-Content-Title"><b>Quần Kaki</b>
+                                        </label><br>
+                                        <label class= "Products-Content-Description">Mô Tả Sản Phẩm
+                                        </label><br>
+                                        <label class = "Products-Content-Price"> Giá Thành 
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="End-of-Products-Card"></div>
+                                <div class ="Add-To-Cart-Container">
+                                    <button class="Add-To-Cart-Button">
+                                        <label class = "Add-To-Cart-Label">Add To Cart</label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div aria-labelledby = "listing-title-2" class="Product-Card">
+                            <div class="Listing-Content">
+                                <a class = "Products-Content-Image" href="youtube.com"></a>
+                                    <div class = "Products-Listing-images-container">
+                                        <img src="../Resouces/licensed-image.jpg" alt="">
+                                    </div>
+                                </a>
+                                <div class="Products-Contents">
+                                    <!-- <div class = "Add-to-Whish-List-container">
+                                        <button class="Add-to-Whish-List--login">
+                                            <div class="Whish-List-Image">
+                                                <div class = "Cart-Image-Icon">
+                                                    <img src="../Resouces/download.png" class="Whish-List-Image">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div> -->
+                                    <div class = "Product-Content">
+                                        <label class = "Products-Content-Title"><b>Quần Kaki</b>
+                                        </label><br>
+                                        <label class= "Products-Content-Description">Mô Tả Sản Phẩm
+                                        </label><br>
+                                        <label class = "Products-Content-Price"> Giá Thành 
+                                        </label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="End-of-Products-Card"></div>
+                                <div class ="Add-To-Cart-Container">
+                                    <button class="Add-To-Cart-Button">
+                                        <label class = "Add-To-Cart-Label">Add To Cart</label>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </main>
+</body>
+</html>
