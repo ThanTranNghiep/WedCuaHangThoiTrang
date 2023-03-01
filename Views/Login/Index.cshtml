@@ -1,0 +1,41 @@
+﻿@model dynamic
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>KNT Shop</title>
+</head>
+<body>
+<div>
+    <h1>KNT Shop</h1>
+    <h2>Log in</h2>
+    <form action="/Login/LogIn" method="post">
+        <div>
+            <label for="Email">Email</label>
+            <input type="text" id="Email" name="Email" />
+        </div>
+        <div>
+            <label for="Password">Password</label>
+            <input type="password" id="Password" name="Password" />
+        </div>
+        <div>
+            <input type="submit" value="Log in" />
+        </div>
+    </form>
+    <div>
+        <a href="/Login/Register">Register</a>
+    </div>
+    <div>
+        @if (Model != null)
+        {
+            <p>@Model</p>
+        }
+    </div>
+</div>
+</body>
+</html>
