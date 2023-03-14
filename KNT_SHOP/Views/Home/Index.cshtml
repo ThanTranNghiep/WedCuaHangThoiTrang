@@ -1,0 +1,31 @@
+﻿@model KNT_SHOP.Models.TaiKhoan
+@{
+    ViewBag.Title = "Home Page";
+    var slideLength = 5;
+    var username = Session["username"];
+}
+
+<main>
+
+    <div class="row">
+        <div class="slider" id="main-slider">
+            <!-- outermost container element -->
+            <div class="slider-wrapper">
+                <!-- innermost wrapper element -->
+                @for (int i = 1; i <= slideLength; i++)
+                {
+                    var url = Url.Content("~/Content/img/slideHome/" + @i + ".jpg");
+                    <img src="@url" alt="KNT SHOP" class="slide" />
+                }
+                <label class="" style="color: black; font-size: 20pt; font-weight: bold">KNT SHOP</label>
+            </div>
+        </div>
+    </div>
+    <div>
+        <span>@ViewBag.Message</span>
+    </div>
+    <div>
+        <p>User: <span>@username</span></p>
+        
+    </div>
+</main>
