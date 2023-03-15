@@ -305,6 +305,7 @@
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short nu.jpg" />
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short ong rong.jpg" />
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short.jpg" />
+    <Content Include="Content\js\Details.js" />
     <Content Include="Content\js\Dialog.js" />
     <Content Include="Content\js\header_footer_layout.js" />
     <Content Include="Content\js\HomeIndex.js" />
@@ -333,7 +334,6 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Home\ListSanPham.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

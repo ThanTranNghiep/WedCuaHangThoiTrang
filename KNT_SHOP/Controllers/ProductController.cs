@@ -13,8 +13,4 @@ public class ProductController : Controller
         var sanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham== id);
         return View(sanPham);
     }
-    public ActionResult Index()
-    {
-        return View();
-    }
 }

@@ -1,9 +1,7 @@
-﻿window.addEventListener('load', () => {
-    console.log("testaaaaaaaaaaaaaaaaaaaaaa");
-});
+﻿
 function RegisterClick(){    
-    console.log("testaaaaaaaaaaaaaaaaaaaaaa222222222222222222222");
-        // window.location.replace("https://localhost:44376/Login/Register") 
+   
+    //    // window.location.replace("https://localhost:44376/Login/Register") 
     window.location.href = "https://localhost:44376/Login/Register";
 }
 function Register()
