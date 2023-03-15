@@ -26,7 +26,7 @@ namespace KNT_SHOP.Controllers
             {
                 ViewBag.Message = "Your application description page.";
                 // string url = Request.Url.AbsolutePath.Split("/".ToCharArray()).Last();
-                return View(taiKhoan);
+                return View();
             }
         }
 
@@ -45,7 +45,26 @@ namespace KNT_SHOP.Controllers
                 ViewBag.Rule = (taiKhoan.Rule == true) ? "Admin" : "User";
                 ViewBag.SanPham = sanPham ;
                 ViewBag.ListGiaBan = listGiaBan;
-                return View(taiKhoan);
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
+        }
+        [HttpGet]
+        public ActionResult ListSanPham()
+        {
+            string token = Session["token"] as string;
+            string username = Session["username"] as string;
+            KNT_ShopDB db = new KNT_ShopDB();
+            TaiKhoan taiKhoan = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == username);
+            var sanPham = db.SanPhams.ToList();
+            var listGiaBan = db.BangGias.Where(x=>x.MaSanPham == x.SanPham.MaSanPham)
+                .OrderByDescending(x=>x.NgayCapNhat).ToList();
+            if (taiKhoan != null)
+            {
+                ViewBag.Rule = (taiKhoan.Rule == true) ? "Admin" : "User";
+                ViewBag.SanPham = sanPham ;
+                ViewBag.ListGiaBan = listGiaBan;
+                return View();
             }
             return RedirectToAction("Index", "Login");
         }

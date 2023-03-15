@@ -1,5 +1,4 @@
 ﻿@using KNT_SHOP.Models
-@model KNT_SHOP.Models.TaiKhoan
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +23,9 @@
 <div class="topnav" id="myTopnav">
     @{
         var urlSanPham = Url.Action("SanPham", "Home");
+        var urlHome = Url.Action("Index", "Home");
     }
-    <a href="" class="active">Trang Chủ</a>
+    <a href="@urlHome" class="active">Trang Chủ</a>
     <a href="@urlSanPham">Sản Phẩm</a>
     <a href="#tryon">Thử Đồ</a>
     <a href="#fill">Bộ Lọc</a>
@@ -48,21 +48,26 @@
 </div>
 @* ============ DIALOG ============ *@
 @{
-    var username = Session["username"];
-    var token = Session["token"];
+    var username = Session["username"]==null?"":Session["username"].ToString();
+    var token = Session["token"]==null?"":Session["token"].ToString();
+    int gt = Session["gioiTinh"] == null ? 0 : (int)Session["gioiTinh"];
+    string ngayTao = Session["ngayTao"]==null?"":Session["ngayTao"].ToString();
+    string email = Session["email"]==null?"":Session["email"].ToString();
+    var sdt = Session["sdt"] == null ? "" : Session["sdt"].ToString();
+    string diaChi = Session["diaChi"]==null?"":Session["diaChi"].ToString();
+    var rule = Session["rule"];
 }
 <div class="container" id="container-dialog">
-    @if (token != null)
+    @if (token != "")
     {
         <dialog id="login-dialog">
             <div class="mb-3 form-control">
-                <label class="form-control">Tên Tài Khoản: <span> @Html.DisplayFor(@model => @model.TenTaiKhoan)</span> </label>
-                <label class="form-control">Email: <span>@Html.DisplayFor(@model => @model.Email) </span> </label>
+                <label class="form-control">Tên Tài Khoản: <span>@username</span> </label>
+                <label class="form-control">Email: <span>@email </span> </label>
                 <label class="form-control">
                     Giới Tính:
                     @{
-                        int gt = int.Parse(@Html.DisplayFor(@model => @model.GioiTinh).ToString().Trim());
-                        string ngayTao = @Html.DisplayFor(@model => @model.NgayTao).ToString().Trim().Split(' ')[0];
+                        
                     }
                     @if (gt == 1)
                     {
@@ -74,8 +79,8 @@
                     }
                 </label>
                 <label class="form-control">Ngày Tạo: <span>@ngayTao</span> </label>
-                <label class="form-control">Địa Chỉ: <span>@Html.DisplayFor(@model => @model.DiaChiNha)</span> </label>
-                <label class="form-control">Số Điện Thoại: <span>@Html.DisplayFor(@model => @model.SĐT)</span> </label>
+                <label class="form-control">Địa Chỉ: <span>@diaChi</span> </label>
+                <label class="form-control">Số Điện Thoại: <span>@sdt</span> </label>
             </div>
             <button id="close-dialog" class="btn btn-secondary" onclick="closeLoginDialog()">Close</button>
             <buton id="logout" class="btn btn-primary" onclick="Logout()">Logout</buton>
@@ -84,37 +89,34 @@
     else
     {
         <dialog id="login-dialog">
-            <form method="post" class="login_form">
+            <form action="../Login/Index" method="post" class="login_form form-control">
                 <div>
                     <h2 class="login_title">
-                        Welcome to <span>KNT Shop</span>
+                        Login to <span>KNT Shop</span>
                     </h2>
-                    <p class="login_description">
-                        Welcome! Please login to your account.
-                    </p>
                 </div>
                 <div>
-                    <div class="login_inputs">
+                    <div class="login_inputs form-control">
                         <div>
-                            <label for="" class="login_label">Username</label>
-                            @Html.TextBox("Username", "", new { @id = "Username", @class = "login_input", @placeholder = "Username" })
+                            <label for="" class="login_label form-label">Username</label>
+                            @Html.TextBox("Username", "", new { @id = "Username", @class = "login_input form-control", @placeholder = "Username" })
                         </div>
 
                         <div>
                             <label for="" class="login_label">Password</label>
                             <div class="login_box">
-                                @Html.Password("Password", "", new { @id = "input-pass", @class = "login_input", @placeholder = "Password" })
+                                @Html.Password("Password", "", new { @id = "input-pass", @class = "login_input form-control", @placeholder = "Password" })
                                 <i class="ri-eye-off-line login-eye" id="input-icon"></i>
-
                             </div>
                         </div>
                     </div>
                 </div>
                 <div>
                     <div class="login_buttons">
-                        <button type="submit" id="btn-login" class="login_button" formmethod="post">Login</button>
-                        <button type="button" id="btn-signup" class="login_button login_button-ghost" onclick="RegisterClick()">SignUp</button>
+                        <button type="submit" id="btn-login" class="login_button form-control" formmethod="post">Login</button>
+                        <button type="button" id="btn-signup" class="login_button login_button-ghost form-control" onclick="RegisterClick()">SignUp</button>
                     </div>
+                    <button id="close-dialog" class="btn btn-secondary" onclick="closeLoginDialog()">Close</button>
                 </div>
 
             </form>

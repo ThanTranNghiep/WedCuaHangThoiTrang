@@ -309,6 +309,7 @@
     <Content Include="Content\js\header_footer_layout.js" />
     <Content Include="Content\js\HomeIndex.js" />
     <Content Include="Content\js\login.js" />
+    <Content Include="Content\js\Product.js" />
     <Content Include="Content\js\Register.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -330,8 +331,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Home\ListSanPham.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
-    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -348,6 +350,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\SanPham.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

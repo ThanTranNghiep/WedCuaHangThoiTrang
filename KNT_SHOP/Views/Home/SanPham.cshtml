@@ -11,70 +11,29 @@
 
 <div class="container text-center">
     <link rel="stylesheet" href="../../Content/css/SanPham.css">
-    <div class="row">
-        <h2>Danh sách sản phẩm</h2>
+    <script src="~/Content/js/Product.js"></script>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h2>Danh sách sản phẩm</h2>
+            </div>
+            <div class="col col-lg-2">
+                <i class="fa-solid fa-table-cells" id="table-icon" style="box-shadow:0 3px #b02a37; cursor: pointer;" onclick="TableIcon()"></i>
+                <i class="fa-solid fa-list" id="list-icons" style=" cursor: pointer;" onclick="ListIcon()"></i>
+            </div>
+        </div>
     </div>
-    @* <div class="row"> *@
-    @*     @foreach (var item in sanpham) *@
-    @*     { *@
-    @*         <div class="col col-sanpham"> *@
-    @*             <table> *@
-    @*                 <tr> *@
-    @*                     <td> *@
-    @*                         $1$ <img class="sanpham" src="@item.HinhAnh" alt="" style="width: 200px; height: 200px"> #1# *@
-    @*                         <img class="sanpham" src="@item.HinhAnh" alt=""> *@
-    @*                     </td> *@
-    @*                 </tr> *@
-    @*                 <tr> *@
-    @*                     <td> *@
-    @*                         <label class="form-label">@item.TenSanPham</label> *@
-    @*                     </td> *@
-    @*                 </tr> *@
-    @*                 <tr> *@
-    @*                     @{ *@
-    @*                         bool flag = false; *@
-    @*                     } *@
-    @*                     @foreach (var i in giaBan) *@
-    @*                     { *@
-    @*                         if (i.MaSanPham == item.MaSanPham) *@
-    @*                         { *@
-    @*                             flag = true; *@
-    @*                             <td> *@
-    @*                                 <label> *@
-    @*                                     <span style="color: red">@i.GiaBan.ToString().Split(',')[0] VNĐ</span> *@
-    @*                                 </label> *@
-    @*                             </td> *@
-    @*                         } *@
-    @*                     } *@
-    @*                     @if (flag == false) *@
-    @*                     { *@
-    @*                         <td> *@
-    @*                             <label> *@
-    @*                                 <span style="color: red">Chưa cập nhật</span> *@
-    @*                             </label> *@
-    @*                         </td> *@
-    @*                     } *@
-    @*                 </tr> *@
-    @*                 <tr> *@
-    @*                     <td> *@
-    @*                         <button class="btn btn-success">Mua Hàng</button> *@
-    @*                     </td> *@
-    @*                 </tr> *@
-    @*             </table> *@
-    @*         </div> *@
-    @*     } *@
-    @* </div> *@
-
-
+    <br/>
     <div class="container text-center">
         <div class="row align-items-start">
+            <script src="~/Content/js/Product.js"></script>
             @foreach (var item in sanpham)
             {
                 <div class="col col-sanpham">
                     <table>
                         <tr>
                             <td>
-                                <img class="sanpham" src="@item.HinhAnh" alt="">
+                                <img class="sanpham" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
                             </td>
                         </tr>
                         <tr>

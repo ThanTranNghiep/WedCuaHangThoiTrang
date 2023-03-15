@@ -1,0 +1,86 @@
+﻿@model KNT_SHOP.Models.SanPham
+@using KNT_SHOP.Models
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "../Shared/_Layout.cshtml";
+    var sanpham = @ViewBag.SanPham;
+    var giaBan = @ViewBag.ListGiaBan;
+}
+
+
+<div class="container text-center">
+    <link rel="stylesheet" href="../../Content/css/SanPham.css">
+    <script src="~/Content/js/Product.js"></script>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h2>Danh sách sản phẩm</h2>
+            </div>
+            <div class="col col-lg-2">
+                <i class="fa-solid fa-table-cells" id="table-icon" style=" cursor: pointer;" onclick="TableIcon()"></i>
+                <i class="fa-solid fa-list" id="list-icons" style=" cursor: pointer; box-shadow:0 3px #b02a37;" onclick="ListIcon()"></i>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <script src="~/Content/js/Product.js"></script>
+            <table class="table table-success table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">HÌNH ẢNH</th>
+                    <th scope="col">TÊN SẢN PHẨM</th>
+                    <th scope="col">GIÁ</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                @{
+                    int stt = 1;
+                }
+                @foreach (var item in sanpham)
+                {
+                    <tr>
+                        <th scope="row">@stt</th>
+                        <td>
+                            <img class="sanpham" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
+                        </td>
+                        <td>
+                            <label class="form-label">@item.TenSanPham</label>
+                        </td>
+                        @{
+                            bool flag = false;
+                        }
+                        @foreach (var i in giaBan)
+                        {
+                            if (i.MaSanPham == item.MaSanPham)
+                            {
+                                flag = true;
+                                <td>
+                                    <label>
+                                        <span style="color: red">@i.GiaBan.ToString().Split(',')[0] VNĐ</span>
+                                    </label>
+                                </td>
+                            }
+                        }
+                        @if (flag == false)
+                        {
+                            <td>
+                                <label>
+                                    <span style="color: red">Chưa cập nhật</span>
+                                </label>
+                            </td>
+                        }
+                        <td>
+                            <button id="btn-buy" class="btn btn-success">Mua Hàng</button>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

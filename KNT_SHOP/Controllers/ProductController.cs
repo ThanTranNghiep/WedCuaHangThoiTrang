@@ -6,12 +6,15 @@ namespace KNT_SHOP.Controllers;
 
 public class ProductController : Controller
 {
-    // POST: Product
-    [HttpPost]
-    public ActionResult Detail(string id)
+    // GET: Product
+    public ActionResult Detail(int id)
     {
         KNT_ShopDB db = new KNT_ShopDB();
-        var sanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham.CompareTo(id) == 0);
+        var sanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham== id);
         return View(sanPham);
+    }
+    public ActionResult Index()
+    {
+        return View();
     }
 }
