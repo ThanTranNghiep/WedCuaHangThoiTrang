@@ -149,7 +149,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -171,6 +173,7 @@
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Models\Tinh_TP.cs" />
     <Compile Include="Models\ViewModel\GenderAccount.cs" />
+    <Compile Include="Models\ViewModel\SanPhamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +193,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\Cart.css" />
     <Content Include="Content\css\header_footer_layout.css" />
     <Content Include="Content\css\HomeIndex.css" />
     <Content Include="Content\css\login.css" />
@@ -332,7 +336,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Home\ListSanPham.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

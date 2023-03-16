@@ -84,6 +84,10 @@ namespace KNT_SHOP.Controllers
                 TaiKhoan.Rule = false;
                 db.TaiKhoans.Add(TaiKhoan);
                 db.SaveChanges();
+                var GioHang = new GioHang();
+                GioHang.TenTaiKhoan = username;
+                db.GioHangs.Add(GioHang);
+                db.SaveChanges();
                 ViewBag.Message = "Đăng ký thành công";
                 return RedirectToAction("Index","Home");
             }

@@ -24,12 +24,14 @@
     @{
         var urlSanPham = Url.Action("SanPham", "Home");
         var urlHome = Url.Action("Index", "Home");
+        var urlHoaDon = Url.Action("Index", "Invoice");
+        var urlCart = Url.Action("Index", "Cart");
     }
     <a href="@urlHome" class="active">Trang Chủ</a>
     <a href="@urlSanPham">Sản Phẩm</a>
-    <a href="#tryon">Thử Đồ</a>
+    <a href="@urlHoaDon">HoaDon</a>
     <a href="#fill">Bộ Lọc</a>
-    <a href="#cart">
+    <a href="@urlCart">
         <i class="fa fa-shopping-cart"></i>
         Giỏ hàng
     </a>

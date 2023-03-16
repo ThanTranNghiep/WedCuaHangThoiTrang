@@ -8,3 +8,11 @@ function ListIcon(){
 function TableIcon(){
     window.location.href = "/Home/SanPham";
 }
+
+function AddToCart(id){
+    var confirm = window.confirm("Bạn có muốn thêm sản phẩm này vào giỏ hàng?");
+    if (confirm === true)
+    {
+        window.location.href = "/Product/AddToCart?id=" + id;
+    }    
+}
