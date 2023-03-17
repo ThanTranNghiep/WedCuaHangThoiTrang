@@ -309,6 +309,7 @@
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short nu.jpg" />
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short ong rong.jpg" />
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short.jpg" />
+    <Content Include="Content\js\Cart.js" />
     <Content Include="Content\js\Details.js" />
     <Content Include="Content\js\Dialog.js" />
     <Content Include="Content\js\header_footer_layout.js" />

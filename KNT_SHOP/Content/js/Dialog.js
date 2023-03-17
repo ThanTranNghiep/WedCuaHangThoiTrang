@@ -76,6 +76,7 @@ function closeLoginDialog() {
 function Logout() {
     var url = "https://localhost:44376/";
     window.location.href = url;
+    sessionStorage.clear();
 }
 //
 
