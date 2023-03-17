@@ -45,75 +45,64 @@ public class CartController : Controller
             return View();
         }
     }
-
-    public void LapHoaDon(LinkedList<SanPhamModel> models)
-    {
-        // javascript: đã kiểm tra check = 1 mới thực hiện action này
-        // chỉ lấy những sản phẩm có check = 1
-        var listSanPhamModels = models.Where(x => x.Check == 1).ToList();
-        if(listSanPhamModels.Count == 0)
-        {
-            JavaScript("alert('Please choose product to buy!');");
-        }
-        else
-        {
-            KNT_ShopDB db = new KNT_ShopDB();
-            string username = Session["username"].ToString();
-            // lấy ra giỏ hàng của user
-            var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
-            // lấy bảng giá của sản phẩm
-            var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
-                .OrderByDescending(x => x.NgayCapNhat).ToList();
-            // Tạo hóa đơn
-            HoaDon hoaDon = new HoaDon()
-            {
-                TenTaiKhoan = username,
-                NgayLapHoaDon = DateTime.Now
-            };
-            // Tạo chi tiết hóa đơn
-            foreach (var item in listSanPhamModels)
-            {
-                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon()
-                {
-                    MaHoaDon = hoaDon.MaHoaDon,
-                    MaSanPham = item.MaSanPham,
-                    SoLuong = item.SoLuong,
-                    DonGia = listGiaBan.FirstOrDefault(x => x.MaSanPham == item.MaSanPham)!.GiaBan,
-                    TrangThaiGiaoHang = 0
-                };
-                hoaDon.ChiTietHoaDons.Add(chiTietHoaDon);
-            }
-            // Save hóa đơn và chi tiết hóa đơn
-            db.HoaDons.Add(hoaDon);
-            db.SaveChanges();
-            
-            // Update trạng thái của sản phẩm trong giỏ hàng
-            foreach (var item in listSanPhamModels)
-            {
-                var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == item.MaSanPham);
-                if (chiTietGioHang != null) chiTietGioHang.TrangThai = 1;   // đã mua
-            }
-            db.SaveChanges();
-            JavaScript("alert('Buy successfully!');");
-        }
-    }
     
     public ActionResult Invoice()
     {
-        var list = Session["List"] as List<int>;
-        Session["List"] = null;
-        if (list.Count > 0)
+        string username = Session["username"].ToString();
+        if (username != null)
         {
-            JavaScript("alert('Please choose product to buy!');");
-            Session["test"] = list.Count;
-            return RedirectToAction("Index", "Invoice");
+            KNT_ShopDB db = new KNT_ShopDB();
+            var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
+            var list = db.ChiTietGioHangs.Where(x =>
+                x.TrangThai == 1 && x.MaGioHang == cart.MaGioHang).ToList();
+        
+            if (list.Count > 0)
+            {
+                // lấy bảng giá của sản phẩm
+                var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
+                    .OrderByDescending(x => x.NgayCapNhat).ToList();
+                // Tạo hóa đơn
+                HoaDon hoaDon = new HoaDon()
+                {
+                    TenTaiKhoan = username,
+                    NgayLapHoaDon = DateTime.Now
+                };
+                // Tạo chi tiết hóa đơn
+                foreach (var item in list)
+                {
+                    ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon()
+                    {
+                        MaHoaDon = hoaDon.MaHoaDon,
+                        MaSanPham = item.MaSanPham,
+                        SoLuong = item.SoLuong,
+                        DonGia = listGiaBan.FirstOrDefault(x => x.MaSanPham == item.MaSanPham)!.GiaBan,
+                        TrangThaiGiaoHang = 0
+                    };
+                    hoaDon.ChiTietHoaDons.Add(chiTietHoaDon);
+                }
+                // Save hóa đơn và chi tiết hóa đơn
+                db.HoaDons.Add(hoaDon);
+                db.SaveChanges();
+            
+                // Update trạng thái của sản phẩm trong giỏ hàng
+                foreach (var item in list)
+                {
+                    var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == item.MaSanPham);
+                    if (chiTietGioHang != null) chiTietGioHang.TrangThai = 2;   // đã mua
+                }
+                db.SaveChanges();
+                return RedirectToAction("Index", "Cart");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Cart");
+            }
         }
         else
         {
-            // LapHoaDon(list);
-            Session["test"] = "Đéo có gì";
-            return RedirectToAction("Index", "Invoice");
+            return RedirectToAction("Index", "Cart");
         }
+        
     }
     
     public ActionResult UpdateCart(int masp)
