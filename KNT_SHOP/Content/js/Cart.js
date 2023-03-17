@@ -37,9 +37,8 @@ function StepDown(masp) {
     window.location.href = url;
 }
 
-function get_item() {
-    const checkbox = document.getElementById("check");
-    if (checkbox.checked) {
-       
-    }
+function DeleteSanPham(masp) {
+    var url = "https://localhost:44376/Cart/DeleteSanPham?masp=" + masp;
+    console.log("true-----" + masp);
+    window.location.href = url;
 }

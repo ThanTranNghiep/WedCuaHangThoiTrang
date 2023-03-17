@@ -130,4 +130,17 @@ public class CartController : Controller
         db.SaveChanges();
         return RedirectToAction("Index", "Cart");
     }
+
+    public ActionResult DeleteSanPham(int masp)
+    {
+        KNT_ShopDB db = new KNT_ShopDB();
+        string username = Session["username"].ToString();
+        // lấy ra giỏ hàng của user
+        var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
+        // lấy ra chi tiết giỏ hàng của san pham
+        var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp);
+        if (chiTietGioHang != null) db.ChiTietGioHangs.Remove(chiTietGioHang);
+        db.SaveChanges();
+        return RedirectToAction("Index", "Cart");
+    }
 }
