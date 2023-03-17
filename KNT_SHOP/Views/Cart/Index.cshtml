@@ -90,8 +90,22 @@
                                     <hr class="my-4">
                                     <h5 class="text-uppercase mb-3">Sản phẩm đã chọn</h5>
                                     <div class="d-flex justify-content-between mb-4">
-                                        <h5 class="text-uppercase">items 3</h5>
-                                        <h5>€ 132.00</h5>
+                                        @* Sua Lai Dinh Dang Nhe tml *@
+                                        @{ 
+                                            decimal total = 0;
+                                        }
+                                        @foreach (var item in @models)
+                                        {
+                                            if (item.Check == 1)
+                                            {
+
+                                                string @giaBan = item.Gia.ToString();
+                                                <h5 id="SP">@item.TenSanPham</h5>
+                                                <h5 id="Price">@giaBan.Split(',')[0]</h5>
+                                                total = total + decimal.Parse(giaBan);
+                                            }
+                                        }
+
                                     </div>
                                     <hr class="my-4">
                                     <div class="mb-5">
@@ -104,8 +118,8 @@
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-5">
-                                        <h5 class="text-uppercase">Total price</h5>
-                                        <h5>€ 137.00</h5>
+                                        <h5 class="text-uppercase">Gia Tien</h5>
+                                        <h5>@total</h5>
                                     </div>
                                     @* <button type="button" class="btn btn-dark btn-block btn-lg" onclick="" data-mdb-ripple-color="dark"> *@
                                     @*         data-mdb-ripple-color="dark"> *@
