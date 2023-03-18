@@ -19,7 +19,7 @@ namespace KNT_SHOP.Models
         public int MaGioHang { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(200)]
         public string TenTaiKhoan { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

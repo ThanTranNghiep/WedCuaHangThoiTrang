@@ -28,8 +28,6 @@ public class CartController : Controller
             // lấy bảng giá của sản phẩm
             var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
                 .OrderByDescending(x => x.NgayCapNhat).ToList();
-
-
             List<SanPhamModel> listSanPhamModel = new List<SanPhamModel>(
                 listSanPham.Select(x => new SanPhamModel()
                 {
@@ -139,7 +137,7 @@ public class CartController : Controller
         var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
         // lấy ra chi tiết giỏ hàng của san pham
         var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp);
-        if (chiTietGioHang != null) db.ChiTietGioHangs.Remove(chiTietGioHang);
+        if (chiTietGioHang != null)  db.ChiTietGioHangs.Remove(chiTietGioHang);
         db.SaveChanges();
         return RedirectToAction("Index", "Cart");
     }

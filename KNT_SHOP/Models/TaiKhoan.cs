@@ -17,11 +17,11 @@ namespace KNT_SHOP.Models
         }
 
         [Key]
-        [StringLength(10)]
+        [StringLength(200)]
         public string TenTaiKhoan { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(200)]
         public string MatKhau { get; set; }
 
         [Column(TypeName = "date")]

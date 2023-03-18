@@ -11,11 +11,16 @@ namespace KNT_SHOP.Models
     {
         [Key]
         [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int MaDonHang { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaSanPham { get; set; }
 
         [Key]
-        [Column(Order = 1)]
+        [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaGioHang { get; set; }
 
