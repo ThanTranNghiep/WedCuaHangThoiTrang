@@ -21,7 +21,7 @@ public class ProductController : Controller
             JavaScript("alert('Bạn phải đăng nhập để thực hiện chức năng này!');");
             RedirectToAction("Index", "Login");
         }
-        else
+        else 
         {
             KNT_ShopDB db = new KNT_ShopDB();
             var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
