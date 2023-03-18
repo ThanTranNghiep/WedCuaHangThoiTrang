@@ -29,7 +29,7 @@ public class ProductController : Controller
             var ChiTietGioHang = db.ChiTietGioHangs.
                                     FirstOrDefault(x => x.MaSanPham == id && 
                                                         x.MaGioHang == cart.MaGioHang &&        
-                                                        x.TrangThai == 0);                  // TrangThai = 0: chua thanh toan
+                                                        x.TrangThai < 2);                  // TrangThai = 0: chua chọn mua
             if(ChiTietGioHang != null)
             {
                 ChiTietGioHang.SoLuong += 1;

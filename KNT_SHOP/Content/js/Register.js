@@ -30,10 +30,6 @@ function Register()
             }
             else {
                 alert("Register successfull");
-                let pass = input[3].value;
-                let confirmPass = input[4].value;
-                let value = 'Pass: ' + pass + ' ConfirmPass: ' + confirmPass;
-                alert(value);
                 const btn = document.getElementById("btn-signup");
                 btn.type = "submit";
                 btn.submit();
