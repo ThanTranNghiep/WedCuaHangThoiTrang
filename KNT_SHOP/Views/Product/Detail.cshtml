@@ -10,7 +10,12 @@
         .Where(x => x.MaSanPham == x.SanPham.MaSanPham)
         .OrderByDescending(x => x.NgayCapNhat)
         .FirstOrDefault(x => x.MaSanPham == @Model.MaSanPham);
-    var Gia = bangGia.GiaBan.ToString().Split(',')[0];
+    string Gia = "Chưa cập nhật giá";
+    if(bangGia != null)
+    {
+        Gia = bangGia.GiaBan.ToString().Split(',')[0];
+    }
+     
 }
 <div class="container text-center">
     <script src="~/Content/js/Details.js"></script>
@@ -33,10 +38,20 @@
                     <div class="d-flex">
                         <label for="inputQuantity" class="form-control" style="width: 70%">Số lượng: </label>
                         <input class="form-control text-center me-3" id = "inputQuantity" type="number" value="1" min="1" style="width: 30%" max="100" oninput="constraint()"/>
-                        <button  class="btn btn-outline-dark flex-shrink-0" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Add to cart
-                        </button>
+                        @if (Gia.Contains("Chưa cập nhật giá"))
+                        {
+                            <button  class="btn btn-outline-dark flex-shrink-0" type="submit" onclick="this.alert('Sản phẩm hiện tại chưa được bán')">
+                                <i class="bi-cart-fill me-1"></i>
+                                Add to cart
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="AddToCart(@Model.MaSanPham)">
+                                <i class="bi-cart-fill me-1"></i>
+                                Thêm vào giỏ hàng
+                            </button>
+                        }
                     </div>
                 </div>
             </form>

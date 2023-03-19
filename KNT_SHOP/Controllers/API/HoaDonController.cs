@@ -42,4 +42,28 @@ public class HoaDonController : ApiController
         });
         return list;
     }
+
+    [HttpGet]
+    [Route("api/HoaDon/GetAllDonHang")]
+    public IEnumerable GetAllDonHang()
+    {
+        KNT_ShopDB db = new KNT_ShopDB();
+        var listCtdh = db.ChiTietHoaDons.Where(x => x.TrangThaiGiaoHang >= 0).ToList();
+        // Lấy ra tài khoản của đơn hàng
+        var listTaiKhoan = db.TaiKhoans.Where(x => x.TenTaiKhoan == x.HoaDons.FirstOrDefault().TenTaiKhoan).ToList();
+        var list = listCtdh.GroupBy(x => x.MaHoaDon).ToDictionary(x => x.Key,
+            x => x.ToDictionary(y => y.MaSanPham, y => new
+            {
+                TenTaiKhoan = listTaiKhoan.FirstOrDefault(z => z.TenTaiKhoan == x.FirstOrDefault()?.HoaDon.TenTaiKhoan)!.TenTaiKhoan,
+                DiaChiNha = listTaiKhoan.FirstOrDefault(z => z.TenTaiKhoan == x.FirstOrDefault()?.HoaDon.TenTaiKhoan)!.DiaChiNha == null ? "Chưa cập nhật" : listTaiKhoan.FirstOrDefault(z => z.TenTaiKhoan == x.FirstOrDefault().HoaDon.TenTaiKhoan)!.DiaChiNha,
+                QuanHuyen = listTaiKhoan.FirstOrDefault(z => z.TenTaiKhoan == x.FirstOrDefault()?.HoaDon.TenTaiKhoan)!.QuanHuyen,
+                MaSanPham = y.MaSanPham,
+                TenSanPham = y.SanPham.TenSanPham,
+                DonGia = y.DonGia,
+                SoLuong = y.SoLuong,
+                TrangThaiGiaoHang = y.TrangThaiGiaoHang
+            }
+            ));
+    return list;
+    }
 }
