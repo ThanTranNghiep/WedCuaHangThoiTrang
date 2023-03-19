@@ -127,6 +127,8 @@ public class ProductController : Controller
         var SanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham == sanPham.MaSanPham);
         SanPham.TenSanPham = sanPham.TenSanPham;
         SanPham.HinhAnh = sanPham.HinhAnh;
+        SanPham.ThongTinSanPham = sanPham.ThongTinSanPham;
+        SanPham.status = sanPham.status;
         
         return View(SanPham);
     }
