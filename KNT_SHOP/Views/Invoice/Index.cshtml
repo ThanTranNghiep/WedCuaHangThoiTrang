@@ -1,13 +1,14 @@
 ﻿@using KNT_SHOP.Models
-@model dynamic
+@model List<HoaDon>
 
 @{
     ViewBag.Title = "Hoá đơn";
     Layout = "../Shared/_Layout.cshtml";
+    var list = Model;
 }
 <div class="container py-5 h-100">
     <link rel="stylesheet" href="../../Content/css/Cart.css"/>
-    <script src="~/Content/js/Cart.js"></script>
+    <script src="~/Content/js/Invoice.js"></script>
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12">
             <div class="card card-registration card-registration-2">
@@ -19,17 +20,29 @@
                                     <h3 class="fw-bold mb-0 text-black">Danh Sách Hoá Đơn</h3>
                                 </div>
                                 <hr class="my-4">
-                                @{
-                                    KNT_ShopDB db = new KNT_ShopDB();
-                                    var list = db.HoaDons.ToList();
-                                }
-                                @foreach (var item in list)
-                                {
-                                    string check = "checkBox-"+item.MaHoaDon.ToString().Trim();
-                                    <input id="@check" type="checkbox" class="form-check-input" onclick="uncheckAll(this)"/>
-                                    <label for="@check" class="form-check-label" style="cursor: pointer">MaHD: <span>@item.MaHoaDon</span> NgayLập: @item.NgayLapHoaDon.ToString().Trim().Split(' ')[0] TênTK: @item.TenTaiKhoan</label>
-                                }
-                                
+                                <table class="table table-primary table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">MaHĐ</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Detail</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in list)
+                                    {
+                                        <tr style="cursor: pointer">
+                                            <th scope="row">@item.MaHoaDon</th>
+                                            <td>@item.NgayLapHoaDon.ToString().Trim().Split(' ')[0]</td>
+                                            <td>@item.TenTaiKhoan</td>
+                                            <td class="text-end">
+                                                <i class="fa-solid fa-circle-info" onclick="InvoiceDetail(@item.MaHoaDon)"></i>
+                                            </td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <!--Grid column-->
@@ -37,119 +50,67 @@
                             <div class="p-5">
                                 <h3 class="fw-bold mb-5 mt-2 pt-1 text-center">Chi Tiết Hoá Đơn</h3>
                                 <hr class="my-4">
-
-                                <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                    <div class="col-md-2 col-lg-2 col-xl-2">
-                                        <img
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                @* begin *@
+                                @foreach (var item in list)
+                                {
+                                    <div class="container text-center text-primary">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span>Hoá đơn: </span> @item.MaHoaDon
+                                            </div>
+                                            <div class="col">
+                                                <span>Ngày lập: </span> @item.NgayLapHoaDon.ToString().Trim().Split(' ')[0]
+                                            </div>
+                                            <div class="col">
+                                                <span>Tên khách hàng: </span> @item.TenTaiKhoan
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                        <h6 class="text-muted">Shirt</h6>
-                                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                                    <hr class="my-4">
+                                    KNT_ShopDB context = new KNT_ShopDB();
+                                    var listCTHD = context.ChiTietHoaDons.Where(x => x.MaHoaDon == item.MaHoaDon).ToList();
+                                    decimal total = 0;
+                                    foreach (var temp in listCTHD)
+                                    {
+                                        decimal totalItem = temp.SoLuong * temp.DonGia;
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img
+                                                    src="@temp.SanPham.HinhAnh"
+                                                    class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <h6 class="text-muted">@temp.SanPham.LoaiSanPham.TenLoaiSanPham</h6>
+                                                <h6 class="text-black mb-0">@temp.SanPham.TenSanPham</h6>
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <input name="quantity" value="@temp.SoLuong" type="text"
+                                                       class="form-control form-control-sm text-center" readonly="readonly"/>
+                                            </div>
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h6 class="mb-0">@temp.DonGia.ToString().Split(',')[0] VNĐ</h6>
+                                            </div>
+                                            @* <div class="col-md-1 col-lg-1 col-xl-1 text-end"> *@
+                                            @*     <a href="#!" class="text-muted"> *@
+                                            @*         <i class="fas fa-times"></i> *@
+                                            @*     </a> *@
+                                            @* </div> *@
+                                        </div>
+                                        total += totalItem;
+                                    }
+                                    <div class="container text-center text-danger">
+                                        <div class="row">
+                                            <div class="col">
+                                                Tổng tiền hoá đơn:
+                                            </div>
+                                            <div class="col">
+                                                @total.ToString().Split(',')[0] VNĐ
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <button class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-
-                                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                                               class="form-control form-control-sm"/>
-
-                                        <button class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h6 class="mb-0">€ 44.00</h6>
-                                    </div>
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="#!" class="text-muted">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <hr class="my-4">
-
-                                <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                    <div class="col-md-2 col-lg-2 col-xl-2">
-                                        <img
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"
-                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                        <h6 class="text-muted">Shirt</h6>
-                                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <button class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-
-                                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                                               class="form-control form-control-sm"/>
-
-                                        <button class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h6 class="mb-0">€ 44.00</h6>
-                                    </div>
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="#!" class="text-muted">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <hr class="my-4">
-
-                                <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                    <div class="col-md-2 col-lg-2 col-xl-2">
-                                        <img
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
-                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                        <h6 class="text-muted">Shirt</h6>
-                                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <button class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-
-                                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                                               class="form-control form-control-sm"/>
-
-                                        <button class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h6 class="mb-0">€ 44.00</h6>
-                                    </div>
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="#!" class="text-muted">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <hr class="my-4">
-
-                                <div class="d-flex justify-content-between mb-5">
-                                    <h5 class="text-uppercase">Total price</h5>
-                                    <h5>€ 137.00</h5>
-                                </div>
+                                    <hr class="my-4">
+                                }
+                                @* end *@
                             </div>
                         </div>
                     </div>
@@ -157,7 +118,7 @@
             </div>
             <div class="pt-5">
                 <h6 class="mb-0">
-                    <a href="#!" class=" text-xl-start">
+                    <a href="https://localhost:44376/Home/SanPham" class=" text-xl-start">
                         <i
                             class="fas fa-long-arrow-alt-left me-2">
                         </i>Back to shop

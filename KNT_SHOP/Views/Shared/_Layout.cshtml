@@ -80,11 +80,12 @@
                         <span>Nữ</span>
                     }
                 </label>
-                <label class="form-control">Ngày Tạo: <span>@ngayTao</span> </label>
+                <label class="form-control">Ngày Tạo: <span>@ngayTao.ToString().Split(' ')[0]</span> </label>
                 <label class="form-control">Địa Chỉ: <span>@diaChi</span> </label>
                 <label class="form-control">Số Điện Thoại: <span>@sdt</span> </label>
             </div>
             <button id="close-dialog" class="btn btn-secondary" onclick="closeLoginDialog()">Close</button>
+            <button class="btn btn-success"><a href="https://localhost:44376/Account" class="text-light" style="text-decoration: none">Thông tin tài khoản</a></button>
             <buton id="logout" class="btn btn-primary" onclick="Logout()">Logout</buton>
         </dialog>
     }
