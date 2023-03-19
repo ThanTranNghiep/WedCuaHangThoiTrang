@@ -45,8 +45,11 @@ public class HoaDonController : ApiController
 
     [HttpGet]
     [Route("api/HoaDon/GetAllDonHang")]
+    [AllowCrossSiteJson]
     public IEnumerable GetAllDonHang()
     {
+
+
         KNT_ShopDB db = new KNT_ShopDB();
         var listCtdh = db.ChiTietHoaDons.Where(x => x.TrangThaiGiaoHang >= 0).ToList();
         // Lấy ra tài khoản của đơn hàng
@@ -64,6 +67,16 @@ public class HoaDonController : ApiController
                 TrangThaiGiaoHang = y.TrangThaiGiaoHang
             }
             ));
-    return list;
+        return list.SelectMany(x => x.Value.Select(y => new {
+            MaHoaDon = x.Key,
+            MaSanPham = y.Key,
+            TenTaiKhoan = y.Value.TenTaiKhoan,
+            DiaChiNha = y.Value.DiaChiNha,
+            QuanHuyen = y.Value.QuanHuyen,
+            TenSanPham = y.Value.TenSanPham,
+            DonGia = y.Value.DonGia,
+            SoLuong = y.Value.SoLuong,
+            TrangThaiGiaoHang = y.Value.TrangThaiGiaoHang
+        })).ToList(); ;
     }
 }
