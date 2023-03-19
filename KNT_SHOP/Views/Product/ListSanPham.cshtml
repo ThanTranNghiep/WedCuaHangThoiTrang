@@ -34,6 +34,7 @@
                     <th scope="col">TÊN SẢN PHẨM</th>
                     <th scope="col">GIÁ</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -74,7 +75,12 @@
                             </td>
                         }
                         <td>
-                            <button id="btn-buy" class="btn btn-success">Mua Hàng</button>
+                            <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
+                        </td>
+                        <td>
+                            <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)">
+                                <i class="fa-solid fa-circle-info" ></i>
+                            </button>
                         </td>
                     </tr>
                     stt++;

@@ -1,0 +1,96 @@
+﻿@using KNT_SHOP.Models
+@model KNT_SHOP.Models.SanPham
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "../Shared/_Layout.cshtml";
+
+    KNT_ShopDB db = new KNT_ShopDB();
+    // var bangGia = db.BangGias
+    //     .Where(x => x.MaSanPham == x.SanPham.MaSanPham)
+    //     .OrderByDescending(x => x.NgayCapNhat)
+    //     .FirstOrDefault(x => x.MaSanPham == @Model.MaSanPham);
+    // string Gia = "Chưa cập nhật giá";
+    // if (bangGia != null)
+    // {
+    //     Gia = bangGia.GiaBan.ToString().Split(',')[0];
+    // }
+    var loaiSanPham = db.LoaiSanPhams.ToList();
+    var tenHinh = Model.HinhAnh.Split('/').Last().ToString();
+}
+<script src="~/Content/js/Product.js"></script>
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post))
+{
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(@model => @model.MaSanPham, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.DisplayFor(@model => @model.MaSanPham, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Hình ảnh
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    @Html.TextBoxFor(@model => @model.HinhAnh, new { @class = "form-control", @type = "text", @id = "formFile" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(@model => @model.TenSanPham, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.TextBoxFor(@model => @model.TenSanPham, new { @class = "form-control", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(@model => @model.LoaiSanPham, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.DropDownListFor(@model => @model.LoaiSanPham, new SelectList(@loaiSanPham, "MaLoaiSanPham", "TenLoaiSanPham"), new { @class = "form-control", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(@model => @model.SoLuongTon, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.TextBoxFor(@model => @model.SoLuongTon, new { @class = "form-control", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(@model => @model.ThongTinSanPham, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.TextAreaFor(@model => @model.ThongTinSanPham, new { @class = "form-control", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(@model => @model.status, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.DropDownListFor(@model => @model.status, new SelectList(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Còn hàng", Value = "0" },
+                    new SelectListItem { Text = "Hết hàng", Value = "1" }
+                }, "Value", "Text"), new { @class = "form-control", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <hr class="my-5"/>
+        <div class="row">
+            <div class="col">
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+                <button type="button" class="btn btn-warning" onclick="EditProduct()">Edit</button>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </div>
+}

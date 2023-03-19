@@ -35,7 +35,7 @@ public class AccountController : Controller
             user.NgayThangNamSinh = taiKhoan.NgayThangNamSinh;
             user.DiaChiNha = taiKhoan.DiaChiNha;
             db.SaveChanges();
-            return RedirectToAction("SanPham", "Home");
+            return RedirectToAction("SanPham", "Product");
         }
         return RedirectToAction("Index", "Invoice");
     }
