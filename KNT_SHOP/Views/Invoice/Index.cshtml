@@ -7,6 +7,7 @@
 }
 <div class="container py-5 h-100">
     <link rel="stylesheet" href="../../Content/css/Cart.css"/>
+    <script src="~/Content/js/Cart.js"></script>
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12">
             <div class="card card-registration card-registration-2">
@@ -25,7 +26,7 @@
                                 @foreach (var item in list)
                                 {
                                     string check = "checkBox-"+item.MaHoaDon.ToString().Trim();
-                                    <input id="@check" type="checkbox" class="form-check-input" />
+                                    <input id="@check" type="checkbox" class="form-check-input" onclick="uncheckAll(this)"/>
                                     <label for="@check" class="form-check-label" style="cursor: pointer">MaHD: <span>@item.MaHoaDon</span> NgayLập: @item.NgayLapHoaDon.ToString().Trim().Split(' ')[0] TênTK: @item.TenTaiKhoan</label>
                                 }
                                 

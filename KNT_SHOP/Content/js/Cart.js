@@ -42,3 +42,13 @@ function DeleteSanPham(masp) {
     console.log("true-----" + masp);
     window.location.href = url;
 }
+
+
+function uncheckAll(currentCheckbox) {
+    var checkboxes = document.getElementsByTagName('input[type=checkbox]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] !== currentCheckbox) {
+            checkboxes[i].checked = false;
+        }
+    }
+}
