@@ -1,13 +1,29 @@
 ﻿@using KNT_SHOP.Models
-@model KNT_SHOP.Models.TaiKhoan
+@model List<SanPham>
 
 @{
     ViewBag.Title = "Danh sách sản phẩm";
     Layout = "../Shared/_Layout.cshtml";
-    var sanpham = @ViewBag.SanPham;
-    var giaBan = @ViewBag.ListGiaBan;
+    KNT_ShopDB db = new KNT_ShopDB();
+    var sanpham = Model;
+    var GiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
+        .OrderByDescending(x => x.NgayCapNhat).ToList();
 }
 
+@using (@Html.BeginForm("Search", "Home", FormMethod.Post))
+{
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="input-group mb-3 form-control text-center">
+                @* <input type="search" class="form-control" placeholder="Search please..." aria-label="Recipient's username" aria-describedby="button-addon2"> *@
+                @Html.TextBox("keyword", "" , new { @class = "form-control", placeholder = "Search please..." })
+                <button class="btn text-bg-info" type="submit" id="button-addon2" formmethod="post">Search</button>
+            </div>
+        </div>
+    </div>
+}
+
+<hr class="my-5"/>
 
 <div class="container text-center">
     <link rel="stylesheet" href="../../Content/css/SanPham.css">
@@ -22,6 +38,7 @@
                 <i class="fa-solid fa-list" id="list-icons" style=" cursor: pointer;" onclick="ListIcon()"></i>
             </div>
         </div>
+        <hr class="my-5"/>
     </div>
     <br/>
     <div class="container text-center">
@@ -46,7 +63,7 @@
                             @{
                                 bool flag = false;
                             }
-                            @foreach (var i in giaBan)
+                            @foreach (var i in GiaBan)
                             {
                                 if (i.MaSanPham == item.MaSanPham)
                                 {
