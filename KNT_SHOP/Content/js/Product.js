@@ -34,3 +34,10 @@ function EditProduct() {
         console.log("Account is now editable");
     }
 }
+function AddPrice(id) {
+    window.location.href = "/Product/AddPrice?id=" + id;    
+}
+function AddNewPrice(id) {
+    const priceInput = document.getElementById("Price");
+    window.location.href = "/Product/AddNewPrice?id=" + id + "&price=" + priceInput.value;
+}

@@ -5,6 +5,9 @@
     Layout = "../Shared/_Layout.cshtml";
     var sanpham = @ViewBag.SanPham;
     var giaBan = @ViewBag.ListGiaBan;
+    var user = Session["username"];
+    KNT_ShopDB db = new KNT_ShopDB();
+    var rule = db.TaiKhoans.FirstOrDefault(x=>x.TenTaiKhoan == user.ToString().Trim()).Rule;
 }
 
 
@@ -35,6 +38,7 @@
                     <th scope="col">GIÁ</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,8 +55,32 @@
                         <td>
                             <label class="form-label">@item.TenSanPham</label>
                         </td>
+                        @* @{ *@
+                        @*     bool flag = false; *@
+                        @*     KNT_ShopDB contex = new KNT_ShopDB(); *@
+                        @*     var giaSp = contex.BangGias.Where(x => x.MaSanPham == @item.MaSanPham). *@
+                        @*         OrderByDescending(x=>x.NgayCapNhat).FirstOrDefault(); *@
+                        @* } *@
+                        @* @if (giaSp != null) *@
+                        @* { *@
+                        @*     <td>   *@
+                        @*         <label> *@
+                        @*             <span style="color: red">@giaSp.ToString().Split(',')[0] VNĐ</span> *@
+                        @*         </label> *@
+                        @*     </td> *@
+                        @* } *@
+                        @* else *@
+                        @* { *@
+                        @*     <td> *@
+                        @*         <label> *@
+                        @*             <span style="color: red">Chưa cập nhật</span> *@
+                        @*         </label> *@
+                        @*     </td> *@
+                        @* } *@
+                        
+                        
                         @{
-                            bool flag = false;
+                            var flag = false;
                         }
                         @foreach (var i in giaBan)
                         {
@@ -77,11 +105,32 @@
                         <td>
                             <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
                         </td>
-                        <td>
-                            <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)">
-                                <i class="fa-solid fa-circle-info" ></i>
-                            </button>
-                        </td>
+                        @if (@rule == true)
+                        {
+                            <td>
+                                <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" onclick="AddPrice(@item.MaSanPham)">
+                                    Thêm Giá
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </button>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <button id="btn-detail" class="btn btn-warning" onclick="ImgToDetail(@item.MaSanPham)">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </button>
+                            </td>
+                            <td>
+                                
+                            </td>
+                        }
+                        
                     </tr>
                     stt++;
                 }

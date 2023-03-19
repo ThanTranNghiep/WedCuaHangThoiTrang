@@ -27,7 +27,7 @@
                 @Html.LabelFor(@model => @model.MaSanPham, new { @class = "form-label" })
             </div>
             <div class="col">
-                @Html.DisplayFor(@model => @model.MaSanPham, new { @class = "form-control" })
+                @Html.TextBoxFor(@model => @model.MaSanPham, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
@@ -94,3 +94,12 @@
         </div>
     </div>
 }
+<div class="pt-5">
+    <h6 class="mb-0">
+        <a href="https://localhost:44376/Product/ListSanPham" class=" text-xl-start">
+            <i
+                class="fas fa-long-arrow-alt-left me-2">
+            </i>Back to shop
+        </a>
+    </h6>
+</div>
