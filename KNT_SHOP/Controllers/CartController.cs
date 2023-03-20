@@ -39,8 +39,8 @@ public class CartController : Controller
                     HinhAnh = x.SanPham.HinhAnh
                 })
             );
-            ViewBag.ListSanPham = listSanPhamModel;
-            return View();
+            // ViewBag.ListSanPham = listSanPhamModel;
+            return View(listSanPhamModel);
         }
     }
     
@@ -85,7 +85,7 @@ public class CartController : Controller
                 // Update trạng thái của sản phẩm trong giỏ hàng
                 foreach (var item in list)
                 {
-                    var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == item.MaSanPham);
+                    var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == item.MaSanPham && x.TrangThai < 2);
                     if (chiTietGioHang != null) chiTietGioHang.TrangThai = 2;   // đã mua
                 }
                 db.SaveChanges();
@@ -110,22 +110,52 @@ public class CartController : Controller
         // lấy ra giỏ hàng của user
         var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
         // lấy ra chi tiết giỏ hàng của san pham
-        var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp);
-        chiTietGioHang.TrangThai = (chiTietGioHang.TrangThai == 1)? 0 : 1;
+        var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp && x.TrangThai < 2);
+        if (chiTietGioHang != null)
+            chiTietGioHang.TrangThai = (chiTietGioHang.TrangThai == 1) ? 0 :
+                (chiTietGioHang.TrangThai == 0) ? 1 : chiTietGioHang.TrangThai;
         db.SaveChanges();
         return RedirectToAction("Index", "Cart");
     }
 
-    public ActionResult UpdateSoLuong(int masp, int soLuong)
+    // public ActionResult UpdateSoLuong(int masp, int soLuong)
+    // {
+    //     KNT_ShopDB db = new KNT_ShopDB();
+    //     string username = Session["username"].ToString();
+    //     // lấy ra giỏ hàng của user
+    //     var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
+    //     // lấy ra chi tiết giỏ hàng của san pham
+    //     var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp && x.TrangThai < 2);
+    //     if (chiTietGioHang != null) chiTietGioHang.SoLuong = soLuong;
+    //     db.SaveChanges();
+    //     return RedirectToAction("Index", "Cart");
+    // }
+
+    public ActionResult StepUp(int masp)
     {
         KNT_ShopDB db = new KNT_ShopDB();
         string username = Session["username"].ToString();
         // lấy ra giỏ hàng của user
         var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
         // lấy ra chi tiết giỏ hàng của san pham
-        var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp);
-        chiTietGioHang.SoLuong = soLuong;
+        var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp && x.TrangThai < 2);
+        if (chiTietGioHang != null) chiTietGioHang.SoLuong = chiTietGioHang.SoLuong + 1;
         db.SaveChanges();
+        return RedirectToAction("Index", "Cart");
+    }
+    public ActionResult StepDown(int masp)
+    {
+        KNT_ShopDB db = new KNT_ShopDB();
+        string username = Session["username"].ToString();
+        // lấy ra giỏ hàng của user
+        var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
+        // lấy ra chi tiết giỏ hàng của san pham
+        var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp && x.TrangThai < 2);
+        if (chiTietGioHang != null && chiTietGioHang.SoLuong > 1)
+        {
+            chiTietGioHang.SoLuong = chiTietGioHang.SoLuong - 1;
+            db.SaveChanges();
+        }
         return RedirectToAction("Index", "Cart");
     }
 
@@ -136,7 +166,7 @@ public class CartController : Controller
         // lấy ra giỏ hàng của user
         var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
         // lấy ra chi tiết giỏ hàng của san pham
-        var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp);
+        var chiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaGioHang == cart.MaGioHang && x.MaSanPham == masp && x.TrangThai < 2);
         if (chiTietGioHang != null)  db.ChiTietGioHangs.Remove(chiTietGioHang);
         db.SaveChanges();
         return RedirectToAction("Index", "Cart");
