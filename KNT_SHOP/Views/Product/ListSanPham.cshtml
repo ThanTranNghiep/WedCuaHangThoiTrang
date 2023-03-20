@@ -1,13 +1,12 @@
-﻿@model KNT_SHOP.Models.SanPham
+﻿@model List<SanPham>
 @using KNT_SHOP.Models
 @{
     ViewBag.Title = "Danh sách sản phẩm";
     Layout = "../Shared/_Layout.cshtml";
-    var sanpham = @ViewBag.SanPham;
-    var giaBan = @ViewBag.ListGiaBan;
+    var sanpham = Model;
     var user = Session["username"];
     KNT_ShopDB db = new KNT_ShopDB();
-    var rule = db.TaiKhoans.FirstOrDefault(x=>x.TenTaiKhoan == user.ToString().Trim()).Rule;
+    var rule = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == user.ToString().Trim()).Rule;
 }
 
 
@@ -55,46 +54,19 @@
                         <td>
                             <label class="form-label">@item.TenSanPham</label>
                         </td>
-                        @* @{ *@
-                        @*     bool flag = false; *@
-                        @*     KNT_ShopDB contex = new KNT_ShopDB(); *@
-                        @*     var giaSp = contex.BangGias.Where(x => x.MaSanPham == @item.MaSanPham). *@
-                        @*         OrderByDescending(x=>x.NgayCapNhat).FirstOrDefault(); *@
-                        @* } *@
-                        @* @if (giaSp != null) *@
-                        @* { *@
-                        @*     <td>   *@
-                        @*         <label> *@
-                        @*             <span style="color: red">@giaSp.ToString().Split(',')[0] VNĐ</span> *@
-                        @*         </label> *@
-                        @*     </td> *@
-                        @* } *@
-                        @* else *@
-                        @* { *@
-                        @*     <td> *@
-                        @*         <label> *@
-                        @*             <span style="color: red">Chưa cập nhật</span> *@
-                        @*         </label> *@
-                        @*     </td> *@
-                        @* } *@
-                        
-                        
+
                         @{
-                            var flag = false;
+                            var gia = db.BangGias.Where(x => x.MaSanPham == @item.MaSanPham).OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
                         }
-                        @foreach (var i in giaBan)
+                        @if (@gia != null)
                         {
-                            if (i.MaSanPham == item.MaSanPham)
-                            {
-                                flag = true;
-                                <td>
-                                    <label>
-                                        <span style="color: red">@i.GiaBan.ToString().Split(',')[0] VNĐ</span>
-                                    </label>
-                                </td>
-                            }
+                            <td>
+                                <label>
+                                    <span style="color: red">@gia.GiaBan.ToString().Split(',')[0] VNĐ</span>
+                                </label>
+                            </td>
                         }
-                        @if (flag == false)
+                        else
                         {
                             <td>
                                 <label>
@@ -102,6 +74,33 @@
                                 </label>
                             </td>
                         }
+
+
+                        @* @{ *@
+                        @*     var flag = false; *@
+                        @* } *@
+                        @* @foreach (var i in giaBan) *@
+                        @* { *@
+                        @*     if (i.MaSanPham == item.MaSanPham) *@
+                        @*     { *@
+                        @*         flag = true; *@
+                        @*         <td> *@
+                        @*             <label> *@
+                        @*                 <span style="color: red">@i.GiaBan.ToString().Split(',')[0] VNĐ</span> *@
+                        @*             </label> *@
+                        @*         </td> *@
+                        @*     } *@
+                        @* } *@
+                        @* @if (flag == false) *@
+                        @* { *@
+                        @*     <td> *@
+                        @*         <label> *@
+                        @*             <span style="color: red">Chưa cập nhật</span> *@
+                        @*         </label> *@
+                        @*     </td> *@
+                        @* } *@
+
+
                         <td>
                             <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
                         </td>
@@ -127,10 +126,10 @@
                                 </button>
                             </td>
                             <td>
-                                
+
                             </td>
                         }
-                        
+
                     </tr>
                     stt++;
                 }

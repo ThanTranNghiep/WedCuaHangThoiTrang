@@ -85,9 +85,7 @@ public class ProductController : Controller
         if (taiKhoan != null)
         {
             ViewBag.Rule = (taiKhoan.Rule == true) ? "Admin" : "User";
-            ViewBag.SanPham = sanPham;
-            ViewBag.ListGiaBan = listGiaBan;
-            return View();
+            return View(sanPham);
         }
 
         return RedirectToAction("Index", "Login");

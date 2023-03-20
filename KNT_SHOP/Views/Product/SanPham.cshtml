@@ -16,7 +16,7 @@
         <div class="col">
             <div class="input-group mb-3 form-control text-center">
                 @* <input type="search" class="form-control" placeholder="Search please..." aria-label="Recipient's username" aria-describedby="button-addon2"> *@
-                @Html.TextBox("keyword", "" , new { @class = "form-control", placeholder = "Search please..." })
+                @Html.TextBox("keyword", "", new { @class = "form-control", placeholder = "Search please..." })
                 <button class="btn text-bg-info" type="submit" id="button-addon2" formmethod="post">Search</button>
             </div>
         </div>
@@ -62,20 +62,18 @@
                         <tr>
                             @{
                                 bool flag = false;
+                                var gia = db.BangGias.Where(x => x.MaSanPham == item.MaSanPham)
+                                    .OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
                             }
-                            @foreach (var i in GiaBan)
+                            @if (@gia != null)
                             {
-                                if (i.MaSanPham == item.MaSanPham)
-                                {
-                                    flag = true;
-                                    <td>
-                                        <label>
-                                            <span style="color: red">@i.GiaBan.ToString().Split(',')[0] VNĐ</span>
-                                        </label>
-                                    </td>
-                                }
+                                <td>
+                                    <label>
+                                        <span style="color: red">@gia.GiaBan.ToString().Split(',')[0] VNĐ</span>
+                                    </label>
+                                </td>
                             }
-                            @if (flag == false)
+                            else
                             {
                                 <td>
                                     <label>
@@ -83,6 +81,26 @@
                                     </label>
                                 </td>
                             }
+                            @* @foreach (var i in GiaBan) *@
+                            @* { *@
+                            @*     if (i.MaSanPham == item.MaSanPham) *@
+                            @*     { *@
+                            @*         flag = true; *@
+                            @*         <td> *@
+                            @*             <label> *@
+                            @*                 <span style="color: red">@i.GiaBan.ToString().Split(',')[0] VNĐ</span> *@
+                            @*             </label> *@
+                            @*         </td> *@
+                            @*     } *@
+                            @* } *@
+                            @* @if (flag == false) *@
+                            @* { *@
+                            @*     <td> *@
+                            @*         <label> *@
+                            @*             <span style="color: red">Chưa cập nhật</span> *@
+                            @*         </label> *@
+                            @*     </td> *@
+                            @* } *@
                         </tr>
                         <tr>
                             <td>

@@ -354,6 +354,7 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\ListSanPham.cshtml" />
     <Content Include="Views\Product\SanPham.cshtml" />
+    <Content Include="Views\Shared\StateInvoice.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
