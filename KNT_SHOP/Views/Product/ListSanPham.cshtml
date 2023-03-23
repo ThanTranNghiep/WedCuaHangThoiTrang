@@ -1,0 +1,224 @@
+﻿@model List<SanPham>
+@using KNT_SHOP.Models
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    // Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_LayoutSidebar.cshtml";
+    var sanpham = Model;
+    var user = Session["username"];
+    KNT_ShopDB db = new KNT_ShopDB();
+    var rule = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == user.ToString().Trim()).Rule;
+}
+
+
+<div class="container text-center">
+<link rel="stylesheet" href="../../Content/css/SanPham.css">
+<script src="~/Content/js/Product.js"></script>
+<div class="container text-center">
+    <div class="row">
+        @using (@Html.BeginForm("Search", "Product", FormMethod.Post, new { @class = "d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" }))
+        {
+            <div class="row d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="col">
+                    <div class="input-group mb-3 form-control text-center">
+                        @Html.TextBox("keyword", "", new { @class = "form-control", placeholder = "Search please..." })
+                        <button class="btn text-bg-info" type="submit" id="button-addon2" formmethod="post">Search</button>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col col-lg-2 d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <i class="fa-solid fa-table-cells" id="table-icon" style="box-shadow:0 3px #b02a37; cursor: pointer;" onclick="TableIcon()"></i>
+            <i class="fa-solid fa-list" id="list-icons" style=" cursor: pointer;" onclick="ListIcon()"></i>
+        </div>
+    </div>
+    <hr class="my-2"/>
+</div>
+<br/>
+<div class="container text-center">
+    <div class="row align-items-start">
+        <script src="~/Content/js/Product.js"></script>
+
+        <div class="container text-center text-primary">
+            <div class="row">
+                @* <div class="col"> *@
+                @*     <span>STT</span> *@
+                @* </div> *@
+                <div class="col">
+                    <span>HÌNH ẢNH</span>
+                </div>
+                <div class="col mx-5">
+                    <span>TÊN SẢN PHẨM</span>
+                </div>
+                <div class="col">
+                    <span>GIÁ</span>
+                </div>
+                <div class="col">
+                    <span></span>
+                </div>
+                <div class="col">
+                    <span></span>
+                </div>
+                <div class="col">
+                    <span></span>
+                </div>
+                <div class="col">
+                    <span></span>
+                </div>
+            </div>
+            <br/>
+
+            @{
+                int stt = 1;
+            }
+            @foreach (var item in sanpham)
+            {
+                <div class="row mb-4 d-flex justify-content-between align-items-center">
+                    @* <div clas="col"> *@
+                    @*     <span>@stt</span> *@
+                    @* </div> *@
+                    <div class="col">
+                        <img class="sanpham img-thumbnail" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
+                    </div>
+                    <div class="col">
+                        <label class="form-label text-dark">@item.TenSanPham</label>
+                    </div>
+                    @{
+                        var gia = db.BangGias.Where(x => x.MaSanPham == @item.MaSanPham).OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
+                    }
+                    @if (@gia != null)
+                    {
+                        <div class="col">
+                            <label>
+                                <span style="color: red">@gia.GiaBan.ToString().Split(',')[0] VNĐ</span>
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col">
+                            <label>
+                                <span style="color: red">Chưa cập nhật</span>
+                            </label>
+                        </div>
+                    }
+                    <div class="col">
+                        <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
+                    </div>
+                    @if (@rule == true)
+                    {
+                        <div class="col">
+                            <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" onclick="AddPrice(@item.MaSanPham)">
+                                Thêm Giá
+                                <i class="fa-solid fa-circle-plus"></i>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col">
+                            <button id="btn-detail" class="btn btn-warning" onclick="ImgToDetail(@item.MaSanPham)">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </button>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    }
+                </div>
+                stt++;
+            }
+
+        </div>
+
+
+        @* <table class="table table-success table-striped"> *@
+        @*     <thead> *@
+        @*     <tr> *@
+        @*         <th scope="col">STT</th> *@
+        @*         <th scope="col">HÌNH ẢNH</th> *@
+        @*         <th scope="col">TÊN SẢN PHẨM</th> *@
+        @*         <th scope="col">GIÁ</th> *@
+        @*         <th scope="col"></th> *@
+        @*         <th scope="col"></th> *@
+        @*         <th scope="col"></th> *@
+        @*     </tr> *@
+        @*     </thead> *@
+        @*     <tbody> *@
+        @*     @{ *@
+        @*         int stt = 1; *@
+        @*     } *@
+        @*     @foreach (var item in sanpham) *@
+        @*     { *@
+        @*         <tr> *@
+        @*             <th scope="row">@stt</th> *@
+        @*             <td class="col-md-2 col-lg-2 col-xl-2"> *@
+        @*                 <img class="sanpham" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)"> *@
+        @*             </td> *@
+        @*             <td> *@
+        @*                 <label class="form-label">@item.TenSanPham</label> *@
+        @*             </td> *@
+        @* *@
+        @*             @{ *@
+        @*                 var gia = db.BangGias.Where(x => x.MaSanPham == @item.MaSanPham).OrderByDescending(x => x.NgayCapNhat).FirstOrDefault(); *@
+        @*             } *@
+        @*             @if (@gia != null) *@
+        @*             { *@
+        @*                 <td> *@
+        @*                     <label> *@
+        @*                         <span style="color: red">@gia.GiaBan.ToString().Split(',')[0] VNĐ</span> *@
+        @*                     </label> *@
+        @*                 </td> *@
+        @*             } *@
+        @*             else *@
+        @*             { *@
+        @*                 <td> *@
+        @*                     <label> *@
+        @*                         <span style="color: red">Chưa cập nhật</span> *@
+        @*                     </label> *@
+        @*                 </td> *@
+        @*             } *@
+        @*             <td> *@
+        @*                 <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button> *@
+        @*             </td> *@
+        @*             @if (@rule == true) *@
+        @*             { *@
+        @*                 <td> *@
+        @*                     <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)"> *@
+        @*                         <i class="fa-solid fa-circle-info"></i> *@
+        @*                     </button> *@
+        @*                 </td> *@
+        @*                 <td> *@
+        @*                     <button class="btn btn-primary" onclick="AddPrice(@item.MaSanPham)"> *@
+        @*                         Thêm Giá *@
+        @*                         <i class="fa-solid fa-circle-plus"></i> *@
+        @*                     </button> *@
+        @*                 </td> *@
+        @*             } *@
+        @*             else *@
+        @*             { *@
+        @*                 <td> *@
+        @*                     <button id="btn-detail" class="btn btn-warning" onclick="ImgToDetail(@item.MaSanPham)"> *@
+        @*                         <i class="fa-solid fa-circle-info"></i> *@
+        @*                     </button> *@
+        @*                 </td> *@
+        @*                 <td> *@
+        @* *@
+        @*                 </td> *@
+        @*             } *@
+        @* *@
+        @*         </tr> *@
+        @*         stt++; *@
+        @*     } *@
+        @*     </tbody> *@
+        @* </table> *@
+
+
+    </div>
+</div>
+</div>

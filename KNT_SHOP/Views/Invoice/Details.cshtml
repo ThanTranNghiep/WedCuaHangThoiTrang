@@ -1,0 +1,87 @@
+﻿@using KNT_SHOP.Models
+@model HoaDon
+
+@{
+    ViewBag.Title = "Chi tiết hoá đơn";
+    // Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_LayoutSidebar.cshtml";
+    var hoaDon = Model;
+
+    KNT_ShopDB db = new KNT_ShopDB();
+    var list = db.ChiTietHoaDons.Where(x => x.MaHoaDon == hoaDon.MaHoaDon).ToList();
+}
+<div class="container text-center">
+    <div class="form-control text-center text-uppercase text-primary">hoá đơn</div>
+    <div class="row align-items-center">
+        <div class="col">
+            <span>Hoá đơn: </span> @hoaDon.MaHoaDon
+        </div>
+        <div class="col">
+            <span>Ngày lập: </span> @hoaDon.NgayLapHoaDon.ToString().Trim().Split(' ')[0]
+        </div>
+        <div class="col">
+            <span>Người mua: </span> @hoaDon.TenTaiKhoan
+        </div>
+    </div>
+    <hr class="my-5"/>
+    <div class="form-control text-center text-uppercase bg-danger">chi tiết hoá đơn</div>
+    <div class="row text-bg-info" style="border-radius: 20px">
+        <div class="col">
+            <span>Hình ảnh</span>
+        </div>
+        <div class="col">
+            <span>Mã sản phẩm</span>
+        </div>
+        <div class="col">
+            <span>Loại sản phẩm</span>
+        </div>
+        <div class="col">
+            <span>Tên sản phẩm</span>
+        </div>
+        <div class="col">
+            <span>Giá</span>
+        </div>
+        <div class="col">
+            <span>Số lượng</span>
+        </div>
+        <div class="col">
+            <span>Thành tiền</span>
+        </div>
+    </div>
+    @foreach (var item in list)
+    {
+        var tongTien = item.SoLuong * item.DonGia;
+        <div class="row align-items-center">
+            <div class="col">
+                <img class="img-fluid rounded-3" src="@item.SanPham.HinhAnh"/>
+            </div>
+            <div class="col">
+                @item.MaSanPham
+            </div>
+            <div class="col">
+                @item.SanPham.LoaiSanPham.TenLoaiSanPham
+            </div>
+            <div class="col">
+                @item.SanPham.TenSanPham
+            </div>
+            <div class="col">
+                @item.DonGia.ToString().Split(',')[0] VNĐ
+            </div>
+            <div class="col">
+                @item.SoLuong
+            </div>
+            <div class="col">
+                <span>@tongTien.ToString().Split(',')[0]</span> VNĐ
+            </div>
+        </div>
+        <hr class="my-5"/>
+    }
+</div>
+<div class="pt-5 text-start">
+    <h6 class="mb-0">
+        <a href="https://localhost:44376/Invoice" style="cursor: pointer">
+            <i class="fas fa-long-arrow-alt-left me-2"></i>
+            <span class="text-primary">Back to shop</span>
+        </a>
+    </h6>
+</div>

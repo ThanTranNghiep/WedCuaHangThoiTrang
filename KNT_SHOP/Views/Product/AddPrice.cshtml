@@ -1,0 +1,68 @@
+﻿@using KNT_SHOP.Models
+@using Newtonsoft.Json
+@model KNT_SHOP.Models.BangGia
+
+@{
+    ViewBag.Title = "Thêm giá sản phẩm";
+    // Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_LayoutSidebar.cshtml";
+    var bangGia = Model;
+    KNT_ShopDB db = new KNT_ShopDB();
+    var listGia = db.BangGias.Where(x => x.MaSanPham == @bangGia.MaSanPham).ToList();
+}
+<script src="~/Content/js/Product.js"></script>
+
+@if (@bangGia.MaGia != null)
+{
+    <div class="input-group mb-3">
+        <input id="Price" type="number" min="10000" class="form-control" placeholder="New price, please...">
+        <button class="btn btn-success" type="button" id="button-addon2" onclick="AddNewPrice(@bangGia.MaGia)">Thêm Giá</button>
+    </div>
+    
+    <hr class="my-5"/>
+    <h4>Danh sách giá của sản phẩm</h4>
+    <hr class="my-5"/>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                Mã giá
+            </div>
+            <div class="col">
+                MaSanPham
+            </div>
+            <div class="col">
+                Giá bán
+            </div>
+            <div class="col">
+                Ngày cập nhật
+            </div>
+        </div>
+    </div>
+    <br/>
+    foreach (var item in listGia)
+    {
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    @item.MaGia
+                </div>
+                <div class="col">
+                    @item.MaSanPham
+                </div>
+                <div class="col">
+                    @item.GiaBan.ToString().Split(',')[0] VNĐ
+                </div>
+                <div class="col">
+                    @item.NgayCapNhat.ToString().Split(' ')[0]
+                </div>
+            </div>
+            <hr class="my-5"/>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-danger">
+        <strong>Không tìm thấy giá sản phẩm!</strong>
+    </div>
+}

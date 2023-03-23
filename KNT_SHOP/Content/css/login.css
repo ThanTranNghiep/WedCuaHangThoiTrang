@@ -1,0 +1,275 @@
+﻿/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+    /*========== Colors ==========*/
+    /*Color mode HSL(hue, saturation, lightness)*/
+    --first-color: hsl(244, 75%, 57%);
+    --second-color: hsl(249, 64%, 47%);
+    --title-color: hsl(244, 12%, 12%);
+    --text-color: hsl(244, 4%, 36%);
+    --body-color: hsl(208, 97%, 85%);
+
+    /*========== Font and typography ==========*/
+    /*.5rem = 8px | 1rem = 16px ...*/
+    --body-font: "Poppins", sans-serif;
+    --h2-font-size: 1.25rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem; 
+    /*--h2-font-size: 21pt;*/
+    /*--small-font-size: 18pt;*/
+    /*--smaller-font-size: 16pt;*/
+
+    /*========== Font weight ==========*/
+    --font-medium: 500;
+    --font-semi-bold: 600;
+}
+
+/* Responsive typography */
+@media screen and (min-width: 1024px) {
+    :root {
+        /*--h2-font-size: 22pt;*/
+        /*--normal-font-size: 20pt;*/
+        /*--small-font-size: 18pt;*/
+        /*--smaller-font-size: 16pt;*/
+        --h2-font-size: 1.75rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --smaller-font-size: .813rem;
+    }
+}
+
+/*=============== BASE ===============*/
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: var(--body-color);
+    font-family: var(--body-font);
+    color: var(--text-color);
+}
+
+input,
+button {
+    font-family: var(--body-font);
+    border: none;
+    outline: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*=============== LOGIN FORM ===============*/
+.login_content,
+.login_form,
+.login_input{
+    display: grid;
+}
+.login_content{
+    position: relative;
+    height: 100vh;
+    align-items: center;
+}
+.login_img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.login_form{
+    position: relative;
+    background-color: hsla(208, 16%, 92%,.6);
+    border: 2px solid hsla(244, 16%, 92%, .75);
+    margin-inline: 1.5rem;
+    row-gap: 1.25rem;
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    border-radius: 1rem;
+    /* max-width: 700px; */
+    margin: auto;
+}
+.login_title{
+    color: var(--title-color);
+    font-size: var(--h2-font-size);
+    margin-bottom: .5rem;
+    text-align: center;
+}
+.login_title span{
+    color: blue;
+}
+.login_description{
+    font-size: var(--small-font-size);
+}
+.login_input{
+    row-gap: .75rem;
+    margin-bottom: .5rem;
+
+}
+.login_label{
+    display: block;
+    color: var(--title-color);
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    margin-bottom: .25rem;
+}
+.login_input{
+    width: 100%;
+    padding: 14px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--text-color);
+    background-color: hsla(244, 16%, 92%, .6);
+    color: var(--title-color);
+    font-size: var(--smaller-font-size);
+    font-weight: var(--font-medium);
+    transition: border .4s;
+}
+
+.login_input::placeholder{
+    color: var(--text-color);
+}
+.login_input:focus,
+.login_input:valid{
+    border: 2px solid var(--first-color);
+}
+.login_box{
+    position: relative;
+}
+.login_box .login_input{
+    padding-right: 36px;
+}
+.login-eye{
+    width: max-content;
+    height: max-content;
+    position: absolute;
+    right: .75rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.login_check{
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+}
+.login_check-input{
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--text-color);
+    background-color: hsla(244, 16%, 92%, .2);
+    border-radius: .25rem;
+}
+.login_check-input:checked{
+    background-color: var(--first-color);
+}
+.login_check-input:checked::before{
+    content: '✔';
+    display: block;
+    color: #fff;
+    font-size: .75rem;
+    transform: translate(1.5px,-2.5px);
+}
+
+.login_label-check{
+    font-size: var(--smaller-font-size);
+}
+.login_buttons{
+    display: flex;
+    column-gap: .75rem;
+}
+.login_button{
+    width: 100%;
+    padding: 14px 2rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--first-color)
+    ,var(--second-color));
+    color: #fff;
+    font-size: var(--smaller-font-size);
+    font-weight: var(--font-semi-bold);
+    cursor: pointer;
+    box-shadow: 0 6px 24px hsla(244, 75%, 48%, .5);
+    margin-bottom: 1rem;
+}
+.login_button-ghost{
+    background: hsla(244, 16%, 92%, .6);
+    border: 2px solid var(--first-color);
+    color: var(--first-color);
+    box-shadow: none;
+}
+.login_forgot{
+    font-size: var(--smaller-font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--first-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 360px){
+    .login_buttons{
+        flex-direction: column;
+    }
+}
+
+/* For medium devices */
+@media screen and (min-width: 580px) {
+    .login_form{
+        width: 550px;
+        justify-self: center;
+    }
+}
+
+/* For large devices */
+@media screen and (min-width: 1068px) {
+    .container{
+        height: 100vh;
+        display: grid;
+        place-items: center;
+    }
+    .login_content{
+        width: 1024px;
+        height: 600px;
+    }
+    .login_img{
+        /* border-radius: 3.5rem; */
+        box-shadow: 0 24px 48px hsla(244, 75%, 48%, .5);
+    }
+    /*.login_form{*/
+    /*    justify-self: flex-end;*/
+    /*    padding: 4.5rem;*/
+    /*}*/
+}
+@media screen and (min-width: 1200px) {
+    .login_content{
+        height: 700px;
+    }
+    /*.login_form{*/
+    /*    row-gap: 1.5rem;*/
+    /*    padding: 3rem;*/
+    /*    border-radius: 1.25rem;*/
+    /*    border: 2.5px solid hsla(244, 16%, 92%, .75);*/
+    /*}*/
+    .login_description
+    .login_label
+    .login_button{
+        font-size: var(--normal-font-size);
+    }
+    .login_input{
+        row-gap: 1rem;
+        margin-bottom: .75rem;
+    }
+    .login_input:focus,
+    .login_input:valid{
+        border: 2.5px solid var(--first-color);
+    }
+
+}

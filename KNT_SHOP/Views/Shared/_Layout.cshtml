@@ -1,0 +1,155 @@
+﻿@using KNT_SHOP.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/css/header_footer_layout.css" rel="stylesheet"/>
+    <script src="~/Content/js/header_footer_layout.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/5e1dfe1c35.js" crossorigin="anonymous"></script>
+
+    @* ================= css home/index ============= *@
+    <link rel="stylesheet" href="~/Content/css/HomeIndex.css">
+    <script src="~/Content/js/HomeIndex.js"></script>
+    @* ============================================== *@
+
+
+</head>
+<body>
+<div class="topnav" id="myTopnav">
+    @{
+        var urlSanPham = Url.Action("SanPham", "Product");
+        var urlHome = Url.Action("Index", "Home");
+        var urlHoaDon = Url.Action("Index", "Invoice");
+        var urlCart = Url.Action("Index", "Cart");
+    }
+    <a href="@urlHome" class="active">Trang Chủ</a>
+    <a href="@urlSanPham">Sản Phẩm</a>
+    <a href="@urlHoaDon">Hóa Đơn</a>
+    @* <a href="#fill">Bộ Lọc</a> *@
+    <a href="@urlCart">
+        <i class="fa fa-shopping-cart"></i>
+        Giỏ hàng
+    </a>
+    <a id="show-dialog" onclick="showLoginDialog()">
+        Tài Khoản
+    </a>
+    @* <div class="search-box " style="margin-right: 35px"> *@
+    @*     <input class="txtSearch" type="search" placeholder="Search"/> *@
+    @*     <button class="btn-search"> *@
+    @*         <i class="fa fa-search"></i> *@
+    @*     </button> *@
+    @* </div> *@
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+    </a>
+</div>
+@* ============ DIALOG ============ *@
+@{
+    var username = Session["username"]==null?"":Session["username"].ToString();
+    var token = Session["token"]==null?"":Session["token"].ToString();
+    int gt = Session["gioiTinh"] == null ? 0 : (int)Session["gioiTinh"];
+    string ngayTao = Session["ngayTao"]==null?"":Session["ngayTao"].ToString();
+    string email = Session["email"]==null?"":Session["email"].ToString();
+    var sdt = Session["sdt"] == null ? "" : Session["sdt"].ToString();
+    string diaChi = Session["diaChi"]==null?"":Session["diaChi"].ToString();
+    var rule = Session["rule"];
+}
+<div class="container" id="container-dialog">
+    @if (token != "")
+    {
+        <dialog id="login-dialog">
+            <div class="mb-3 form-control">
+                <label class="form-control">Tên Tài Khoản: <span>@username</span> </label>
+                <label class="form-control">Email: <span>@email </span> </label>
+                <label class="form-control">
+                    Giới Tính:
+                    @{
+                        
+                    }
+                    @if (gt == 1)
+                    {
+                        <span>Nam</span>
+                    }
+                    else
+                    {
+                        <span>Nữ</span>
+                    }
+                </label>
+                <label class="form-control">Ngày Tạo: <span>@ngayTao.ToString().Split(' ')[0]</span> </label>
+                <label class="form-control">Địa Chỉ: <span>@diaChi</span> </label>
+                <label class="form-control">Số Điện Thoại: <span>@sdt</span> </label>
+            </div>
+            <button id="close-dialog" class="btn btn-secondary" onclick="closeLoginDialog()">Close</button>
+            <button class="btn btn-success"><a href="https://localhost:44376/Account" class="text-light" style="text-decoration: none">Thông tin tài khoản</a></button>
+            <buton id="logout" class="btn btn-primary" onclick="Logout()">Logout</buton>
+        </dialog>
+    }
+    else
+    {
+        <dialog id="login-dialog">
+            <form action="../Login/Index" method="post" class="login_form form-control">
+                <div>
+                    <h2 class="login_title">
+                        Login to <span>KNT Shop</span>
+                    </h2>
+                </div>
+                <div>
+                    <div class="login_inputs form-control">
+                        <div>
+                            <label for="" class="login_label form-label">Username</label>
+                            @Html.TextBox("Username", "", new { @id = "Username", @class = "login_input form-control", @placeholder = "Username" })
+                        </div>
+
+                        <div>
+                            <label for="" class="login_label">Password</label>
+                            <div class="login_box">
+                                @Html.Password("Password", "", new { @id = "input-pass", @class = "login_input form-control", @placeholder = "Password" })
+                                <i class="ri-eye-off-line login-eye" id="input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="login_buttons">
+                        <button type="submit" id="btn-login" class="login_button form-control" formmethod="post">Login</button>
+                        <button type="button" id="btn-signup" class="login_button login_button-ghost form-control" onclick="RegisterClick()">SignUp</button>
+                    </div>
+                    <button id="close-dialog" class="btn btn-secondary" onclick="closeLoginDialog()">Close</button>
+                </div>
+
+            </form>
+        </dialog>
+    }
+
+</div>
+<style>
+        #show-dialog {
+            color: #f2f2f2;
+            cursor: pointer;
+        }
+
+            #show-dialog:hover {
+                color: black;
+            }
+    </style>
+@*===================== Dialog js ================== *@
+<script src="~/Content/js/Dialog.js"></script>
+@* ===================== body ===================================*@
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</body>
+</html>
