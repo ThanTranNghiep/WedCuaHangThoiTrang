@@ -4,7 +4,8 @@
 
 @{
     ViewBag.Title = "Thêm giá sản phẩm";
-    Layout = "../Shared/_Layout.cshtml";
+    // Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_LayoutSidebar.cshtml";
     var bangGia = Model;
     KNT_ShopDB db = new KNT_ShopDB();
     var listGia = db.BangGias.Where(x => x.MaSanPham == @bangGia.MaSanPham).ToList();

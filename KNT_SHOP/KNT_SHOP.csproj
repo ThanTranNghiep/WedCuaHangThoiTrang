@@ -199,6 +199,7 @@
     <Content Include="Content\css\Cart.css" />
     <Content Include="Content\css\header_footer_layout.css" />
     <Content Include="Content\css\HomeIndex.css" />
+    <Content Include="Content\css\layoutSidebar.css" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\SanPham.css" />
     <Content Include="Content\img\SanPham\BeeCost.jpg" />
@@ -322,6 +323,7 @@
     <Content Include="Content\js\header_footer_layout.js" />
     <Content Include="Content\js\HomeIndex.js" />
     <Content Include="Content\js\Invoice.js" />
+    <Content Include="Content\js\layoutSidebar.js" />
     <Content Include="Content\js\login.js" />
     <Content Include="Content\js\Product.js" />
     <Content Include="Content\js\Register.js" />
@@ -371,9 +373,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Shared\_LayoutSidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\img\App_LocalResources\" />
     <Folder Include="Content\img\slideHome\" />
   </ItemGroup>
   <ItemGroup>
