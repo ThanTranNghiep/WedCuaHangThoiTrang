@@ -44,4 +44,31 @@ public class InvoiceController : Controller
         var hoaDon = db.HoaDons.FirstOrDefault(x => x.MaHoaDon == id);
         return View(hoaDon);
     }
+
+    public ActionResult fillToInvoice(string id)
+    {
+        KNT_ShopDB db = new KNT_ShopDB();
+        var username = Session["username"].ToString();
+        var taikhoan = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == id);
+        if (Session["username"] == null || taikhoan == null)
+        {
+            JavaScript("alert('Please login first!');");
+            return RedirectToAction("Index", "Login");
+        }
+        else
+        {
+            
+            var checkAdmin = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == username);
+            if(checkAdmin.Rule == true) // lấy hoá đơn của admin
+            {
+                var list = db.HoaDons.Where(x=>x.TenTaiKhoan == id).ToList();
+                return View("Index",list);
+            }
+            else // lấy hóa đơn của tài khoản user
+            {
+                var list = db.HoaDons.Where(x => x.TenTaiKhoan == username).ToList();
+                return View("Index",list);
+            }
+        }
+    }
 }
