@@ -39,12 +39,15 @@ function AddPrice(id) {
     window.location.href = "/Product/AddPrice?id=" + id;
 }
 
-function AddNewPrice(id) {
+function AddNewPrice() {
     const priceInput = document.getElementById("Price");
     let price = parseInt(priceInput.value)
-    if (isNaN(price) || priceInput.value === "" || priceInput.value === null) {
+    if (isNaN(price) || priceInput.value === "" || priceInput.value === null) 
+    {
         alert("Giá phải là số");
     } else {
-        // window.location.href = "/Product/AddNewPrice?id=" + id + "&price=" + priceInput.value;
+        btn = document.getElementById("button-addon2");
+        btn.type = "submit";
+        btn.submit();
     }
 }

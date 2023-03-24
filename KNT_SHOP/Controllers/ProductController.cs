@@ -113,11 +113,11 @@ public class ProductController : Controller
     }
     
     public ActionResult Edit(int id)
-    {
-        KNT_ShopDB db = new KNT_ShopDB();
-        var sanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham == id);
-        return View(sanPham);
-    }
+         {
+             KNT_ShopDB db = new KNT_ShopDB();
+             var sanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham == id);
+             return View(sanPham);
+         }
 
     [HttpPost]
     public ActionResult Edit(SanPham sanPham)
@@ -149,27 +149,28 @@ public class ProductController : Controller
         }
     }
     
-    public ActionResult AddNewPrice(int id, decimal price)
+    [HttpPost]
+    public ActionResult AddNewPrice(int MaGia, decimal GiaBan)
     {
         KNT_ShopDB db = new KNT_ShopDB();
-        var bangGia = db.BangGias.FirstOrDefault(x => x.MaSanPham == id);
+        var bangGia = db.BangGias.FirstOrDefault(x => x.MaSanPham == MaGia);
         if (bangGia != null)
         {
             // bảng giá có tồn tại ngày hiện tại thì update giá
-            var giaBan = db.BangGias.FirstOrDefault(x => x.MaSanPham == id && x.NgayCapNhat.Value.Day == DateTime.Now.Day &&
-                                                        x.NgayCapNhat.Value.Month == DateTime.Now.Month &&
-                                                        x.NgayCapNhat.Value.Year == DateTime.Now.Year);
+            var giaBan = db.BangGias.FirstOrDefault(x => x.MaSanPham == MaGia && x.NgayCapNhat.Value.Day == DateTime.Now.Day &&
+                                                         x.NgayCapNhat.Value.Month == DateTime.Now.Month &&
+                                                         x.NgayCapNhat.Value.Year == DateTime.Now.Year);
             if (giaBan != null)
             {
-                giaBan.GiaBan = price;
+                giaBan.GiaBan = GiaBan;
                 db.SaveChanges();
                 return View("AddPrice",bangGia);
             }
             else
             {
                 BangGia gia = new BangGia();
-                gia.MaSanPham = id;
-                gia.GiaBan = price;
+                gia.MaSanPham = MaGia;
+                gia.GiaBan = GiaBan;
                 gia.NgayCapNhat = DateTime.Now;
                 db.BangGias.Add(gia);
                 db.SaveChanges();
@@ -182,23 +183,39 @@ public class ProductController : Controller
             return View("AddPrice",giaNull);
         }
     }
-
+    
     // [HttpPost]
-    // public ActionResult AddPrice(BangGia gia)
+    // public ActionResult AddNewPrice(int id, decimal price)
     // {
     //     KNT_ShopDB db = new KNT_ShopDB();
-    //     var bangGia = db.BangGias.FirstOrDefault(x => x.MaGia == gia.MaGia);
+    //     var bangGia = db.BangGias.FirstOrDefault(x => x.MaSanPham == id);
     //     if (bangGia != null)
     //     {
-    //         bangGia.GiaBan = gia.GiaBan;
-    //         bangGia.NgayCapNhat = DateTime.Now;
-    //         db.SaveChanges();
-    //         return View(bangGia);
+    //         // bảng giá có tồn tại ngày hiện tại thì update giá
+    //         var giaBan = db.BangGias.FirstOrDefault(x => x.MaSanPham == id && x.NgayCapNhat.Value.Day == DateTime.Now.Day &&
+    //                                                     x.NgayCapNhat.Value.Month == DateTime.Now.Month &&
+    //                                                     x.NgayCapNhat.Value.Year == DateTime.Now.Year);
+    //         if (giaBan != null)
+    //         {
+    //             giaBan.GiaBan = price;
+    //             db.SaveChanges();
+    //             return View("AddPrice",bangGia);
+    //         }
+    //         else
+    //         {
+    //             BangGia gia = new BangGia();
+    //             gia.MaSanPham = id;
+    //             gia.GiaBan = price;
+    //             gia.NgayCapNhat = DateTime.Now;
+    //             db.BangGias.Add(gia);
+    //             db.SaveChanges();
+    //             return View("AddPrice",bangGia);
+    //         }
     //     }
     //     else
     //     {
     //         BangGia giaNull = new BangGia();
-    //         return View(giaNull);
+    //         return View("AddPrice",giaNull);
     //     }
     // }
 }

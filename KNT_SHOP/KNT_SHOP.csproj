@@ -176,6 +176,7 @@
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Models\Tinh_TP.cs" />
     <Compile Include="Models\ViewModel\GenderAccount.cs" />
+    <Compile Include="Models\ViewModel\ResponeJson.cs" />
     <Compile Include="Models\ViewModel\SanPhamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

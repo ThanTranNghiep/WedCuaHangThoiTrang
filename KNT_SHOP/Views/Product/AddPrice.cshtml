@@ -14,10 +14,17 @@
 <br/>
 @if (@bangGia.MaGia != null)
 {
-    <div class="input-group mb-3">
-        <input id="Price" type="number" min="10000" class="form-control" placeholder="New price, please...">
-        <button class="btn btn-success" type="button" id="button-addon2" onclick="AddNewPrice(@bangGia.MaGia)">Thêm Giá</button>
-    </div>
+    using (@Html.BeginForm("AddNewPrice","Product"))
+    {   @Html.TextBoxFor(x=>x.MaGia, new { @required = "required", @readonly = "readonly", @hidden = "hidden" })
+        <div class="input-group mb-3">
+            <input name="GiaBan" id="Price" type="number" min="10000" class="form-control" placeholder="New price, please...">
+            <button class="btn btn-success" type="button" id="button-addon2" onclick="AddNewPrice()">Thêm Giá</button>
+        </div>
+    }
+    @* <div class="input-group mb-3"> *@
+    @*     <input id="Price" type="number" min="10000" class="form-control" placeholder="New price, please..."> *@
+    @*     <button class="btn btn-success" type="button" id="button-addon2" onclick="AddNewPrice(@bangGia.MaGia)">Thêm Giá</button> *@
+    @* </div> *@
     
     <hr class="my-5"/>
     <h4>Danh sách giá của sản phẩm</h4>
