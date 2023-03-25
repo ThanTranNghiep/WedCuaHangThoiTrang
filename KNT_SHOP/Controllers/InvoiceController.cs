@@ -76,51 +76,29 @@ public class InvoiceController : Controller
     }
 
     
-    // [HttpPost]
-    // public ActionResult UpdateState(int MaHoaDon, int TrangThaiGiaoHang)
-    // {
-    //     KNT_ShopDB db = new KNT_ShopDB();
-    //     var chiTietHoaDon = db.HoaDons.FirstOrDefault(x => x.MaHoaDon == MaHoaDon);
-    //     var url = "https://localhost:44376/Invoice/UpdateState?MaHoaDon=" + MaHoaDon + "&TrangThaiGiaoHang=" + TrangThaiGiaoHang;
-    //     
-    //     return ;
-    // }
-    
-    public ActionResult FetchAndSaveData()
+    [HttpPost]
+    public ActionResult UpdateState(int MaHoaDon, int TrangThaiGiaoHang)
     {
-        // Create an HttpClient to make the API request
-        using (var client = new HttpClient())
+        KNT_ShopDB db = new KNT_ShopDB();
+        var hoaDon = db.HoaDons.FirstOrDefault(x => x.MaHoaDon == MaHoaDon);
+        if(hoaDon != null)
         {
-            // Set the API endpoint URL
-            string apiUrl = "https://example.com/api/data";
-
-            // Make the API request and get the response
-            var response = client.GetAsync(apiUrl).Result;
-
-            // Check if the API request was successful
-            if (response.IsSuccessStatusCode)
+            var chiTietHoaDon = db.ChiTietHoaDons.Where(x => x.MaHoaDon == MaHoaDon).ToList();
+            foreach (var item in chiTietHoaDon)
             {
-                // Get the JSON data from the response
-                var jsonData = response.Content.ReadAsStringAsync().Result;
-
-                // Deserialize the JSON data into a list of objects
-                var data = JsonConvert.DeserializeObject<List<ResponeJson>>(jsonData);
-                
-                
-                //........................................................................................................
-                
-                
-                // Save the data to the database
-                
-
-                // Return a success message
-                return Content("Data fetched and saved successfully!");
+                if (TrangThaiGiaoHang > item.TrangThaiGiaoHang)
+                {
+                    item.TrangThaiGiaoHang = TrangThaiGiaoHang;
+                    db.SaveChanges();
+                }
             }
-            else
-            {
-                // Return an error message
-                return Content("Error fetching data from API: " + response.ReasonPhrase);
-            }
+
+            return Content("Update successfully!");
         }
+        else
+        {
+            return Content("Update failed!");
+        }
+        // var url = "https://localhost:44376/Invoice/UpdateState?MaHoaDon=" + MaHoaDon + "&TrangThaiGiaoHang=" + TrangThaiGiaoHang;
     }
 }
