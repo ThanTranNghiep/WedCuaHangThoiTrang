@@ -101,4 +101,57 @@ public class InvoiceController : Controller
         }
         // var url = "https://localhost:44376/Invoice/UpdateState?MaHoaDon=" + MaHoaDon + "&TrangThaiGiaoHang=" + TrangThaiGiaoHang;
     }
+    
+    public ActionResult FetchAndSaveData()
+    {
+        // Create an HttpClient to make the API request
+        using (var client = new HttpClient())
+        {
+            // Set the API endpoint URL
+            string apiUrl = "https://example.com/api/data";
+
+            // Make the API request and get the response
+            var response = client.GetAsync(apiUrl).Result;
+
+            // Check if the API request was successful
+            if (response.IsSuccessStatusCode)
+            {
+                // Get the JSON data from the response
+                var jsonData = response.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the JSON data into a list of objects
+                var data = JsonConvert.DeserializeObject<List<ResponeJson>>(jsonData);
+
+                // Save the data to the database
+                using (var db = new KNT_ShopDB())
+                {
+                    foreach (var item in data)
+                    {
+                        var hoaDon = db.HoaDons.FirstOrDefault(x => x.MaHoaDon == item.MaHoaDon);
+                        if (hoaDon != null)
+                        {
+                            var chiTietHoaDon = db.ChiTietHoaDons.Where(x => x.MaHoaDon == item.MaHoaDon).ToList();
+                            
+                            foreach (var temp in chiTietHoaDon)
+                            {
+                                if (item.TrangThai > temp.TrangThaiGiaoHang)
+                                {
+                                    temp.TrangThaiGiaoHang = item.TrangThai;
+                                }
+                            }
+                            db.SaveChanges();
+                        }
+                    }
+                }
+
+                // Return a success message
+                return Content("Data fetched and saved successfully!");
+            }
+            else
+            {
+                // Return an error message
+                return Content("Error fetching data from API: " + response.ReasonPhrase);
+            }
+        }
+    }
 }
