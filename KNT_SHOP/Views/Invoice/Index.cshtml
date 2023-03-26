@@ -36,8 +36,8 @@
                                         <div class="row">
                                             <div class="col">
                                                 @Html.DropDownListFor(x => listUser,
-                                                    new SelectList(listUser, "TenTaiKhoan", "TenTaiKhoan"),"Chọn user",
-                                                    new { @class = "form-select form-select-sm text-center", @id="invoiceItem", @onchange="fillToInvoice()" })
+                                                    new SelectList(listUser, "TenTaiKhoan", "TenTaiKhoan"), "Chọn user",
+                                                    new { @class = "form-select form-select-sm text-center", @id = "invoiceItem", @onchange = "fillToInvoice()" })
                                             </div>
                                         </div>
                                     }
@@ -76,8 +76,8 @@
                                 @* begin *@
                                 @foreach (var item in list)
                                 {
-                                    <div class="container text-center text-primary">
-                                        <div class="row">
+                                    <div class="container text-center ">
+                                        <div class="row text-primary">
                                             <div class="col">
                                                 <span>Hoá đơn: </span> @item.MaHoaDon
                                             </div>
@@ -87,6 +87,53 @@
                                             <div class="col">
                                                 <span>Tên khách hàng: </span> @item.TenTaiKhoan
                                             </div>
+                                        </div>
+                                        <div class="row text-success">
+                                            @{
+                                                var chiTiet = db.ChiTietHoaDons.FirstOrDefault(x => x.MaHoaDon == item.MaHoaDon);
+                                                if (chiTiet != null)
+                                                {
+                                                    int state = int.Parse(chiTiet.TrangThaiGiaoHang.ToString());
+                                                    switch (state)
+                                                    {
+                                                        case 0:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đang chờ xử lý
+                                                            </div>
+                                                            break;
+                                                        }
+                                                        case 1:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đã lấy hàng
+                                                            </div>
+                                                            break;
+                                                        }
+                                                        case 2:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đang giao hàng
+                                                            </div>
+                                                            break;
+                                                        }
+                                                        case 3:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đã giao hàng
+                                                            </div>
+                                                            break;
+                                                        }
+                                                        default:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đã giao hàng
+                                                            </div>
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         </div>
                                     </div>
                                     <hr class="my-4">
@@ -114,7 +161,7 @@
                                                 @{
                                                     var gia = @temp.DonGia * @temp.SoLuong;
                                                 }
-                                                <h6 class="mb-0">@gia.ToString("C3",CultureInfo.CurrentCulture).Split(',')[0] VNĐ</h6>
+                                                <h6 class="mb-0">@gia.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ</h6>
                                             </div>
                                             @* <div class="col-md-1 col-lg-1 col-xl-1 text-end"> *@
                                             @*     <a href="#!" class="text-muted"> *@
@@ -130,7 +177,7 @@
                                                 Tổng tiền hoá đơn:
                                             </div>
                                             <div class="col">
-                                                @total.ToString("C3",CultureInfo.CurrentCulture).Split(',')[0] VNĐ
+                                                @total.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ
                                             </div>
                                         </div>
                                     </div>

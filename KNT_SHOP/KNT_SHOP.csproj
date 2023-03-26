@@ -338,6 +338,7 @@
     <Content Include="Content\js\login.js" />
     <Content Include="Content\js\Product.js" />
     <Content Include="Content\js\Register.js" />
+    <Content Include="Content\js\TrangThaiGiaoHang.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
