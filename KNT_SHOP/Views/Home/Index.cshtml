@@ -1,32 +1,136 @@
-﻿@model KNT_SHOP.Models.TaiKhoan
+﻿@using KNT_SHOP.Models
+@model List<KNT_SHOP.Models.ViewModel.SanPhamModel>
 @{
     ViewBag.Title = "Home Page";
     var slideLength = 5;
     var username = Session["username"];
     Layout = "../Shared/_LayoutSidebar.cshtml";
+    var listSanPham = Model;
+    KNT_ShopDB db = new KNT_ShopDB();
 }
 
-<main>
 
+<div class="container text-lg-start">
     <div class="row">
+        @* <div class="col"></div> *@
         <div class="slider" id="main-slider">
             <!-- outermost container element -->
-            <div class="slider-wrapper">
+            <div class="slider-wrapper w-100">
                 <!-- innermost wrapper element -->
                 @for (int i = 1; i <= slideLength; i++)
                 {
                     var url = Url.Content("~/Content/img/slideHome/" + @i + ".jpg");
-                    <img src="@url" alt="KNT SHOP" class="slide" />
+                    <img src="@url" alt="KNT SHOP" class="slide img-fluid"/>
                 }
                 <label class="" style="color: black; font-size: 20pt; font-weight: bold">KNT SHOP</label>
             </div>
         </div>
     </div>
-    <div>
-        <span>@ViewBag.Message</span>
+    <div class="row w-100">
+        <p class="text-warning fs-3">
+            <marquee>Chào mừng bạn đến với shop KNT. Nhân dịp khai trương cửa hàng toàn bộ sản phẩm trong cửa hàng giảm 20%!</marquee>
+        </p>
     </div>
-    <div>
-        <p>User: <span>@username</span></p>
-        
+    <div class="row w-100">
+        <h3 class="text-center text-dark">Sản phẩm bán chạy</h3>
     </div>
-</main>
+
+    @* <div class="container text-center w-100"> *@
+    @*      *@
+    @*     $1$ <div class="row w-100"> #1# *@
+    @*     $1$ #1# *@
+    @*     $1$ </div> #1# *@
+    @* *@
+    @* </div> *@
+</div>
+
+<div class="container text-center">
+    @* ================= css home/index ============= *@
+    <link rel="stylesheet" href="~/Content/css/HomeIndex.css">
+    <script src="~/Content/js/HomeIndex.js"></script>
+    @* ============================================== *@
+    <div class="row align-items-start">
+        <script src="~/Content/js/Product.js"></script>
+        @foreach (var item in listSanPham)
+        {
+            <div class="col col-sanpham">
+                <table>
+                    <tr>
+                        <td>
+                            <img class="sanpham" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="form-label">@item.TenSanPham</label>
+                            @* @Html.RenderAction("About", "Home") *@
+                        </td>
+                    </tr>
+                    <tr>
+                        @if (@item.Gia != null)
+                        {
+                            <td>
+                                <label>
+                                    <span style="color: red">@item.Gia.ToString().Split(',')[0] VNĐ</span>
+                                </label>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <label>
+                                    <span style="color: red">Chưa cập nhật</span>
+                                </label>
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+<hr class="my-5"/>
+<div class="container text-center align-items-center">
+    <div class="row">
+        <div class="col-5">
+            <img class="img-thumbnail" src="../../Content/img/SanPham/Nam/Shirt/Ao%20thun%20Local%20brand.png" alt="offer-img">
+        </div>
+        <div class="col ">
+            <div class="row">
+                <div class="col">
+                    <h5 class="text-primary">Một sản phẩm duy nhất có trên Shop</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <marquee onmouseover="this.stop()" onmouseout="this.start()" scrollamount="2" style="font-size: 17px;">
+                        <b class="text-uppercase">Áo thun local brand cao cấp</b>
+                    </marquee>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col w-100">
+                    <p class="text-start">
+                        Thương hiệu Local Brand áo đình đám này luôn ra mắt những mẫu thiết kế đầy màu sắc, những gam màu tưởng chừng sẽ phối đồ nhưng đều được Uncover biến hóa một cách tự nhiên, dễ mặc và vô cùng trending.
+                        Thêm vào đó, các chi tiết trên áo Uncover cũng mang những nét đặc trưng riêng. Những sticker đặc trưng, hoạ tiết được khắc họa khá tỉ mỉ, vừa mang những nét dễ thương nhưng không kém phần cool ngầu.
+                        Chất liệu áo cũng là một điểm nổi bật của Uncover, những item mà thương hiệu đã ra mắt đều được đánh giá khá cao, vải thun mát mẻ nhưng không quá mỏng, form áo chuẩn không quá bó sát cũng không quá thùng thình.
+                    </p>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-warning" onclick="AddToCart(45)">
+                        <a href="" class="btn">Buy Now &#10132</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

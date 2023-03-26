@@ -1,10 +1,26 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
     Layout = "../Shared/_LayoutSidebar.cshtml";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <p>Use this area to provide additional information.</p>
-</main>
+<link rel="stylesheet" href="~/Content/css/about.css"/>
+<h2 class="text-center">Tác giả</h2>
+<br/>
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <img class="avatar" src="~/Content/img/TacGia/khoa.jpg"/>
+            <h3>Vy Nguyễn Đăng Khoa</h3>
+        </div>
+        <div class="col">
+            <img class="avatar" src="~/Content/img/TacGia/nghiep.jpg"/>
+            <h3>Than Trấn Nghiệp</h3>
+        </div>
+        <div class="col">
+            <img class="avatar" src="~/Content/img/TacGia/toan.jpg"/>
+            <h3>Cao Trường Toàn</h3>
+        </div>
+    </div>
+</div>

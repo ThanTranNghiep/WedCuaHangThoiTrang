@@ -197,12 +197,14 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\about.css" />
     <Content Include="Content\css\Cart.css" />
     <Content Include="Content\css\header_footer_layout.css" />
     <Content Include="Content\css\HomeIndex.css" />
     <Content Include="Content\css\layoutSidebar.css" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\SanPham.css" />
+    <Content Include="Content\img\pexels-photo.jpeg" />
     <Content Include="Content\img\SanPham\BeeCost.jpg" />
     <Content Include="Content\img\SanPham\Nam\Hat\Adidas luoitrai.jpg" />
     <Content Include="Content\img\SanPham\Nam\Hat\BeeCost.jpg" />
@@ -317,6 +319,14 @@
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short nu.jpg" />
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short ong rong.jpg" />
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short.jpg" />
+    <Content Include="Content\img\slideHome\1.jpg" />
+    <Content Include="Content\img\slideHome\2.jpg" />
+    <Content Include="Content\img\slideHome\3.jpg" />
+    <Content Include="Content\img\slideHome\4.jpg" />
+    <Content Include="Content\img\slideHome\5.jpg" />
+    <Content Include="Content\img\TacGia\khoa.jpg" />
+    <Content Include="Content\img\TacGia\nghiep.jpg" />
+    <Content Include="Content\img\TacGia\toan.jpg" />
     <Content Include="Content\js\Account.js" />
     <Content Include="Content\js\Cart.js" />
     <Content Include="Content\js\Details.js" />
@@ -350,6 +360,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Invoice\Details.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
@@ -369,7 +380,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />

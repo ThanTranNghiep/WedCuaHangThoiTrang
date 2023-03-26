@@ -1,4 +1,5 @@
 ﻿@model List<SanPham>
+@using System.Globalization
 @using KNT_SHOP.Models
 @{
     ViewBag.Title = "Danh sách sản phẩm";
@@ -90,7 +91,7 @@
                     {
                         <div class="col">
                             <label>
-                                <span style="color: red">@gia.GiaBan.ToString().Split(',')[0] VNĐ</span>
+                                <span style="color: red">@gia.GiaBan.ToString("C3",CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
                             </label>
                         </div>
                     }
