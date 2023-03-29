@@ -51,3 +51,7 @@ function AddNewPrice() {
         btn.submit();
     }
 }
+
+function Add() {
+    window.location.href = "/Product/Add";
+}

@@ -12,6 +12,9 @@ public class SanPhamModel
     public string HinhAnh { get; set; }
     public decimal Gia { get; set; }
     public int SoLuong { get; set; }
+    
+    public virtual LoaiSanPham LoaiSanPham { get; set; }
+    
     public string DiaChi { get; set; }
     
     // private int check;

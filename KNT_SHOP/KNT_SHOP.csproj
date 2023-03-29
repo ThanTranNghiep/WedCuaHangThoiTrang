@@ -365,6 +365,7 @@
     <Content Include="Views\Invoice\Details.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Product\AddPrice.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\ListSanPham.cshtml" />

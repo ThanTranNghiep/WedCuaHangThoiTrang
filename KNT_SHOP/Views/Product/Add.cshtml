@@ -1,0 +1,26 @@
+﻿@using System.Globalization
+@using KNT_SHOP.Models
+@model KNT_SHOP.Models.ViewModel.SanPhamModel
+@{
+    ViewBag.Title = "Thêm sản phẩm";
+    Layout = "../Shared/_LayoutSidebar.cshtml";
+    KNT_ShopDB db = new KNT_ShopDB();
+    var loaiSP = db.LoaiSanPhams.ToList();
+}
+
+@using (@Html.BeginForm())
+{
+    @Html.LabelFor(x=>x.TenSanPham, new {@class = "form-control"})
+    @Html.TextBoxFor(x=>x.TenSanPham, new {@class = "form-control", @required = "required"})
+    @Html.LabelFor(x=>x.HinhAnh, new {@class = "form-control"})
+    @Html.TextBoxFor(x=>x.HinhAnh, new {@class = "form-control", @required = "required"})
+    @* @Html.LabelFor(x=>x.Gia, new {@class = "form-control"}) *@
+    @* @Html.TextBoxFor(x=>x.Gia, new {@class = "form-control", @required = "required"}) *@
+    <label for="loaiSP" class="form-control">Loai San pham</label>
+    @Html.DropDownListFor(x=>x.LoaiSanPham.TenLoaiSanPham, new SelectList(loaiSP, "TenLoaiSanPham", "TenLoaiSanPham"), new {@class = "form-control", @required = "required", @id="loaiSP"})
+    @Html.LabelFor(x=>x.SoLuong, new {@class = "form-control"})
+    @Html.TextBoxFor(x=>x.SoLuong, new {@class = "form-control", @required = "required"})
+    <button class="btn btn-primary">Add</button>
+}
+
+

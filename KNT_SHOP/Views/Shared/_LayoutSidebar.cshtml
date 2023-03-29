@@ -24,6 +24,7 @@
     var urlCart = Url.Action("Index", "Cart");
     var urlLogin = Url.Action("Index", "Login");
     var urlRegister = Url.Action("Register", "Login");
+    var urlAdd = Url.Action("Add", "Product");
 }
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
     <!-- Navbar Brand-->
@@ -43,6 +44,14 @@
     @* </form> *@
 
 
+    
+    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <button type="button" class="btn btn-primary" onclick="Add()">
+                @* <i href="@urlCart" class="fa-solid fa-cart-shopping"></i> *@
+                <i href="@urlAdd" class="fa-solid fa-plus"></i>
+                Thêm Sản Phẩm
+            </button>
+        </div>
     <!-- Navbar Cart-->
     <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <button type="button" class="btn btn-primary" onclick="OpenCart()">

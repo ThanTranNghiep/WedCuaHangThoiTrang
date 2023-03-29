@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using KNT_SHOP.Models;
+using KNT_SHOP.Models.ViewModel;
 
 namespace KNT_SHOP.Controllers;
 
@@ -46,10 +47,10 @@ public class ProductController : Controller
                     TrangThai = 0
                 });
             }
-
+    
             db.SaveChanges();
         }
-
+    
         return RedirectToAction("SanPham", "Product");
     }
 
@@ -183,39 +184,27 @@ public class ProductController : Controller
             return View("AddPrice",giaNull);
         }
     }
-    
-    // [HttpPost]
-    // public ActionResult AddNewPrice(int id, decimal price)
-    // {
-    //     KNT_ShopDB db = new KNT_ShopDB();
-    //     var bangGia = db.BangGias.FirstOrDefault(x => x.MaSanPham == id);
-    //     if (bangGia != null)
-    //     {
-    //         // bảng giá có tồn tại ngày hiện tại thì update giá
-    //         var giaBan = db.BangGias.FirstOrDefault(x => x.MaSanPham == id && x.NgayCapNhat.Value.Day == DateTime.Now.Day &&
-    //                                                     x.NgayCapNhat.Value.Month == DateTime.Now.Month &&
-    //                                                     x.NgayCapNhat.Value.Year == DateTime.Now.Year);
-    //         if (giaBan != null)
-    //         {
-    //             giaBan.GiaBan = price;
-    //             db.SaveChanges();
-    //             return View("AddPrice",bangGia);
-    //         }
-    //         else
-    //         {
-    //             BangGia gia = new BangGia();
-    //             gia.MaSanPham = id;
-    //             gia.GiaBan = price;
-    //             gia.NgayCapNhat = DateTime.Now;
-    //             db.BangGias.Add(gia);
-    //             db.SaveChanges();
-    //             return View("AddPrice",bangGia);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         BangGia giaNull = new BangGia();
-    //         return View("AddPrice",giaNull);
-    //     }
-    // }
+    public ActionResult Add()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public ActionResult Add(SanPhamModel sanPham)
+    {
+        if (sanPham != null)
+        {
+            KNT_ShopDB db = new KNT_ShopDB();
+            SanPham sp = new SanPham()
+            {
+                TenSanPham = sanPham.TenSanPham,
+                HinhAnh = sanPham.HinhAnh,
+                SoLuongTon = sanPham.SoLuong,
+                LoaiSanPham = sanPham.LoaiSanPham
+            };
+            db.SanPhams.Add(sp);
+            db.SaveChanges();
+        }
+        return View("SanPham");
+    }
 }
