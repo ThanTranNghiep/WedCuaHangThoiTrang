@@ -1,0 +1,67 @@
+﻿@using System.Drawing
+@using System.Globalization
+@using KNT_Shop.Models
+@using KNT_SHOP.Models
+@using KNT_SHOP.Models.Chart
+@using Newtonsoft.Json
+@using Point = KNT_SHOP.Models.Chart.Point
+@* @using Point = System.Drawing.Point *@
+@* @model dynamic *@
+
+@{
+    ViewBag.Title = "Thống kê doanh thu";
+    Layout = "../Shared/_LayoutSidebar.cshtml";
+    
+    KNT_ShopDB db = new KNT_ShopDB();
+    var listNgayLapHoaDon = db.HoaDons.Select(x => x.NgayLapHoaDon).Distinct().ToList();
+    List<Point> data = new List<Point>();
+	var point = JsonConvert.SerializeObject(data);
+}
+
+
+@foreach (var item in listNgayLapHoaDon)
+{
+    <span>Ngay: @item.ToString().Split(' ')[0]</span>
+    
+    var tongTien = db.HoaDons.Where(x=>x.NgayLapHoaDon == item)
+        .Sum(x => x.ChiTietHoaDons
+            .Sum(y=>y.SoLuong * y.DonGia));
+    <span>@tongTien</span>
+    <br/>
+    data.Add(new Point(item.ToString().Split(' ')[0], tongTien));
+}
+
+
+
+<script>
+	window.onload = function () {
+	 
+	var chart = new CanvasJS.Chart("chartContainer", {
+		animationEnabled: true,
+		title: {
+			text: "BIỂU ĐỒ DOANH THU"
+		},
+		toolTip: {
+			shared: true
+		},
+		data: [{
+			type: "line",
+			name: "Tổng tiền",
+			showInLegend: true,
+			dataPoints: @Html.Raw(@ViewBag.DataPoints)
+		}],
+		axisX: {
+			valueFormatString: "DD MMM,YY",
+			title: "Ngày"
+		},
+		axisY: {
+			prefix: "$",
+			title: "Doanh thu"
+		},
+	});
+	chart.render();
+ }
+</script>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	
+

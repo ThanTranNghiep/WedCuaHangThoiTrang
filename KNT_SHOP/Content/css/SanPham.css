@@ -2,7 +2,6 @@
     width: 200px; 
     height: 200px;
     cursor: pointer;
-
 }
 .sanpham:hover{
     box-shadow: 0 0 20px #6610f2;

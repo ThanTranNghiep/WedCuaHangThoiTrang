@@ -1,7 +1,8 @@
-﻿using KNT_SHOP.Models.Cryptography;
+﻿
 using System.Web.Mvc;
+using KNT_Shop.Models.Cryptography;
 
-namespace KNT_SHOP.Models.SessionModel;
+namespace KNT_Shop.Models.SessionModel;
 
 public class SessionModel: Controller
 {

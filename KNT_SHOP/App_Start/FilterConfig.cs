@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace KNT_SHOP
+namespace KNT_Shop
 {
     public class FilterConfig
     {

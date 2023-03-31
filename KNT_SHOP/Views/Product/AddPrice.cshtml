@@ -1,6 +1,7 @@
-﻿@using KNT_SHOP.Models
+﻿@using KNT_Shop.Models
+@using KNT_SHOP.Models
 @using Newtonsoft.Json
-@model KNT_SHOP.Models.BangGia
+@model KNT_Shop.Models.BangGia
 
 @{
     ViewBag.Title = "Thêm giá sản phẩm";
@@ -11,13 +12,20 @@
     var listGia = db.BangGias.Where(x => x.MaSanPham == @bangGia.MaSanPham).ToList();
 }
 <script src="~/Content/js/Product.js"></script>
-
+<br/>
 @if (@bangGia.MaGia != null)
 {
-    <div class="input-group mb-3">
-        <input id="Price" type="number" min="10000" class="form-control" placeholder="New price, please...">
-        <button class="btn btn-success" type="button" id="button-addon2" onclick="AddNewPrice(@bangGia.MaGia)">Thêm Giá</button>
-    </div>
+    using (@Html.BeginForm("AddNewPrice","Product"))
+    {   @Html.TextBoxFor(x=>x.MaGia, new { @required = "required", @readonly = "readonly", @hidden = "hidden" })
+        <div class="input-group mb-3">
+            <input name="GiaBan" id="Price" type="number" min="10000" class="form-control" placeholder="New price, please...">
+            <button class="btn btn-success" type="button" id="button-addon2" onclick="AddNewPrice()">Thêm Giá</button>
+        </div>
+    }
+    @* <div class="input-group mb-3"> *@
+    @*     <input id="Price" type="number" min="10000" class="form-control" placeholder="New price, please..."> *@
+    @*     <button class="btn btn-success" type="button" id="button-addon2" onclick="AddNewPrice(@bangGia.MaGia)">Thêm Giá</button> *@
+    @* </div> *@
     
     <hr class="my-5"/>
     <h4>Danh sách giá của sản phẩm</h4>
@@ -66,3 +74,12 @@ else
         <strong>Không tìm thấy giá sản phẩm!</strong>
     </div>
 }
+<div class="pt-5">
+    <h6 class="mb-0">
+        <a href="https://localhost:44376/Product/ListSanPham" class=" text-xl-start">
+            <i
+                class="fas fa-long-arrow-alt-left me-2">
+            </i>Back to shop
+        </a>
+    </h6>
+</div>

@@ -1,4 +1,4 @@
-﻿namespace KNT_SHOP.Models.ViewModel
+﻿namespace KNT_Shop.Models.ViewModel
 {
     public class GenderAccount
     {

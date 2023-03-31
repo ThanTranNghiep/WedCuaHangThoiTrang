@@ -1,4 +1,4 @@
-namespace KNT_SHOP.Models
+namespace KNT_Shop.Models
 {
     using System;
     using System.Collections.Generic;

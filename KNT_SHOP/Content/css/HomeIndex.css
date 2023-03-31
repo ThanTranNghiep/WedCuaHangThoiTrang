@@ -25,3 +25,22 @@
 .slider-wrapper > .slide:first-child {
     opacity: 1;
 }
+
+/*========================*/
+.sanpham{
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+}
+.sanpham:hover{
+    box-shadow: 0 0 20px #6610f2;
+    -webkit-box-shadow: 0 0 20px #6610f2;
+    -moz-box-shadow: 0 0 20px #6610f2;
+    -o-box-shadow: 0 0 20px #6610f2;
+    -ms-box-shadow: 0 0 20px #6610f2;
+    border-radius: 20px;
+}
+.col-sanpham{
+    margin-bottom: 20px;
+}
+/*========================*/

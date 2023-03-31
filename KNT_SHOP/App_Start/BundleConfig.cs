@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace KNT_SHOP
+namespace KNT_Shop
 {
     public class BundleConfig
     {

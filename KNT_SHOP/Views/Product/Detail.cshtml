@@ -1,5 +1,6 @@
-﻿@using KNT_SHOP.Models
-@model KNT_SHOP.Models.SanPham
+﻿@using KNT_Shop.Models
+@using KNT_SHOP.Models
+@model KNT_Shop.Models.SanPham
 
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
@@ -24,12 +25,12 @@
         <div class="container px-4 px-lg-5 my-5">
             <form class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                    <img class="card-img-top mb-5 mb-md-0" src="@Model.HinhAnh" alt="..."/>
+                    <img class="img-thumbnail" src="@Model.HinhAnh" alt="..."/>
                     @* @Html.DisplayFor(@model=>@model.HinhAnh, new { @class = "card-img-top mb-5 mb-md-0" }) *@
                 </div>
                 <div class="col-md-6">
                     <div class="small mb-1">MSP: @Model.MaSanPham<span></span></div>
-                    <h1 class="display-5 fw-bolder">@Model.TenSanPham</h1>
+                    <h5 class="display-5 fw-bolder">@Model.TenSanPham</h5>
                     <div class="fs-5 mb-5">
                         <span class="text-decoration-line-through" style="color: red;">$45.00</span>
                         <span style="color: blue;">@Gia VNĐ</span>
@@ -58,7 +59,7 @@
         </div>
         <div class="pt-5">
             <h6 class="mb-0">
-                <a href="https://localhost:44376/Product/SanPham" class=" text-xl-start">
+                <a href="/Product/SanPham" class=" text-xl-start">
                     <i
                         class="fas fa-long-arrow-alt-left me-2">
                     </i>Back to shop

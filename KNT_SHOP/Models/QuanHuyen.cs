@@ -1,6 +1,5 @@
-namespace KNT_SHOP.Models
+namespace KNT_Shop.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -12,7 +11,8 @@ namespace KNT_SHOP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public QuanHuyen()
         {
-            TaiKhoans = new HashSet<TaiKhoan>();
+            //TaiKhoans = new HashSet<TaiKhoan>();
+            ApplicationUsers = new HashSet<ApplicationUser>();
         }
 
         [Key]
@@ -30,6 +30,7 @@ namespace KNT_SHOP.Models
         public virtual Tinh_TP Tinh_TP { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TaiKhoan> TaiKhoans { get; set; }
+        //public virtual ICollection<TaiKhoan> TaiKhoans { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

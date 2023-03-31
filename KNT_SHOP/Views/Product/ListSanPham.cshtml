@@ -1,13 +1,17 @@
 ﻿@model List<SanPham>
+@using System.Globalization
+@using System.Linq
+@using KNT_Shop.Models
 @using KNT_SHOP.Models
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Danh sách sản phẩm";
     // Layout = "../Shared/_Layout.cshtml";
     Layout = "../Shared/_LayoutSidebar.cshtml";
     var sanpham = Model;
-    var user = Session["username"];
+    string username = User.Identity.GetUserId();
     KNT_ShopDB db = new KNT_ShopDB();
-    var rule = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == user.ToString().Trim()).Rule;
+    var rule = db.Users.FirstOrDefault(x => x.Id == username.ToString().Trim()).Rule;
 }
 
 
@@ -28,8 +32,8 @@
             </div>
         }
         <div class="col col-lg-2 d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <i class="fa-solid fa-table-cells" id="table-icon" style="box-shadow:0 3px #b02a37; cursor: pointer;" onclick="TableIcon()"></i>
-            <i class="fa-solid fa-list" id="list-icons" style=" cursor: pointer;" onclick="ListIcon()"></i>
+            <i class="fa-solid fa-table-cells" id="table-icon" style=" cursor: pointer;" onclick="TableIcon()"></i>
+            <i class="fa-solid fa-list" id="list-icons" style=" cursor: pointer;box-shadow:0 3px #b02a37;" onclick="ListIcon()"></i>
         </div>
     </div>
     <hr class="my-2"/>
@@ -90,8 +94,11 @@
                     {
                         <div class="col">
                             <label>
-                                <span style="color: red">@gia.GiaBan.ToString().Split(',')[0] VNĐ</span>
+                                <span style="color: red">@gia.GiaBan.ToString("C3",CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
                             </label>
+                        </div>
+                        <div class="col">
+                            <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
                         </div>
                     }
                     else
@@ -101,10 +108,11 @@
                                 <span style="color: red">Chưa cập nhật</span>
                             </label>
                         </div>
+                        <div class="col">
+                            <button id="btn-buy" class="btn btn-success" onclick="this.alert('Chưa thể mua')">Mua Hàng</button>
+                        </div>
                     }
-                    <div class="col">
-                        <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
-                    </div>
+                    
                     @if (@rule == true)
                     {
                         <div class="col">
@@ -135,88 +143,6 @@
             }
 
         </div>
-
-
-        @* <table class="table table-success table-striped"> *@
-        @*     <thead> *@
-        @*     <tr> *@
-        @*         <th scope="col">STT</th> *@
-        @*         <th scope="col">HÌNH ẢNH</th> *@
-        @*         <th scope="col">TÊN SẢN PHẨM</th> *@
-        @*         <th scope="col">GIÁ</th> *@
-        @*         <th scope="col"></th> *@
-        @*         <th scope="col"></th> *@
-        @*         <th scope="col"></th> *@
-        @*     </tr> *@
-        @*     </thead> *@
-        @*     <tbody> *@
-        @*     @{ *@
-        @*         int stt = 1; *@
-        @*     } *@
-        @*     @foreach (var item in sanpham) *@
-        @*     { *@
-        @*         <tr> *@
-        @*             <th scope="row">@stt</th> *@
-        @*             <td class="col-md-2 col-lg-2 col-xl-2"> *@
-        @*                 <img class="sanpham" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)"> *@
-        @*             </td> *@
-        @*             <td> *@
-        @*                 <label class="form-label">@item.TenSanPham</label> *@
-        @*             </td> *@
-        @* *@
-        @*             @{ *@
-        @*                 var gia = db.BangGias.Where(x => x.MaSanPham == @item.MaSanPham).OrderByDescending(x => x.NgayCapNhat).FirstOrDefault(); *@
-        @*             } *@
-        @*             @if (@gia != null) *@
-        @*             { *@
-        @*                 <td> *@
-        @*                     <label> *@
-        @*                         <span style="color: red">@gia.GiaBan.ToString().Split(',')[0] VNĐ</span> *@
-        @*                     </label> *@
-        @*                 </td> *@
-        @*             } *@
-        @*             else *@
-        @*             { *@
-        @*                 <td> *@
-        @*                     <label> *@
-        @*                         <span style="color: red">Chưa cập nhật</span> *@
-        @*                     </label> *@
-        @*                 </td> *@
-        @*             } *@
-        @*             <td> *@
-        @*                 <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button> *@
-        @*             </td> *@
-        @*             @if (@rule == true) *@
-        @*             { *@
-        @*                 <td> *@
-        @*                     <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)"> *@
-        @*                         <i class="fa-solid fa-circle-info"></i> *@
-        @*                     </button> *@
-        @*                 </td> *@
-        @*                 <td> *@
-        @*                     <button class="btn btn-primary" onclick="AddPrice(@item.MaSanPham)"> *@
-        @*                         Thêm Giá *@
-        @*                         <i class="fa-solid fa-circle-plus"></i> *@
-        @*                     </button> *@
-        @*                 </td> *@
-        @*             } *@
-        @*             else *@
-        @*             { *@
-        @*                 <td> *@
-        @*                     <button id="btn-detail" class="btn btn-warning" onclick="ImgToDetail(@item.MaSanPham)"> *@
-        @*                         <i class="fa-solid fa-circle-info"></i> *@
-        @*                     </button> *@
-        @*                 </td> *@
-        @*                 <td> *@
-        @* *@
-        @*                 </td> *@
-        @*             } *@
-        @* *@
-        @*         </tr> *@
-        @*         stt++; *@
-        @*     } *@
-        @*     </tbody> *@
-        @* </table> *@
 
 
     </div>

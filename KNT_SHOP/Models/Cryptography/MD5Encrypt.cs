@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace KNT_SHOP.Models.Cryptography;
+namespace KNT_Shop.Models.Cryptography;
 
 public class MD5Encrypt
 {

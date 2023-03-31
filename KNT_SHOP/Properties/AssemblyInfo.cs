@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KNT_SHOP")]
+[assembly: AssemblyTitle("KNT_Shop")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KNT_SHOP")]
+[assembly: AssemblyProduct("KNT_Shop")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a27c680a-b59f-4e8d-8b36-809e7f36b093")]
+[assembly: Guid("c6759658-8751-4b21-b4ee-eeeab66b8397")]
 
 // Version information for an assembly consists of the following four values:
 //

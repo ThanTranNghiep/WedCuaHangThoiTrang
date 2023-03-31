@@ -1,20 +1,20 @@
-﻿function ImgToDetail(id){
+﻿function ImgToDetail(id) {
     window.location.href = "/Product/Detail/" + id;
 }
 
-function ListIcon(){
+function ListIcon() {
     window.location.href = "/Product/ListSanPham";
 }
-function TableIcon(){
+
+function TableIcon() {
     window.location.href = "/Product/SanPham";
 }
 
-function AddToCart(id){
+function AddToCart(id) {
     var confirm = window.confirm("Bạn có muốn thêm sản phẩm này vào giỏ hàng?");
-    if (confirm === true)
-    {
+    if (confirm === true) {
         window.location.href = "/Product/AddToCart?id=" + id;
-    }    
+    }
 }
 
 function EditProductDetail(id) {
@@ -34,10 +34,24 @@ function EditProduct() {
         console.log("Account is now editable");
     }
 }
+
 function AddPrice(id) {
-    window.location.href = "/Product/AddPrice?id=" + id;    
+    window.location.href = "/Product/AddPrice?id=" + id;
 }
-function AddNewPrice(id) {
+
+function AddNewPrice() {
     const priceInput = document.getElementById("Price");
-    window.location.href = "/Product/AddNewPrice?id=" + id + "&price=" + priceInput.value;
+    let price = parseInt(priceInput.value)
+    if (isNaN(price) || priceInput.value === "" || priceInput.value === null) 
+    {
+        alert("Giá phải là số");
+    } else {
+        btn = document.getElementById("button-addon2");
+        btn.type = "submit";
+        btn.submit();
+    }
+}
+
+function Add() {
+    window.location.href = "/Product/Add";
 }

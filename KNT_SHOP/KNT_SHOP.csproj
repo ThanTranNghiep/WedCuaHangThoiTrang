@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,17 +9,17 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2F4CE270-1661-4113-AC37-A71DCE8B6B39}</ProjectGuid>
+    <ProjectGuid>{E115EB90-34D7-4EAA-9483-80D23FBF9961}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KNT_SHOP</RootNamespace>
-    <AssemblyName>KNT_SHOP</AssemblyName>
+    <RootNamespace>KNT_Shop</RootNamespace>
+    <AssemblyName>KNT_Shop</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44376</IISExpressSSLPort>
+    <IISExpressSSLPort>44318</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -47,24 +47,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.UserSecrets, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -140,6 +127,51 @@
     <Reference Include="System.Web.Http.WebHost">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.2.2\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.2.2\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.2.2\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.2.2\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -147,20 +179,36 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AllowCrossSiteJsonAttribute.cs" />
+    <Compile Include="Controllers\API\AddToCartController.cs" />
     <Compile Include="Controllers\API\HoaDonController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303310950449_InitialModel.cs" />
+    <Compile Include="Migrations\202303310950449_InitialModel.designer.cs">
+      <DependentUpon>202303310950449_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303311059116_initAllModel.cs" />
+    <Compile Include="Migrations\202303311059116_initAllModel.designer.cs">
+      <DependentUpon>202303311059116_initAllModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BangGia.cs" />
+    <Compile Include="Models\Chart\Point.cs" />
     <Compile Include="Models\ChiTietGioHang.cs" />
     <Compile Include="Models\ChiTietHoaDon.cs" />
     <Compile Include="Models\ChiTiet_NhapHang.cs" />
@@ -170,14 +218,17 @@
     <Compile Include="Models\HoaDonNhapHang.cs" />
     <Compile Include="Models\KNT_ShopDB.cs" />
     <Compile Include="Models\LoaiSanPham.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NhaSanXuat.cs" />
     <Compile Include="Models\QuanHuyen.cs" />
     <Compile Include="Models\SanPham.cs" />
-    <Compile Include="Models\TaiKhoan.cs" />
+    <Compile Include="Models\SessionModel\SessionModel.cs" />
     <Compile Include="Models\Tinh_TP.cs" />
     <Compile Include="Models\ViewModel\GenderAccount.cs" />
+    <Compile Include="Models\ViewModel\ResponeJson.cs" />
     <Compile Include="Models\ViewModel\SanPhamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -196,12 +247,14 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\about.css" />
     <Content Include="Content\css\Cart.css" />
     <Content Include="Content\css\header_footer_layout.css" />
     <Content Include="Content\css\HomeIndex.css" />
     <Content Include="Content\css\layoutSidebar.css" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\SanPham.css" />
+    <Content Include="Content\img\pexels-photo.jpeg" />
     <Content Include="Content\img\SanPham\BeeCost.jpg" />
     <Content Include="Content\img\SanPham\Nam\Hat\Adidas luoitrai.jpg" />
     <Content Include="Content\img\SanPham\Nam\Hat\BeeCost.jpg" />
@@ -223,6 +276,7 @@
     <Content Include="Content\img\SanPham\Nam\Hat\Neo381.jpg" />
     <Content Include="Content\img\SanPham\Nam\Hat\NonNamDaCuu.jpg" />
     <Content Include="Content\img\SanPham\Nam\Hat\Snapback Advisory.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao coton day.png" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao form rong tay lo.png" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao hoodie.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao khoac gio.jpg" />
@@ -230,15 +284,23 @@
     <Content Include="Content\img\SanPham\Nam\Shirt\ao khoac nam.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao khoat.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao nam cong so.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao nam cong so.png" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao nam hieu tomy.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao nam thoi tran.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao polo nam.png" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao polo.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao so mi don gian.png" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao so mi tay dai.png" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao tay dai.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao tee trang.png" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun basic.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun co co.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun form rong.png" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun Local brand.png" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun nam co co.png" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun nam.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun tay dai.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun tre trung.png" />
     <Content Include="Content\img\SanPham\Nam\Shirt\Ao thun.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\AoBolo.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\AoSoMi.jpg" />
@@ -247,25 +309,34 @@
     <Content Include="Content\img\SanPham\Nam\Shirt\AoThunPiereCardin.jpg" />
     <Content Include="Content\img\SanPham\Nam\Shirt\hoodie bassic.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan  short jean.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\Quan au.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan Boxer.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\Quan dui nam.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan jean dach.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan jean nam cao cap.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan jean nam.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan jean.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\quan jeans regular.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\quan jeans xanh.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\quan jogger.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan kaki.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan nam.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan rach nam.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan short co day.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan short don gian.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\Quan short gio.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan short kaki.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan short nam the duc.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan short nam.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\Quan short ni.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan short rach.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan short the thao.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan short.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\quan sot tre trung.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan tay nam.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan tay.jpg" />
     <Content Include="Content\img\SanPham\Nam\Trouser\Quan the thao.jpg" />
+    <Content Include="Content\img\SanPham\Nam\Trouser\Quan đùi.jpg" />
     <Content Include="Content\img\SanPham\Nu\Hat\Mu Adidas.jpg" />
     <Content Include="Content\img\SanPham\Nu\Hat\Mu len.jpg" />
     <Content Include="Content\img\SanPham\Nu\Hat\Mu nu.jpg" />
@@ -316,7 +387,16 @@
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short nu.jpg" />
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short ong rong.jpg" />
     <Content Include="Content\img\SanPham\Nu\Trouser\Quan short.jpg" />
+    <Content Include="Content\img\slideHome\1.jpg" />
+    <Content Include="Content\img\slideHome\2.jpg" />
+    <Content Include="Content\img\slideHome\3.jpg" />
+    <Content Include="Content\img\slideHome\4.jpg" />
+    <Content Include="Content\img\slideHome\5.jpg" />
+    <Content Include="Content\img\TacGia\khoa.jpg" />
+    <Content Include="Content\img\TacGia\nghiep.jpg" />
+    <Content Include="Content\img\TacGia\toan.jpg" />
     <Content Include="Content\js\Account.js" />
+    <Content Include="Content\js\AddToCart.js" />
     <Content Include="Content\js\Cart.js" />
     <Content Include="Content\js\Details.js" />
     <Content Include="Content\js\Dialog.js" />
@@ -327,6 +407,7 @@
     <Content Include="Content\js\login.js" />
     <Content Include="Content\js\Product.js" />
     <Content Include="Content\js\Register.js" />
+    <Content Include="Content\js\TrangThaiGiaoHang.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -347,16 +428,18 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Chart\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Invoice\Details.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
-    <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Product\AddPrice.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\ListSanPham.cshtml" />
     <Content Include="Views\Product\SanPham.cshtml" />
-    <Content Include="Views\Shared\StateInvoice.cshtml" />
+    <Content Include="Views\Shared\_LayoutSidebar.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -370,15 +453,30 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Product\Detail.cshtml" />
-    <Content Include="Views\Shared\_LayoutSidebar.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\img\App_LocalResources\" />
-    <Folder Include="Content\img\slideHome\" />
+    <Folder Include="Content\img\App_LocalResources" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -407,6 +505,14 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202303310950449_InitialModel.resx">
+      <DependentUpon>202303310950449_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303311059116_initAllModel.resx">
+      <DependentUpon>202303311059116_initAllModel.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -423,9 +529,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51843</DevelopmentServerPort>
+          <DevelopmentServerPort>58388</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44376/</IISUrl>
+          <IISUrl>https://localhost:44318/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -439,11 +545,11 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

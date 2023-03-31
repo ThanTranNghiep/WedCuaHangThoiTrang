@@ -1,4 +1,7 @@
-﻿@using KNT_SHOP.Models
+﻿@using System.Globalization
+@using KNT_Shop.Models
+@using KNT_SHOP.Models
+@using Microsoft.AspNet.Identity
 @model List<HoaDon>
 
 @{
@@ -6,6 +9,10 @@
     // Layout = "../Shared/_Layout.cshtml";
     Layout = "../Shared/_LayoutSidebar.cshtml";
     var list = Model;
+    var user = User.Identity.GetUserId();
+    KNT_ShopDB db = new KNT_ShopDB();
+    var listUser = db.Users.ToList();
+    var taiKhoan = db.Users.FirstOrDefault(x => x.Id == user);
 }
 <div class="container py-5 h-100">
     <link rel="stylesheet" href="../../Content/css/Cart.css"/>
@@ -20,25 +27,22 @@
                                 @* <div class="d-flex justify-content-between align-items-center mb-5"> *@
                                 @*     <h6 class="fw-bold mb-0 text-black">Danh Sách Hoá Đơn</h6> *@
                                 @* </div> *@
-
                                 <div class="container text-center">
                                     <div class="row">
                                         <div class="col">
                                             <h6 class="fw-bold mb-0 text-black">Danh Sách Hoá Đơn</h6>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            @{
-                                                KNT_ShopDB db = new KNT_ShopDB();
-                                                var listUser = db.TaiKhoans.ToList();
-                                            }
-                                            @Html.DropDownListFor(x => listUser,
-                                                new SelectList(listUser, "TenTaiKhoan", "TenTaiKhoan"),"Chọn user",
-                                                new { @class = "form-select form-select-sm text-center" })
-
+                                    @if (taiKhoan != null && taiKhoan.Rule == true)
+                                    {
+                                        <div class="row">
+                                            <div class="col">
+                                                @Html.DropDownListFor(x => listUser,
+                                                    new SelectList(listUser, "Id", "Name"), "Chọn user",
+                                                    new { @class = "form-select form-select-sm text-center", @id = "invoiceItem", @onchange = "fillToInvoice()" })
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                                 <br/>
                                 <table class="table table-primary table-striped">
@@ -56,7 +60,10 @@
                                         <tr style="cursor: pointer">
                                             <th scope="row">@item.MaHoaDon</th>
                                             <td>@item.NgayLapHoaDon.ToString().Trim().Split(' ')[0]</td>
-                                            <td>@item.TenTaiKhoan</td>
+                                            @{
+                                                var userItem = db.Users.FirstOrDefault(x => x.Id == item.Id);
+                                            }
+                                            <td>@userItem.Name</td>
                                             <td class="text-end">
                                                 <i class="fa-solid fa-circle-info" onclick="InvoiceDetail(@item.MaHoaDon)"></i>
                                             </td>
@@ -74,8 +81,8 @@
                                 @* begin *@
                                 @foreach (var item in list)
                                 {
-                                    <div class="container text-center text-primary">
-                                        <div class="row">
+                                    <div class="container text-center ">
+                                        <div class="row text-primary">
                                             <div class="col">
                                                 <span>Hoá đơn: </span> @item.MaHoaDon
                                             </div>
@@ -83,8 +90,58 @@
                                                 <span>Ngày lập: </span> @item.NgayLapHoaDon.ToString().Trim().Split(' ')[0]
                                             </div>
                                             <div class="col">
-                                                <span>Tên khách hàng: </span> @item.TenTaiKhoan
+                                                @{
+                                                    var account = db.Users.FirstOrDefault(x => x.Id == item.Id);
+                                                }
+                                                <span>Tên khách hàng: </span> @account.Name
                                             </div>
+                                        </div>
+                                        <div class="row text-success">
+                                            @{
+                                                var chiTiet = db.ChiTietHoaDons.FirstOrDefault(x => x.MaHoaDon == item.MaHoaDon);
+                                                if (chiTiet != null)
+                                                {
+                                                    int state = int.Parse(chiTiet.TrangThaiGiaoHang.ToString());
+                                                    switch (state)
+                                                    {
+                                                        case 0:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đang chờ xử lý
+                                                            </div>
+                                                            break;
+                                                        }
+                                                        case 1:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đã lấy hàng
+                                                            </div>
+                                                            break;
+                                                        }
+                                                        case 2:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đang giao hàng
+                                                            </div>
+                                                            break;
+                                                        }
+                                                        case 3:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đã giao hàng
+                                                            </div>
+                                                            break;
+                                                        }
+                                                        default:
+                                                        {
+                                                            <div class="col">
+                                                                <span>Trạng thái: </span> Đã giao hàng
+                                                            </div>
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         </div>
                                     </div>
                                     <hr class="my-4">
@@ -109,7 +166,10 @@
                                                        class="form-control form-control-sm text-center" readonly="readonly"/>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0">@temp.DonGia.ToString().Split(',')[0] VNĐ</h6>
+                                                @{
+                                                    var gia = @temp.DonGia * @temp.SoLuong;
+                                                }
+                                                <h6 class="mb-0">@gia.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ</h6>
                                             </div>
                                             @* <div class="col-md-1 col-lg-1 col-xl-1 text-end"> *@
                                             @*     <a href="#!" class="text-muted"> *@
@@ -125,7 +185,7 @@
                                                 Tổng tiền hoá đơn:
                                             </div>
                                             <div class="col">
-                                                @total.ToString().Split(',')[0] VNĐ
+                                                @total.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +199,7 @@
             </div>
             <div class="pt-5">
                 <h6 class="mb-0">
-                    <a href="https://localhost:44376/Product/SanPham" class=" text-xl-start">
+                    <a href="/Product/SanPham" class=" text-xl-start">
                         <i
                             class="fas fa-long-arrow-alt-left me-2">
                         </i>Back to shop

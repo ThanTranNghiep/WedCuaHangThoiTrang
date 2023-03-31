@@ -2,7 +2,7 @@
 function RegisterClick(){    
    
     //    // window.location.replace("https://localhost:44376/Login/Register") 
-    window.location.href = "https://localhost:44376/Login/Register";
+    window.location.href = "/Account/Register";
 }
 function Register()
 {

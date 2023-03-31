@@ -38,3 +38,6 @@ window.addEventListener('DOMContentLoaded', event => {
 function OpenCart() {
     window.location.href = "/Cart/Index";
 }
+function Add() {
+    window.location.href = "/Product/Add";
+}

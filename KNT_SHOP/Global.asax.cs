@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace KNT_SHOP
+namespace KNT_Shop
 {
     public class MvcApplication : System.Web.HttpApplication
     {

@@ -1,15 +1,24 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using KNT_SHOP.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 
-namespace KNT_SHOP.Models
+namespace KNT_Shop.Models
 {
-    public partial class KNT_ShopDB : DbContext
+    public class KNT_ShopDB : IdentityDbContext<ApplicationUser>
     {
+
         public KNT_ShopDB()
-            : base("name=KNT_ShopDB")
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
+        }
+
+        public static KNT_ShopDB Create()
+        {
+            return new KNT_ShopDB();
         }
 
         public virtual DbSet<BangGia> BangGias { get; set; }
@@ -23,7 +32,7 @@ namespace KNT_SHOP.Models
         public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; }
         public virtual DbSet<QuanHuyen> QuanHuyens { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
-        public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
+        //public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<Tinh_TP> Tinh_TP { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -45,11 +54,11 @@ namespace KNT_SHOP.Models
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<GioHang>()
-                .Property(e => e.TenTaiKhoan)
+                .Property(e => e.Id)
                 .IsUnicode(false);
 
             modelBuilder.Entity<HoaDon>()
-                .Property(e => e.TenTaiKhoan)
+                .Property(e => e.Id)
                 .IsUnicode(false);
 
             modelBuilder.Entity<HoaDonNhapHang>()
@@ -75,26 +84,18 @@ namespace KNT_SHOP.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<QuanHuyen>()
-                .HasMany(e => e.TaiKhoans)
+                .HasMany(e => e.ApplicationUsers)
                 .WithOptional(e => e.QuanHuyen)
                 .WillCascadeOnDelete();
 
-            modelBuilder.Entity<TaiKhoan>()
-                .Property(e => e.TenTaiKhoan)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TaiKhoan>()
-                .Property(e => e.SĐT)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TaiKhoan>()
+            modelBuilder.Entity<ApplicationUser>()
                 .Property(e => e.MaQuan_Huyen)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Tinh_TP>()
                 .Property(e => e.MaTinh_ThanhPho)
                 .IsUnicode(false);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

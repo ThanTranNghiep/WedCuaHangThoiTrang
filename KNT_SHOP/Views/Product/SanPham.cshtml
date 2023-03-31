@@ -1,4 +1,6 @@
-﻿@using KNT_SHOP.Models
+﻿@using System.Globalization
+@using KNT_Shop.Models
+@using KNT_SHOP.Models
 @model List<SanPham>
 
 @{
@@ -50,6 +52,7 @@
     <div class="container text-center">
         <div class="row align-items-start">
             <script src="~/Content/js/Product.js"></script>
+            @* <script src="~/Content/js/AddToCart.js"></script> *@
             @foreach (var item in sanpham)
             {
                 <div class="col col-sanpham">
@@ -66,56 +69,72 @@
                             </td>
                         </tr>
                         <tr>
-                            @{
-                                bool flag = false;
-                                var gia = db.BangGias.Where(x => x.MaSanPham == item.MaSanPham)
-                                    .OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
-                            }
-                            @if (@gia != null)
-                            {
+                            <td>
+                                <label class="form-label text-primary">Còn lại: @item.SoLuongTon</label>
+                            </td>
+                        </tr>
+
+                        @{
+                            bool flag = false;
+                            var gia = db.BangGias.Where(x => x.MaSanPham == item.MaSanPham)
+                                .OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
+                        }
+                        @if (@gia != null)
+                        {
+                            <tr>
                                 <td>
                                     <label>
-                                        <span style="color: red">@gia.GiaBan.ToString().Split(',')[0] VNĐ</span>
+                                        <span style="color: red">@gia.GiaBan.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
                                     </label>
                                 </td>
-                            }
-                            else
-                            {
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button data-sanpham-id="@item.MaSanPham" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
                                 <td>
                                     <label>
                                         <span style="color: red">Chưa cập nhật</span>
                                     </label>
                                 </td>
-                            }
-                            @* @foreach (var i in GiaBan) *@
-                            @* { *@
-                            @*     if (i.MaSanPham == item.MaSanPham) *@
-                            @*     { *@
-                            @*         flag = true; *@
-                            @*         <td> *@
-                            @*             <label> *@
-                            @*                 <span style="color: red">@i.GiaBan.ToString().Split(',')[0] VNĐ</span> *@
-                            @*             </label> *@
-                            @*         </td> *@
-                            @*     } *@
-                            @* } *@
-                            @* @if (flag == false) *@
-                            @* { *@
-                            @*     <td> *@
-                            @*         <label> *@
-                            @*             <span style="color: red">Chưa cập nhật</span> *@
-                            @*         </label> *@
-                            @*     </td> *@
-                            @* } *@
-                        </tr>
-                        <tr>
-                            <td>
-                                <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
-                            </td>
-                        </tr>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-success" onclick="this.alert('Chưa thể mua')">Mua Hàng</button>
+                                </td>
+                            </tr>
+                        }
+
                     </table>
                 </div>
             }
         </div>
     </div>
 </div>
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+        $(".btn-buy").click(function (e) {
+            alert("================")
+            var button = $(e.target);
+            $.post("/api/AddToCart", {
+                MaSanPham: button.attr("data-sanpham-id")
+            })
+                .done(function () {
+                    alert("Added to cart!");
+                })
+                .fail(function () {
+                    alert("Something failed!");
+                });
+        });
+    });
+   
+    </script>
+}

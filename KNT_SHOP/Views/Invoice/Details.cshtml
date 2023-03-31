@@ -1,4 +1,5 @@
-﻿@using KNT_SHOP.Models
+﻿@using KNT_Shop.Models
+@using KNT_SHOP.Models
 @model HoaDon
 
 @{
@@ -20,7 +21,7 @@
             <span>Ngày lập: </span> @hoaDon.NgayLapHoaDon.ToString().Trim().Split(' ')[0]
         </div>
         <div class="col">
-            <span>Người mua: </span> @hoaDon.TenTaiKhoan
+            <span>Người mua: </span> @hoaDon.Id
         </div>
     </div>
     <hr class="my-5"/>
@@ -79,7 +80,7 @@
 </div>
 <div class="pt-5 text-start">
     <h6 class="mb-0">
-        <a href="https://localhost:44376/Invoice" style="cursor: pointer">
+        <a href="/Invoice" style="cursor: pointer">
             <i class="fas fa-long-arrow-alt-left me-2"></i>
             <span class="text-primary">Back to shop</span>
         </a>

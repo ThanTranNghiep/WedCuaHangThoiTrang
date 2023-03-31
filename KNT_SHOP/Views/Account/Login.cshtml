@@ -1,0 +1,147 @@
+﻿@using KNT_Shop.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="../../Content/css/login.css">
+
+    <!--=============== FONTAWESOME ICONS ===============-->
+    <script src="https://kit.fontawesome.com/5e1dfe1c35.js" crossorigin="anonymous"></script>
+
+    <title>Login - KNT shop</title>
+</head>
+
+<body>
+
+<div class="container">
+    <img src="../../Content/img/pexels-photo.jpeg" alt="" class="login_img">
+    <div class="login_content">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "login_form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div>
+                <h2 class="login_title">
+                    Welcome to <span>KNT Shop</span>
+                </h2>
+                <p class="login_description">
+                    Welcome! Please login to your account.
+                </p>
+            </div>
+            <div>
+                <div class="login_inputs">
+                    <div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label"})
+                        @Html.TextBoxFor(m => m.Email, new {  @id = "Username", @class = "login_input", @placeholder = "Username"})
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+                        <div class="login_box">
+                            @Html.PasswordFor(m => m.Password, new { @id = "input-pass", @class = "login_input", @placeholder = "Password"})
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            <i class="ri-eye-off-line login-eye" id="input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login_check">
+                    @Html.CheckBoxFor(m => m.RememberMe, new {@class="login_check-input", @id="check"})
+                    @Html.LabelFor(m => m.RememberMe, new {@class="login_label-check", @for="check"})
+                </div>
+            </div>
+            <div>
+                <div class="login_buttons">
+                    <button type="submit" id="btn-login" class="login_button" formmethod="post">Login</button>
+                    <button type="button" id="btn-signup" class="login_button login_button-ghost" onclick="RegisterClick()">SignUp</button>
+                </div>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword", new {@class="login_forgot"})
+            </div>
+        }
+    </div>
+
+    <!--=============== LOGIN JS ===============-->
+    <script src="../../Content/js/login.js"></script>
+</div>
+<script src="~/Content/js/Register.js"></script>
+</body>
+
+</html>
+
+
+@* ====================================================== *@
+@* *@
+@* <main aria-labelledby="title"> *@
+@*     <h2 id="title">@ViewBag.Title.</h2> *@
+@*     <div class="row"> *@
+@*         <div class="col-md-8"> *@
+@*             <section id="loginForm"> *@
+@*                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" })) *@
+@*                 { *@
+@*                     @Html.AntiForgeryToken() *@
+@*                     <h4>Use a local account to log in.</h4> *@
+@*                     <hr /> *@
+@*                     @Html.ValidationSummary(true, "", new { @class = "text-danger" }) *@
+@*                     <div class="row"> *@
+@*                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" }) *@
+@*                         <div class="col-md-10"> *@
+@*                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" }) *@
+@*                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }) *@
+@*                         </div> *@
+@*                     </div> *@
+@*                     <div class="row"> *@
+@*                         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" }) *@
+@*                         <div class="col-md-10"> *@
+@*                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" }) *@
+@*                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" }) *@
+@*                         </div> *@
+@*                     </div> *@
+@*                     <div class="row"> *@
+@*                         <div class="offset-md-2 col-md-10"> *@
+@*                             <div class="checkbox"> *@
+@*                                 @Html.CheckBoxFor(m => m.RememberMe) *@
+@*                                 @Html.LabelFor(m => m.RememberMe) *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                     <div class="row"> *@
+@*                         <div class="offset-md-2 col-md-10"> *@
+@*                             <input type="submit" value="Log in" class="btn btn-outline-dark" /> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                     <p> *@
+@*                         @Html.ActionLink("Register as a new user", "Register") *@
+@*                     </p> *@
+@*                     @* Enable this once you have account confirmation enabled for password reset functionality *@
+@*                         <p> *@
+@*                             @Html.ActionLink("Forgot your password?", "ForgotPassword") *@
+@*                         </p>*@
+@*                 } *@
+@*             </section> *@
+@*         </div> *@
+@*         <div class="col-md-4"> *@
+@*             <section id="socialLoginForm"> *@
+@*                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl }) *@
+@*             </section> *@
+@*         </div> *@
+@*     </div> *@
+@* </main> *@
+
+@* @section Scripts { *@
+@*     @Scripts.Render("~/bundles/jqueryval") *@
+@* } *@

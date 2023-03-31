@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using KNT_SHOP.Models;
+using KNT_Shop.Models;
+using KNT_Shop.Models.ViewModel;
+using Microsoft.AspNet.Identity;
 
-namespace KNT_SHOP.Controllers;
+namespace KNT_Shop.Controllers;
 
 public class ProductController : Controller
 {
@@ -17,16 +19,16 @@ public class ProductController : Controller
 
     public ActionResult AddToCart(int id)
     {
-        var username = Session["username"] as string;
+        string username = User.Identity.GetUserId();
         if (username == null)
         {
             JavaScript("alert('Bạn phải đăng nhập để thực hiện chức năng này!');");
-            RedirectToAction("Index", "Login");
+            RedirectToAction("Login", "Account");
         }
         else
         {
             KNT_ShopDB db = new KNT_ShopDB();
-            var cart = db.GioHangs.FirstOrDefault(x => x.TenTaiKhoan == username);
+            var cart = db.GioHangs.FirstOrDefault(x => x.Id == username);
             // kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
             var ChiTietGioHang = db.ChiTietGioHangs.FirstOrDefault(x => x.MaSanPham == id &&
                                                                         x.MaGioHang == cart.MaGioHang &&
@@ -46,10 +48,10 @@ public class ProductController : Controller
                     TrangThai = 0
                 });
             }
-
+    
             db.SaveChanges();
         }
-
+    
         return RedirectToAction("SanPham", "Product");
     }
 
@@ -57,10 +59,9 @@ public class ProductController : Controller
     [HttpGet]
     public ActionResult SanPham()
     {
-        string token = Session["token"] as string;
-        string username = Session["username"] as string;
+        string username = User.Identity.GetUserId();
         KNT_ShopDB db = new KNT_ShopDB();
-        TaiKhoan taiKhoan = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == username);
+        ApplicationUser taiKhoan = db.Users.FirstOrDefault(x => x.Id == username);
         var sanPham = db.SanPhams.ToList();
 
         if (taiKhoan != null)
@@ -69,16 +70,15 @@ public class ProductController : Controller
             return View(sanPham);
         }
 
-        return RedirectToAction("Index", "Login");
+        return RedirectToAction("Login", "Account");
     }
 
     [HttpGet]
     public ActionResult ListSanPham()
     {
-        string token = Session["token"] as string;
-        string username = Session["username"] as string;
+        string username = User.Identity.GetUserId();
         KNT_ShopDB db = new KNT_ShopDB();
-        TaiKhoan taiKhoan = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == username);
+        ApplicationUser taiKhoan = db.Users.FirstOrDefault(x => x.Id == username);
         var sanPham = db.SanPhams.ToList();
         var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
             .OrderByDescending(x => x.NgayCapNhat).ToList();
@@ -88,16 +88,15 @@ public class ProductController : Controller
             return View(sanPham);
         }
 
-        return RedirectToAction("Index", "Login");
+        return RedirectToAction("Login", "Account");
     }
 
     [HttpPost]
     public ActionResult Search(string keyword)
     {
-        string token = Session["token"] as string;
-        string username = Session["username"] as string;
+        string username = User.Identity.GetUserId();
         KNT_ShopDB db = new KNT_ShopDB();
-        TaiKhoan taiKhoan = db.TaiKhoans.FirstOrDefault(x => x.TenTaiKhoan == username);
+        ApplicationUser taiKhoan = db.Users.FirstOrDefault(x => x.Id == username);
         var sanPham = db.SanPhams.Where(x => x.TenSanPham.Contains(keyword)).ToList();
         var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
             .OrderByDescending(x => x.NgayCapNhat).ToList();
@@ -109,15 +108,15 @@ public class ProductController : Controller
             return View("SanPham", sanPham);
         }
 
-        return RedirectToAction("Index", "Login");
+        return RedirectToAction("Login", "Account");
     }
     
     public ActionResult Edit(int id)
-    {
-        KNT_ShopDB db = new KNT_ShopDB();
-        var sanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham == id);
-        return View(sanPham);
-    }
+         {
+             KNT_ShopDB db = new KNT_ShopDB();
+             var sanPham = db.SanPhams.FirstOrDefault(x => x.MaSanPham == id);
+             return View(sanPham);
+         }
 
     [HttpPost]
     public ActionResult Edit(SanPham sanPham)
@@ -149,27 +148,28 @@ public class ProductController : Controller
         }
     }
     
-    public ActionResult AddNewPrice(int id, decimal price)
+    [HttpPost]
+    public ActionResult AddNewPrice(int MaGia, decimal GiaBan)
     {
         KNT_ShopDB db = new KNT_ShopDB();
-        var bangGia = db.BangGias.FirstOrDefault(x => x.MaSanPham == id);
+        var bangGia = db.BangGias.FirstOrDefault(x => x.MaSanPham == MaGia);
         if (bangGia != null)
         {
             // bảng giá có tồn tại ngày hiện tại thì update giá
-            var giaBan = db.BangGias.FirstOrDefault(x => x.MaSanPham == id && x.NgayCapNhat.Value.Day == DateTime.Now.Day &&
-                                                        x.NgayCapNhat.Value.Month == DateTime.Now.Month &&
-                                                        x.NgayCapNhat.Value.Year == DateTime.Now.Year);
+            var giaBan = db.BangGias.FirstOrDefault(x => x.MaSanPham == MaGia && x.NgayCapNhat.Value.Day == DateTime.Now.Day &&
+                                                         x.NgayCapNhat.Value.Month == DateTime.Now.Month &&
+                                                         x.NgayCapNhat.Value.Year == DateTime.Now.Year);
             if (giaBan != null)
             {
-                giaBan.GiaBan = price;
+                giaBan.GiaBan = GiaBan;
                 db.SaveChanges();
                 return View("AddPrice",bangGia);
             }
             else
             {
                 BangGia gia = new BangGia();
-                gia.MaSanPham = id;
-                gia.GiaBan = price;
+                gia.MaSanPham = MaGia;
+                gia.GiaBan = GiaBan;
                 gia.NgayCapNhat = DateTime.Now;
                 db.BangGias.Add(gia);
                 db.SaveChanges();
@@ -182,23 +182,27 @@ public class ProductController : Controller
             return View("AddPrice",giaNull);
         }
     }
+    public ActionResult Add()
+    {
+        return View();
+    }
 
-    // [HttpPost]
-    // public ActionResult AddPrice(BangGia gia)
-    // {
-    //     KNT_ShopDB db = new KNT_ShopDB();
-    //     var bangGia = db.BangGias.FirstOrDefault(x => x.MaGia == gia.MaGia);
-    //     if (bangGia != null)
-    //     {
-    //         bangGia.GiaBan = gia.GiaBan;
-    //         bangGia.NgayCapNhat = DateTime.Now;
-    //         db.SaveChanges();
-    //         return View(bangGia);
-    //     }
-    //     else
-    //     {
-    //         BangGia giaNull = new BangGia();
-    //         return View(giaNull);
-    //     }
-    // }
+    [HttpPost]
+    public ActionResult Add(SanPhamModel sanPham)
+    {
+        if (sanPham != null)
+        {
+            KNT_ShopDB db = new KNT_ShopDB();
+            SanPham sp = new SanPham()
+            {
+                TenSanPham = sanPham.TenSanPham,
+                HinhAnh = sanPham.HinhAnh,
+                SoLuongTon = sanPham.SoLuong,
+                LoaiSanPham = sanPham.LoaiSanPham
+            };
+            db.SanPhams.Add(sp);
+            db.SaveChanges();
+        }
+        return View("SanPham");
+    }
 }
