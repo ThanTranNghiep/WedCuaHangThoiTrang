@@ -9,7 +9,7 @@
     KNT_ShopDB db = new KNT_ShopDB();
 }
 
-
+<script src="~/Content/js/Product.js"></script>
 <div class="container text-lg-start">
     <div class="row">
         @* <div class="col"></div> *@
@@ -50,7 +50,7 @@
     <script src="~/Content/js/HomeIndex.js"></script>
     @* ============================================== *@
     <div class="row align-items-start">
-        <script src="~/Content/js/Product.js"></script>
+        @* <script src="~/Content/js/Product.js"></script> *@
         @if (listSanPham != null)
         {
             foreach (var item in listSanPham)
@@ -130,7 +130,7 @@
             <div class="row">
                 <div class="col">
                     <button type="button" class="btn btn-warning" onclick="AddToCart(45)">
-                        <a href="" class="btn">Buy Now &#10132</a>
+                        Buy Now &#10132
                     </button>
                 </div>
             </div>

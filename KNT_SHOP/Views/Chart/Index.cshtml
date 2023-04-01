@@ -52,16 +52,19 @@
 		}],
 		axisX: {
 			valueFormatString: "DD MMM,YY",
-			title: "Ngày"
+			title: "Ngày lập hóa đơn"
 		},
 		axisY: {
-			prefix: "$",
-			title: "Doanh thu"
-		},
+			// prefix: "$",
+			title: "Doanh thu",
+			includeZero: false,
+			suffix: " VNĐ"
+			
+		}
 	});
 	chart.render();
  }
 </script>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<div id="chartContainer" class="form-control" style="height: 400px; width: 100%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	
 

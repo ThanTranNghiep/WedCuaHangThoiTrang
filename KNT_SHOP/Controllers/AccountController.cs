@@ -421,6 +421,44 @@ namespace KNT_Shop.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
+        
+        //EditAccount
+        [Authorize]
+        public ActionResult EditAccount()
+        {
+            var userId = User.Identity.GetUserId();
+            KNT_ShopDB db = new KNT_ShopDB();
+            var user = db.Users.FirstOrDefault(u => u.Id == userId);
+            if (user != null)
+            {
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
+        }
+        
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditAccount(ApplicationUser model)
+        {
+            KNT_ShopDB db = new KNT_ShopDB();
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            if(user != null)
+            {
+                user.Name = model.Name;
+                user.DiaChiNha = model.DiaChiNha;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+                user.GioiTinh = model.GioiTinh;
+                user.NgayThangNamSinh = model.NgayThangNamSinh;
+                user.MaQuan_Huyen = model.MaQuan_Huyen;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
         //
         // POST: /Account/LogOff

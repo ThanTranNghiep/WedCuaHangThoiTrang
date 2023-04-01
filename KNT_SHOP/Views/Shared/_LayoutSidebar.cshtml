@@ -28,6 +28,7 @@
         var urlAdd = Url.Action("Add", "Product");
         var urlLogout = Url.Action("LogOff", "Account");
         var urlChart = Url.Action("Index", "Chart");
+        var urlEditAccount = Url.Action("EditAccount", "Account");
         var urlChangePassword = Url.Action("ChangePassword", "Manage");
     }
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
@@ -80,6 +81,8 @@
         string sdt = user.PhoneNumber;
         string diaChi = user.DiaChiNha;
         var rule = user.Rule;
+        var quanHuyen = db.QuanHuyens.FirstOrDefault(x => x.MaQuan_Huyen == user.MaQuan_Huyen);
+        var DateOfBirth = user.NgayThangNamSinh.ToString().Split(' ')[0];
     }
     <div class="container" id="container-dialog">
         @if (username != null)
@@ -106,6 +109,14 @@
                     {
                         <label class="form-control">Số Điện Thoại: <span>@sdt</span> </label>
                     }
+                    @if (@DateOfBirth != null)
+                    {
+                        <label class="form-control">Ngày Sinh: <span>@DateOfBirth</span> </label>
+                    }
+                    @if (@quanHuyen != null)
+                    {
+                        <label class="form-control">Quận/Huyện: <span>@quanHuyen.TenQuanHuyen</span> </label>
+                    }
                     @if (@diaChi != null)
                     {
                         <label class="form-control">Địa Chỉ: <span>@diaChi</span> </label>
@@ -113,7 +124,7 @@
                 </div>
                 <button id="close-dialog" class="btn btn-secondary" onclick="closeLoginDialog()">Close</button>
                 <button class="btn btn-success">
-                    <a href="/Account" class="text-light" style="text-decoration: none">Thông tin tài khoản</a>
+                    <a href="@urlEditAccount" class="text-light" style="text-decoration: none">Thông tin tài khoản</a>
                 </button>
                 @* <buton id="logout" class="btn btn-primary" onclick="@urlLogout">Logout</buton> *@
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "btn btn-outline-danger" }))
@@ -202,6 +213,7 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="@urlSanPham">Sản phẩm</a>
                                 <a class="nav-link" href="@urlHoaDon">Hoá đơn</a>
+                                <a class="nav-link" href="">Hàng tồn kho</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

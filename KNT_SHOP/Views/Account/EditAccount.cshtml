@@ -1,0 +1,113 @@
+﻿@using KNT_Shop.Models
+@model KNT_Shop.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Thông tin tài khoản";
+    // Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_LayoutSidebar.cshtml";
+    var taiKhoan = Model;
+
+    KNT_ShopDB db = new KNT_ShopDB();
+    // var listThanhPho = db.Tinh_TP.ToList();
+    // var listQuanHuyen = db.QuanHuyens.ToList();
+}
+<div class="container text-center">
+    <script src="../../Content/js/Account.js"></script>
+    @using (Html.BeginForm("EditAccount", "Account", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col">
+                Tên tài khoản:
+            </div>
+            <div class="col">
+                @* <label class="form-control"> *@
+                @*     @taiKhoan.TenTaiKhoan *@
+                @* </label> *@
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(x => x.Email, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(x => x.PhoneNumber, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @placeholder = "", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(x => x.DiaChiNha, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.TextBoxFor(x => x.DiaChiNha, new { @class = "form-control", @placeholder = "", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(x => x.GioiTinh, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.DropDownListFor(x => x.GioiTinh, new SelectList(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Nam", Value = "1" },
+                    new SelectListItem { Text = "Nữ", Value = "0" }
+                }, "Value", "Text"), new { @class = "form-control" })
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(x => x.NgayThangNamSinh, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @Html.TextBoxFor(x => x.NgayThangNamSinh, new { @class = "form-control", @placeholder = "", @required = "required", @readonly = "readonly" })
+            </div>
+        </div>
+        <br/>
+        @* <div class="row"> *@
+        @*     <div class="col"> *@
+        @*         @Html.LabelFor(x => x.QuanHuyen.Tinh_TP, new { @class = "form-label" }) *@
+        @*     </div> *@
+        @*     <div class="col"> *@
+        @*         @Html.DropDownListFor(x => x.QuanHuyen.Tinh_TP, new SelectList( *@
+        @*             @listThanhPho.Where(x => x.MaTinh_ThanhPho == taiKhoan.QuanHuyen.MaTinh_ThanhPho)), *@
+        @*             "MaTinh_ThanhPho", "TenTinh_ThanhPho"), new { @class = "form-control" }) *@
+        @*     </div> *@
+        @* </div> *@
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(x => x.QuanHuyen, new { @class = "form-label" })
+            </div>
+            <div class="col">
+                @* @Html.DropDownListFor(x=>x.QuanHuyen,  *@
+                @*     new SelectList(listQuanHuyen, "MaQuan_Huyen", "TenQuanHuyen"), "",  *@
+                @*     new { @class = "form-control" }) *@
+                @Html.DropDownListFor(x=>x.MaQuan_Huyen,
+                    new SelectList(db.QuanHuyens, "MaQuan_Huyen", "TenQuanHuyen"), "", 
+                    new { @class = "form-control" })
+                
+            </div>
+        </div>
+
+        <br/>
+        <div class="row">
+            <div class="col">
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+                <button type="button" class="btn btn-warning" onclick="EditAccount()">Edit</button>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    }
+</div>
