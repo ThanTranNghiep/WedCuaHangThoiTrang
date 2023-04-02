@@ -62,12 +62,20 @@ public class ProductController : Controller
         string username = User.Identity.GetUserId();
         KNT_ShopDB db = new KNT_ShopDB();
         ApplicationUser taiKhoan = db.Users.FirstOrDefault(x => x.Id == username);
-        var sanPham = db.SanPhams.ToList();
+        var allSanPham = db.SanPhams.ToList();
+        var sanPham = db.SanPhams.Where(x => x.status == false).ToList();
 
         if (taiKhoan != null)
         {
-            ViewBag.Rule = (taiKhoan.Rule == true) ? "Admin" : "User";
-            return View(sanPham);
+            // ViewBag.Rule = (taiKhoan.Rule == true) ? "Admin" : "User";
+            if (taiKhoan.Rule == true)
+            {
+                return View(allSanPham);
+            }
+            else
+            {
+                return View(sanPham);
+            }
         }
 
         return RedirectToAction("Login", "Account");
@@ -79,13 +87,21 @@ public class ProductController : Controller
         string username = User.Identity.GetUserId();
         KNT_ShopDB db = new KNT_ShopDB();
         ApplicationUser taiKhoan = db.Users.FirstOrDefault(x => x.Id == username);
-        var sanPham = db.SanPhams.ToList();
-        var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
-            .OrderByDescending(x => x.NgayCapNhat).ToList();
+        var allSanPham = db.SanPhams.ToList();
+        var sanPham = db.SanPhams.Where(x => x.status == false).ToList();
+        // var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
+        //     .OrderByDescending(x => x.NgayCapNhat).ToList();
         if (taiKhoan != null)
         {
-            ViewBag.Rule = (taiKhoan.Rule == true) ? "Admin" : "User";
-            return View(sanPham);
+            // ViewBag.Rule = (taiKhoan.Rule == true) ? "Admin" : "User";
+            if (taiKhoan.Rule == true)
+            {
+                return View(allSanPham);
+            }
+            else
+            {
+                return View(sanPham);
+            }
         }
 
         return RedirectToAction("Login", "Account");
@@ -198,11 +214,13 @@ public class ProductController : Controller
                 TenSanPham = sanPham.TenSanPham,
                 HinhAnh = sanPham.HinhAnh,
                 SoLuongTon = sanPham.SoLuong,
-                LoaiSanPham = sanPham.LoaiSanPham
+                // LoaiSanPham = sanPham.LoaiSanPham,
+                MaLoaiSanPham = sanPham.MaLoaiSanPham,
+                MaNhaSanXuat = sanPham.MaNhaSanXuat
             };
             db.SanPhams.Add(sp);
             db.SaveChanges();
         }
-        return View("SanPham");
+        return RedirectToAction("SanPham","Product");
     }
 }

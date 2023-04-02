@@ -56,61 +56,122 @@
             @foreach (var item in sanpham)
             {
                 <div class="col col-sanpham">
-                    <table>
-                        <tr>
-                            <td>
-                                <img class="sanpham" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="form-label">@item.TenSanPham</label>
-                                @* @Html.RenderAction("About", "Home") *@
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="form-label text-primary">Còn lại: @item.SoLuongTon</label>
-                            </td>
-                        </tr>
+                    @if (item.status == true)
+                    {
+                        <table class="text-bg-secondary p-3">
+                            <tr>
+                                <td>
+                                    <img class="sanpham" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="form-label">@item.TenSanPham</label>
+                                    @* @Html.RenderAction("About", "Home") *@
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="form-label text-primary">Còn lại: @item.SoLuongTon</label>
+                                </td>
+                            </tr>
 
-                        @{
-                            bool flag = false;
-                            var gia = db.BangGias.Where(x => x.MaSanPham == item.MaSanPham)
-                                .OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
-                        }
-                        @if (@gia != null)
-                        {
-                            <tr>
-                                <td>
-                                    <label>
-                                        <span style="color: red">@gia.GiaBan.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button data-sanpham-id="@item.MaSanPham" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            <tr>
-                                <td>
-                                    <label>
-                                        <span style="color: red">Chưa cập nhật</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button class="btn btn-success" onclick="this.alert('Chưa thể mua')">Mua Hàng</button>
-                                </td>
-                            </tr>
-                        }
+                            @{
+                                bool flag = false;
+                                var gia = db.BangGias.Where(x => x.MaSanPham == item.MaSanPham)
+                                    .OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
+                            }
+                            @if (@gia != null)
+                            {
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <span style="color: red">@gia.GiaBan.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button data-sanpham-id="@item.MaSanPham" class="btn btn-success" onclick="alert('Sản phẩm đã ẩn không thể mua')">Mua Hàng</button>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <span style="color: red">Chưa cập nhật</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-success" onclick="alert('Chưa thể mua')">Mua Hàng</button>
+                                    </td>
+                                </tr>
+                            }
 
-                    </table>
+                        </table>
+                    }
+                    else
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    <img class="sanpham" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="form-label">@item.TenSanPham</label>
+                                    @* @Html.RenderAction("About", "Home") *@
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="form-label text-primary">Còn lại: @item.SoLuongTon</label>
+                                </td>
+                            </tr>
+
+                            @{
+                                bool flag = false;
+                                var gia = db.BangGias.Where(x => x.MaSanPham == item.MaSanPham)
+                                    .OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
+                            }
+                            @if (@gia != null)
+                            {
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <span style="color: red">@gia.GiaBan.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button data-sanpham-id="@item.MaSanPham" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <span style="color: red">Chưa cập nhật</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-success" onclick="alert('Chưa thể mua')">Mua Hàng</button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    }
                 </div>
             }
         </div>

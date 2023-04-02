@@ -78,11 +78,13 @@
                 @Html.LabelFor(@model => @model.status, new { @class = "form-label" })
             </div>
             <div class="col">
-                @Html.DropDownListFor(@model => @model.status, new SelectList(new List<SelectListItem>
+                @Html.DropDownListFor(@model => @model.status,
+                    new SelectList(new List<SelectListItem>
                 {
-                    new SelectListItem { Text = "Còn hàng", Value = "0" },
-                    new SelectListItem { Text = "Hết hàng", Value = "1" }
-                }, "Value", "Text"), new { @class = "form-control", @required = "required", @readonly = "readonly" })
+                    new SelectListItem { Text = "Còn hàng", Value = "False" },
+                    new SelectListItem { Text = "Hết hàng", Value = "True" }
+                }, "Value", "Text"), 
+                    new { @class = "form-control", @required = "required", @readonly = "readonly" })
             </div>
         </div>
         <hr class="my-5"/>

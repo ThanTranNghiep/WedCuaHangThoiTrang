@@ -1,7 +1,5 @@
 ﻿
-function RegisterClick(){    
-   
-    //    // window.location.replace("https://localhost:44376/Login/Register") 
+function RegisterClick(){
     window.location.href = "/Account/Register";
 }
 function Register()

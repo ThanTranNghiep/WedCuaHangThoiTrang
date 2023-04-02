@@ -1,12 +1,14 @@
 ﻿@using KNT_Shop.Models
+@using Microsoft.AspNet.Identity
 @model List<KNT_Shop.Models.ViewModel.SanPhamModel>
 @{
     ViewBag.Title = "Home Page";
     var slideLength = 5;
-    var username = Session["username"];
     Layout = "../Shared/_LayoutSidebar.cshtml";
     var listSanPham = Model;
     KNT_ShopDB db = new KNT_ShopDB();
+    var userId = User.Identity.GetUserId();
+    var user = db.Users.FirstOrDefault(x=>x.Id == userId);
 }
 
 <script src="~/Content/js/Product.js"></script>
@@ -35,13 +37,6 @@
         <h3 class="text-center text-dark">Sản phẩm bán chạy</h3>
     </div>
 
-    @* <div class="container text-center w-100"> *@
-    @*      *@
-    @*     $1$ <div class="row w-100"> #1# *@
-    @*     $1$ #1# *@
-    @*     $1$ </div> #1# *@
-    @* *@
-    @* </div> *@
 </div>
 
 <div class="container text-center">
@@ -88,7 +83,14 @@
                         </tr>
                         <tr>
                             <td>
-                                <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
+                                @if (user != null)
+                                {
+                                    <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
+                                }
+                                else
+                                {
+                                    <button id="btn-buy" class="btn btn-success" onclick="alert('Vui lòng đăng nhập')">Mua Hàng</button>
+                                }
                             </td>
                         </tr>
                     </table>
@@ -129,9 +131,18 @@
             <br/>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-warning" onclick="AddToCart(45)">
-                        Buy Now &#10132
-                    </button>
+                    @if (user != null)
+                    {
+                        <button type="button" class="btn btn-warning" onclick="AddToCart(45)">
+                            Buy Now &#10132
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-warning" onclick="alert('Vui lòng đăng nhập')">
+                            Buy Now &#10132
+                        </button>
+                    }
                 </div>
             </div>
         </div>

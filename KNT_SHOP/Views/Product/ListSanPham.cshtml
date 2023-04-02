@@ -16,135 +16,197 @@
 
 
 <div class="container text-center">
-<link rel="stylesheet" href="../../Content/css/SanPham.css">
-<script src="~/Content/js/Product.js"></script>
-<div class="container text-center">
-    <div class="row">
-        @using (@Html.BeginForm("Search", "Product", FormMethod.Post, new { @class = "d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" }))
-        {
-            <div class="row d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="col">
-                    <div class="input-group mb-3 form-control text-center">
-                        @Html.TextBox("keyword", "", new { @class = "form-control", placeholder = "Search please..." })
-                        <button class="btn text-bg-info" type="submit" id="button-addon2" formmethod="post">Search</button>
+    <link rel="stylesheet" href="../../Content/css/SanPham.css">
+    <script src="~/Content/js/Product.js"></script>
+    <div class="container text-center">
+        <div class="row">
+            @using (@Html.BeginForm("Search", "Product", FormMethod.Post, new { @class = "d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" }))
+            {
+                <div class="row d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                    <div class="col">
+                        <div class="input-group mb-3 form-control text-center">
+                            @Html.TextBox("keyword", "", new { @class = "form-control", placeholder = "Search please..." })
+                            <button class="btn text-bg-info" type="submit" id="button-addon2" formmethod="post">Search</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-        <div class="col col-lg-2 d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <i class="fa-solid fa-table-cells" id="table-icon" style=" cursor: pointer;" onclick="TableIcon()"></i>
-            <i class="fa-solid fa-list" id="list-icons" style=" cursor: pointer;box-shadow:0 3px #b02a37;" onclick="ListIcon()"></i>
-        </div>
-    </div>
-    <hr class="my-2"/>
-</div>
-<br/>
-<div class="container text-center">
-    <div class="row align-items-start">
-        <script src="~/Content/js/Product.js"></script>
-
-        <div class="container text-center text-primary">
-            <div class="row">
-                @* <div class="col"> *@
-                @*     <span>STT</span> *@
-                @* </div> *@
-                <div class="col">
-                    <span>HÌNH ẢNH</span>
-                </div>
-                <div class="col mx-5">
-                    <span>TÊN SẢN PHẨM</span>
-                </div>
-                <div class="col">
-                    <span>GIÁ</span>
-                </div>
-                <div class="col">
-                    <span></span>
-                </div>
-                <div class="col">
-                    <span></span>
-                </div>
-                <div class="col">
-                    <span></span>
-                </div>
-                <div class="col">
-                    <span></span>
-                </div>
-            </div>
-            <br/>
-
-            @{
-                int stt = 1;
             }
-            @foreach (var item in sanpham)
-            {
-                <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    @* <div clas="col"> *@
-                    @*     <span>@stt</span> *@
+            <div class="col col-lg-2 d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <i class="fa-solid fa-table-cells" id="table-icon" style=" cursor: pointer;" onclick="TableIcon()"></i>
+                <i class="fa-solid fa-list" id="list-icons" style=" cursor: pointer;box-shadow:0 3px #b02a37;" onclick="ListIcon()"></i>
+            </div>
+        </div>
+        <hr class="my-2"/>
+    </div>
+    <br/>
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <script src="~/Content/js/Product.js"></script>
+
+            <div class="container text-center text-primary">
+                <div class="row">
+                    @* <div class="col"> *@
+                    @*     <span>STT</span> *@
                     @* </div> *@
                     <div class="col">
-                        <img class="sanpham img-thumbnail" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
+                        <span>HÌNH ẢNH</span>
+                    </div>
+                    <div class="col mx-5">
+                        <span>TÊN SẢN PHẨM</span>
                     </div>
                     <div class="col">
-                        <label class="form-label text-dark">@item.TenSanPham</label>
+                        <span>GIÁ</span>
                     </div>
-                    @{
-                        var gia = db.BangGias.Where(x => x.MaSanPham == @item.MaSanPham).OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
-                    }
-                    @if (@gia != null)
-                    {
-                        <div class="col">
-                            <label>
-                                <span style="color: red">@gia.GiaBan.ToString("C3",CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
-                            </label>
-                        </div>
-                        <div class="col">
-                            <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col">
-                            <label>
-                                <span style="color: red">Chưa cập nhật</span>
-                            </label>
-                        </div>
-                        <div class="col">
-                            <button id="btn-buy" class="btn btn-success" onclick="this.alert('Chưa thể mua')">Mua Hàng</button>
-                        </div>
-                    }
-                    
-                    @if (@rule == true)
-                    {
-                        <div class="col">
-                            <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-primary" onclick="AddPrice(@item.MaSanPham)">
-                                Thêm Giá
-                                <i class="fa-solid fa-circle-plus"></i>
-                            </button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col">
-                            <button id="btn-detail" class="btn btn-warning" onclick="ImgToDetail(@item.MaSanPham)">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </button>
-                        </div>
-                        <div class="col">
-
-                        </div>
-                    }
+                    <div class="col">
+                        <span></span>
+                    </div>
+                    <div class="col">
+                        <span></span>
+                    </div>
+                    <div class="col">
+                        <span></span>
+                    </div>
+                    <div class="col">
+                        <span></span>
+                    </div>
                 </div>
-                stt++;
-            }
+                <br/>
+
+                @{
+                    int stt = 1;
+                }
+                @foreach (var item in sanpham)
+                {
+                    if (@item.status == true)
+                    {
+                        <div class="row mb-4 d-flex justify-content-between align-items-center text-bg-secondary p-3">
+                            <div class="col">
+                                <img class="sanpham img-thumbnail" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
+                            </div>
+                            <div class="col">
+                                <label class="form-label text-dark">@item.TenSanPham</label>
+                            </div>
+                            @{
+                                var gia = db.BangGias.Where(x => x.MaSanPham == @item.MaSanPham).OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
+                            }
+                            @if (@gia != null)
+                            {
+                                <div class="col">
+                                    <label>
+                                        <span style="color: red">@gia.GiaBan.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <button id="btn-buy" class="btn btn-success" onclick="alert('Chưa thể mua do sản phẩm đã ẩn')">Mua Hàng</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col">
+                                    <label>
+                                        <span style="color: red">Chưa cập nhật</span>
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <button id="btn-buy" class="btn btn-success" onclick="alert('Chưa thể mua')">Mua Hàng</button>
+                                </div>
+                            }
+
+                            @if (@rule == true)
+                            {
+                                <div class="col">
+                                    <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary" onclick="AddPrice(@item.MaSanPham)">
+                                        Thêm Giá
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col">
+                                    <button id="btn-detail" class="btn btn-warning" onclick="ImgToDetail(@item.MaSanPham)">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </div>
+                                <div class="col">
+
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                            <div class="col">
+                                <img class="sanpham img-thumbnail" src="@item.HinhAnh" alt="" onclick="ImgToDetail(@item.MaSanPham)">
+                            </div>
+                            <div class="col">
+                                <label class="form-label text-dark">@item.TenSanPham</label>
+                            </div>
+                            @{
+                                var gia = db.BangGias.Where(x => x.MaSanPham == @item.MaSanPham).OrderByDescending(x => x.NgayCapNhat).FirstOrDefault();
+                            }
+                            @if (@gia != null)
+                            {
+                                <div class="col">
+                                    <label>
+                                        <span style="color: red">@gia.GiaBan.ToString("C3", CultureInfo.CurrentCulture).Split(',')[0] VNĐ</span>
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <button id="btn-buy" class="btn btn-success" onclick="AddToCart(@item.MaSanPham)">Mua Hàng</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col">
+                                    <label>
+                                        <span style="color: red">Chưa cập nhật</span>
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <button id="btn-buy" class="btn btn-success" onclick="this.alert('Chưa thể mua')">Mua Hàng</button>
+                                </div>
+                            }
+
+                            @if (@rule == true)
+                            {
+                                <div class="col">
+                                    <button id="btn-detail" class="btn btn-warning" onclick="EditProductDetail(@item.MaSanPham)">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary" onclick="AddPrice(@item.MaSanPham)">
+                                        Thêm Giá
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col">
+                                    <button id="btn-detail" class="btn btn-warning" onclick="ImgToDetail(@item.MaSanPham)">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </div>
+                                <div class="col">
+
+                                </div>
+                            }
+                        </div>
+                    }
+                    stt++;
+                }
+
+            </div>
+
 
         </div>
-
-
     </div>
-</div>
 </div>

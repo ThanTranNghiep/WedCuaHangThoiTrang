@@ -14,40 +14,35 @@ namespace KNT_Shop.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            // string username = Session["username"] as string;
             string username = User.Identity.GetUserId();
             KNT_ShopDB db = new KNT_ShopDB();
             var taiKhoan = db.Users.FirstOrDefault(x => x.Id == username);
-            if (taiKhoan == null)
+            ViewBag.Message = "Your application description page.";
+            // string url = Request.Url.AbsolutePath.Split("/".ToCharArray()).Last();
+            var chiTietHoaDons = db.ChiTietHoaDons.Distinct().GroupBy(x=>x.MaSanPham).ToList();
+
+            if (chiTietHoaDons.Count == 0)
             {
-                return RedirectToAction("Login", "Account");
+                return View();
             }
             else
             {
-                ViewBag.Message = "Your application description page.";
-                // string url = Request.Url.AbsolutePath.Split("/".ToCharArray()).Last();
-                var chiTietHoaDons = db.ChiTietHoaDons.Distinct().GroupBy(x=>x.MaSanPham).ToList();
-                if(chiTietHoaDons.Count == 0)
-                    return View();
-                else
-                {
-                    var sanPham = db.SanPhams.Where(x=>x.MaSanPham == x.ChiTietHoaDons.FirstOrDefault().MaSanPham).ToList();
-                    var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
-                        .OrderByDescending(x => x.NgayCapNhat).ToList();
-                    var listSanPham = new List<SanPhamModel>(
-                        sanPham.Select(
-                            x => new SanPhamModel()
-                            {
-                                Check = 0,
-                                MaSanPham = x.MaSanPham,
-                                HinhAnh = x.HinhAnh,
-                                TenSanPham = x.TenSanPham,
-                                SoLuong = x.SoLuongTon,
-                                Gia = listGiaBan.FirstOrDefault(y => y.MaSanPham == x.MaSanPham).GiaBan
-                            })
-                    );
-                    return View(listSanPham);
-                }
+                var sanPham = db.SanPhams.Where(x=>x.MaSanPham == x.ChiTietHoaDons.FirstOrDefault().MaSanPham).ToList();
+                var listGiaBan = db.BangGias.Where(x => x.MaSanPham == x.SanPham.MaSanPham)
+                    .OrderByDescending(x => x.NgayCapNhat).ToList();
+                var listSanPham = new List<SanPhamModel>(
+                    sanPham.Select(
+                        x => new SanPhamModel()
+                        {
+                            Check = 0,
+                            MaSanPham = x.MaSanPham,
+                            HinhAnh = x.HinhAnh,
+                            TenSanPham = x.TenSanPham,
+                            SoLuong = x.SoLuongTon,
+                            Gia = listGiaBan.FirstOrDefault(y => y.MaSanPham == x.MaSanPham)!.GiaBan
+                        })
+                );
+                return View(listSanPham);
             }
         }
 

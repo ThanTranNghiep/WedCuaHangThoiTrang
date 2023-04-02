@@ -5,7 +5,6 @@
     ViewBag.Title = "Thêm sản phẩm";
     Layout = "../Shared/_LayoutSidebar.cshtml";
     KNT_ShopDB db = new KNT_ShopDB();
-    var loaiSP = db.LoaiSanPhams.ToList();
 }
 
 @using (@Html.BeginForm())
@@ -15,9 +14,15 @@
     @Html.LabelFor(x=>x.HinhAnh)
     @Html.TextBoxFor(x=>x.HinhAnh, new {@class = "form-control", @required = "required"})
     <label for="loaiSP" >Loai San pham</label>
-    @Html.DropDownListFor(x=>x.LoaiSanPham, new SelectList(loaiSP, "TenLoaiSanPham", "TenLoaiSanPham"), new {@class = "form-control", @required = "required", @id="loaiSP"})
+    @Html.DropDownListFor(x=>x.MaLoaiSanPham, 
+        new SelectList(db.LoaiSanPhams, "MaLoaiSanPham", "TenLoaiSanPham"), 
+        new {@class = "form-control", @required = "required", @id="loaiSP"})
     @Html.LabelFor(x=>x.SoLuong)
     @Html.TextBoxFor(x=>x.SoLuong, new {@class = "form-control", @required = "required"})
+    @Html.LabelFor(x=>x.MaNhaSanXuat)
+    @Html.DropDownListFor(x=>x.MaNhaSanXuat, 
+        new SelectList(db.NhaSanXuats, "MaNhaSanXuat", "TenNhaSanXuat"), 
+        new {@class = "form-control", @required = "required"})
     <br/>
     <button class="btn btn-primary">Add</button>
 }

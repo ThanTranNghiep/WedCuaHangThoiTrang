@@ -1,5 +1,6 @@
 ﻿@using KNT_Shop.Models
 @using KNT_SHOP.Models
+@using Microsoft.AspNet.Identity
 @model KNT_Shop.Models.SanPham
 
 @{
@@ -16,7 +17,11 @@
     {
         Gia = bangGia.GiaBan.ToString().Split(',')[0];
     }
-
+    var userId = User.Identity.GetUserId();
+    var user = db.Users.FirstOrDefault(x=>x.Id == userId);
+    
+    var urlEdit = Url.Action("Edit", "Product", new { id = @Model.MaSanPham });
+    
 }
 <div class="container text-center">
     <script src="~/Content/js/Details.js"></script>
@@ -41,17 +46,35 @@
                         <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" min="1" style="width: 30%" max="100" oninput="constraint()"/>
                         @if (Gia.Contains("Chưa cập nhật giá"))
                         {
-                            <button class="btn btn-outline-dark flex-shrink-0" type="submit" onclick="this.alert('Sản phẩm hiện tại chưa được bán')">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
+                            <button class="btn btn-outline-dark flex-shrink-0" type="submit" onclick="alert('Sản phẩm hiện tại chưa được bán')">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Thêm vào giỏ hàng
                             </button>
                         }
                         else
                         {
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="AddToCart(@Model.MaSanPham)">
-                                <i class="bi-cart-fill me-1"></i>
-                                Thêm vào giỏ hàng
-                            </button>
+                            if (user != null)
+                            {
+                                <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="AddToCart(@Model.MaSanPham)">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Thêm vào giỏ hàng
+                                </button>
+                                if (user.Rule == true)
+                                {
+                                    <button class="btn btn-warning flex-shrink-0 m-1" type="button" onclick="window.location.href = '@urlEdit'">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        Edit
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="alert('Bạn cần đăng nhập để thực hiện chức năng này')">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Thêm vào giỏ hàng
+                                </button>
+                            }
+                            
                         }
                     </div>
                 </div>

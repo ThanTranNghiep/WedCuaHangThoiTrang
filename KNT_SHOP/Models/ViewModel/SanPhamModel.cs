@@ -8,8 +8,9 @@ public class SanPhamModel
     public string HinhAnh { get; set; }
     public decimal Gia { get; set; }
     public int SoLuong { get; set; }
-    
-    public virtual LoaiSanPham LoaiSanPham { get; set; }
+    public int MaLoaiSanPham { get; set; }
+    public int MaNhaSanXuat { get; set; }
+    // public virtual LoaiSanPham LoaiSanPham { get; set; }
     
     public string DiaChi { get; set; }
 }
