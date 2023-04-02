@@ -1,37 +1,23 @@
 ﻿@using System.Drawing
 @using System.Globalization
 @using KNT_Shop.Models
-@using KNT_SHOP.Models
-@using KNT_SHOP.Models.Chart
 @using Newtonsoft.Json
 @using Point = KNT_SHOP.Models.Chart.Point
-@* @using Point = System.Drawing.Point *@
-@* @model dynamic *@
 
 @{
     ViewBag.Title = "Thống kê doanh thu";
     Layout = "../Shared/_LayoutSidebar.cshtml";
-    
+
     KNT_ShopDB db = new KNT_ShopDB();
     var listNgayLapHoaDon = db.HoaDons.Select(x => x.NgayLapHoaDon).Distinct().ToList();
-    List<Point> data = new List<Point>();
-	var point = JsonConvert.SerializeObject(data);
+
+    var listSanPhamBanChay = db.SanPhams.Where(x => x.MaSanPham == x.ChiTietHoaDons.FirstOrDefault().MaSanPham).ToList();
+    // lấy ra danh sách sản phẩm không có trong chi tiết hoá đơn
+    var listSanPhamTonKho = db.SanPhams.Where(x => db.ChiTietHoaDons.All(y => y.MaSanPham != x.MaSanPham)).ToList();
 }
 
-
-@foreach (var item in listNgayLapHoaDon)
-{
-    <span>Ngay: @item.ToString().Split(' ')[0]</span>
-    
-    var tongTien = db.HoaDons.Where(x=>x.NgayLapHoaDon == item)
-        .Sum(x => x.ChiTietHoaDons
-            .Sum(y=>y.SoLuong * y.DonGia));
-    <span>@tongTien</span>
-    <br/>
-    data.Add(new Point(item.ToString().Split(' ')[0], tongTien));
-}
-
-
+<div id="chartContainer" class="form-control" style="height: 400px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <script>
 	window.onload = function () {
@@ -65,6 +51,104 @@
 	chart.render();
  }
 </script>
-<div id="chartContainer" class="form-control" style="height: 400px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	
 
+<br/>
+<hr class="my-5"/>
+<div class="container text-center">
+    <div class="row">
+        <h4 class="text-center text-primary text-uppercase">Thống kê doanh thu qua các ngày</h4>
+    </div>
+    <div class="row">
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Ngày lập hóa đơn</th>
+                <th scope="col">Tổng tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in listNgayLapHoaDon)
+            {
+                var tongTien = db.HoaDons.Where(x => x.NgayLapHoaDon == item)
+                    .Sum(x => x.ChiTietHoaDons
+                        .Sum(y => y.SoLuong * y.DonGia));
+                <tr>
+                    <td>
+                        @item.ToString().Split(' ')[0]
+                    </td>
+                    <td>
+                        @tongTien.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"))
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <hr class="my-5"/>
+    <div class="row">
+        <h4 class="text-center text-success text-uppercase">Danh sách sản phẩm bán chạy</h4>
+    </div>
+    <div class="row">
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Mã sản phẩm</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Số lượng tồn kho</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in listSanPhamBanChay)
+            {
+                <tr>
+                    <td>
+                        @item.MaSanPham
+                    </td>
+                    <td>
+                        @item.TenSanPham
+                    </td>
+                    <td>
+                        @item.SoLuongTon
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+
+    <hr class="my-5"/>
+    <div class="row">
+        <h4 class="text-center text-warning text-uppercase">Danh sách hàng tồn kho</h4>
+    </div>
+
+
+    <div class="row">
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Mã sản phẩm</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Số lượng tồn kho</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in listSanPhamTonKho)
+            {
+                <tr>
+                    <td>
+                        @item.MaSanPham
+                    </td>
+                    <td>
+                        @item.TenSanPham
+                    </td>
+                    <td>
+                        @item.SoLuongTon
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+</div>

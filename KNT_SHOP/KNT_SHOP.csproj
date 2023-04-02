@@ -398,6 +398,7 @@
     <Content Include="Content\js\Account.js" />
     <Content Include="Content\js\AddToCart.js" />
     <Content Include="Content\js\Cart.js" />
+    <Content Include="Content\js\Chart.js" />
     <Content Include="Content\js\Details.js" />
     <Content Include="Content\js\Dialog.js" />
     <Content Include="Content\js\header_footer_layout.js" />
